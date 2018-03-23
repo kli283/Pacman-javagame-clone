@@ -8,10 +8,12 @@ package model;
 public class Character {
 	private int xPos;
 	private int yPos;
+	boolean isPlayer; // determines if AI or human. change to int for MP?
 	
-	public Character(int xStart, int yStart) {
+	public Character(int xStart, int yStart, boolean isPlayer) {
 		xPos = xStart;
 		yPos = yStart;
+		this.isPlayer = isPlayer;
 	}
 	
 	public void moveLeft() {
