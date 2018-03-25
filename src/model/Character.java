@@ -26,9 +26,9 @@ public class Character {
 	
 	public void moveRight() {
 		//TODO will update position of char if not at some boundary TBC
-		//if(!collisionDetect()){
+		if(!collisionDetect()){
 			xPos += 1;
-			//}
+			}
 	}
 	
 	public void moveDown() {
