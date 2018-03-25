@@ -17,11 +17,15 @@ public class Character {
 	}
 	
 	public void moveLeft() {
-		xPos -= 1;
+		if(!collisionDetect()){
+			xPos -= 1;
+		}
 	}
 	
 	public void moveUp() {
-		yPos += 1;
+		if(!collisionDetect()){
+			yPos += 1;
+		}
 	}
 	
 	public void moveRight() {
@@ -32,6 +36,8 @@ public class Character {
 	}
 	
 	public void moveDown() {
-		yPos -= 1;
+		if(!collisionDetect()){
+			yPos -= 1;
+		}
 	}
 }
