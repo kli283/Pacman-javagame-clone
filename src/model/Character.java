@@ -17,27 +17,27 @@ public class Character {
 	}
 	
 	public void moveLeft() {
-		if(!collisionDetect()){
+		//if(!collisionDetect()){
 			xPos -= 1;
-		}
+		//}
 	}
 	
 	public void moveUp() {
-		if(!collisionDetect()){
+		//if(!collisionDetect()){
 			yPos += 1;
-		}
+		//}
 	}
 	
 	public void moveRight() {
 		//TODO will update position of char if not at some boundary TBC
-		if(!collisionDetect()){
+		//if(!collisionDetect()){
 			xPos += 1;
-			}
+			//}
 	}
 	
 	public void moveDown() {
-		if(!collisionDetect()){
+		//if(!collisionDetect()){
 			yPos -= 1;
-		}
+		//}
 	}
 }
