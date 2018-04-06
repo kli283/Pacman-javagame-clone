@@ -49,20 +49,27 @@ public class MainApp extends Application {
     						if(!input.contains(code)) {
     							input.add(code);
     							System.out.println("Key Pressed");
+    							if(input.contains("UP")) {
+    								System.out.println("Up Pressed");
+    							}
     						}
+    					}
+    				});
+    		scene.setOnKeyReleased(
+    				new EventHandler<KeyEvent>()
+    				{
+    					public void handle(KeyEvent e)
+    					{
+    						String code = e.getCode().toString();
+    						input.remove(code);
+    						System.out.println("Key Released");
     					}
     				});
         } catch (IOException e) {
             e.printStackTrace();
-        }
-		
-		
-		
+        }	
 	}
 	
-	
-	
-
 	public static void main(String[] args) {
 		launch(args);
 	}
