@@ -6,12 +6,12 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 	
-	private Stage primaryStage;
+//	private Stage primaryStage;
 	
 	@Override
 	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
 		
+		@SuppressWarnings("unused")
 		GameController gControl = new GameController(primaryStage);
 			
 	}
