@@ -44,9 +44,13 @@ public class MainApp extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
             
+            TestMan testman = new TestMan(rootLayout, 300, 300, true, 50, 50);
+            testman.addToLayer();
+            testman.updateUI();
+            
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
-            
+            //GraphicsContext gc = canvas.getGraphicsContext2D();
           //Initialise   EventHandler to listen for key presses, add them to input ArrayList, and when they are released remove them
     		scene.setOnKeyPressed(
     				new EventHandler<KeyEvent>()
@@ -56,9 +60,25 @@ public class MainApp extends Application {
     						String code = e.getCode().toString();
     						if(!input.contains(code)) {
     							input.add(code);
-    							System.out.println("Key Pressed");
     							if(input.contains("UP")) {
-    								System.out.println("Up Pressed");
+    								System.out.println("Move Up");
+    								testman.move(0, -10);
+    								input.remove(code);
+    							}
+    							while(input.contains("RIGHT")) {
+    								System.out.println("Move Right");
+    								testman.move(10, 0);
+    								input.remove(code);
+    							}
+    							if(input.contains("DOWN")) {
+    								System.out.println("Move Down");
+    								testman.move(0, 10);
+    								input.remove(code);
+    							}
+    							if(input.contains("LEFT")) {
+    								System.out.println("Move Left");
+    								testman.move(-10, 0);
+    								input.remove(code);
     							}
     						}
     					}
@@ -75,15 +95,13 @@ public class MainApp extends Application {
     				});
     		
     		//Not sure if required
-    		GraphicsContext gc = canvas.getGraphicsContext2D();
+    		
     		primaryStage.show();
     		new AnimationTimer() {
 
 				public void handle(long currentNanoTime) {
 					// TODO Put graphics drawing classes, methods what-have-you in here
-					TestMan testman = new TestMan(300, 300, true, 50, 50);
-		    		
-		    		gc.drawImage(testman.getImage(), 300, 300);
+					testman.updateUI();
 				}
     			
     		}.start();
