@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.TestMan;
 import view.UserInput;
 
 public class MainApp extends Application {
@@ -75,12 +76,14 @@ public class MainApp extends Application {
     		
     		//Not sure if required
     		GraphicsContext gc = canvas.getGraphicsContext2D();
-    		
+    		primaryStage.show();
     		new AnimationTimer() {
 
 				public void handle(long currentNanoTime) {
 					// TODO Put graphics drawing classes, methods what-have-you in here
-					
+					TestMan testman = new TestMan(300, 300, true, 50, 50);
+		    		
+		    		gc.drawImage(testman.getImage(), 300, 300);
 				}
     			
     		}.start();
