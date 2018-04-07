@@ -1,24 +1,16 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.TestMan;
-import view.UserInput;
 
 public class MainApp extends Application {
 	
@@ -30,11 +22,8 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Test Drive");
 		
-		// Not sure if required
-		Canvas canvas = new Canvas();
-		
 		try {
-            // Load root layout from fxml file.
+            // Load root layout from FXML file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("TestMap.fxml"));
             rootLayout = (AnchorPane) loader.load();
@@ -51,7 +40,7 @@ public class MainApp extends Application {
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
             //GraphicsContext gc = canvas.getGraphicsContext2D();
-          //Initialise   EventHandler to listen for key presses, add them to input ArrayList, and when they are released remove them
+          //Initialise EventHandler to listen for key presses, add them to input ArrayList, and when they are released remove them
     		scene.setOnKeyPressed(
     				new EventHandler<KeyEvent>()
     				{	
@@ -94,9 +83,8 @@ public class MainApp extends Application {
     					}
     				});
     		
-    		//Not sure if required
-    		
     		primaryStage.show();
+    		
     		new AnimationTimer() {
 
 				public void handle(long currentNanoTime) {

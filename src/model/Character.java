@@ -4,18 +4,17 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 /*Parent class for all characters - AI or player controlled
  *
  */
 
 public class Character {
-	AnchorPane layer;
-	private Image image;
-	ImageView imageView;
-	 double xPos;
-	 double yPos;
+	AnchorPane layer;//Where to draw the character
+	private Image image;//How the character
+	private ImageView imageView;// should look
+	private double xPos;
+	private double yPos;
 	private double dx;
 	private double dy;
 	private double height;
@@ -25,21 +24,37 @@ public class Character {
 	
 	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth) {
 		this.layer = layer;
-		xPos = xStart;
-		yPos = yStart;
+		setXPos(xStart);
+		setYPos(yStart);
 		this.isPlayer1 = isPlayer;
-		this.height = height;
-		this.width = width;
+		this.height = setHeight;
+		this.width = setWidth;
 	}
 	
 	public void move(double xMove, double yMove) {
-		xPos += xMove;
-		yPos += yMove;
+		setXPos(getXPos() + xMove);
+		setYPos(getYPos() + yMove);
 	}
 	
+	public double getXPos() {
+		return xPos;
+	}
+
+	public void setXPos(double xPos) {
+		this.xPos = xPos;
+	}
+	
+	public double getYPos() {
+		return yPos;
+	}
+
+	public void setYPos(double yPos) {
+		this.yPos = yPos;
+	}
+
 	//Returns a rectangle for use with CollisionDetection
 	public Rectangle2D getBoundary() {
-		return new Rectangle2D(xPos, yPos, height, width);
+		return new Rectangle2D(getXPos(), getYPos(), height, width);
 	}
 	
 	public void setImage(String string) {
