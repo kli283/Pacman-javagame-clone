@@ -15,8 +15,8 @@ public class Character {
 	private ImageView imageView;// should look
 	private double xPos;
 	private double yPos;
-	private double dx;
-	private double dy;
+//	private double dx;
+//	private double dy;
 	private double height;
 	private double width;
 	boolean isPlayer1; // determines if AI or human. change to int for MP?
@@ -51,6 +51,22 @@ public class Character {
 	public void setYPos(double yPos) {
 		this.yPos = yPos;
 	}
+	
+//	public double getDx() {
+//		return dx;
+//	}
+//
+//	public void setDx(double xVelocity) {
+//		this.dx = xVelocity;
+//	}
+//	
+//	public double getDy() {
+//		return dy;
+//	}
+//
+//	public void setDy(double yVelocity) {
+//		this.dy = yVelocity;
+//	}
 
 	//Returns a rectangle for use with CollisionDetection
 	public Rectangle2D getBoundary() {
