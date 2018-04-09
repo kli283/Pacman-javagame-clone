@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuControl">
    <children>
-      <Button fx:id="SPButton" layoutX="620.0" layoutY="420.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="350.0" onAction="#handleButtonAction" text="SINGEPLAYER" />
+      <Button fx:id="SPButton" layoutX="620.0" layoutY="420.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="350.0" onAction="#handleButtonAction" text="SINGLEPLAYER" />
       <Button fx:id="MPButton" layoutX="620.0" layoutY="520.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="350.0" onAction="#handleButtonAction" text="MULTIPLAYER" />
       <Button fx:id="backButton" layoutX="620.0" layoutY="620.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="350.0" onAction="#handleButtonAction" text="BACK" />
    </children>
