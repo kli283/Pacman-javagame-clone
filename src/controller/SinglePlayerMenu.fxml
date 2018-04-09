@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuControl">
+   <children>
+      <Button fx:id="storyButton" layoutX="620.0" layoutY="420.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="350.0" onAction="#handleButtonAction" text="STORY" />
+      <Button fx:id="mapSelectButton" layoutX="620.0" layoutY="520.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="350.0" onAction="#handleButtonAction" text="MAP SELECT" />
+      <Button fx:id="backPlayButton" layoutX="620.0" layoutY="620.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="350.0" onAction="#handleButtonAction" text="BACK" />
+      <Label layoutX="100.0" layoutY="80.0" text="SinglePlayer" textFill="#ffd000">
+         <font>
+            <Font size="56.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

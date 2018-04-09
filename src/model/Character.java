@@ -30,7 +30,7 @@ public class Character {
 		this.height = setHeight;
 		this.width = setWidth;
 	}
-	
+
 	public void move(double xMove, double yMove) {
 		setXPos(getXPos() + xMove);
 		setYPos(getYPos() + yMove);
