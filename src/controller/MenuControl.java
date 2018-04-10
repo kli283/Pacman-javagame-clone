@@ -18,7 +18,7 @@ public class MenuControl {
     private Scene testScene;
     private static GameModes mode;
     private Group gameRoot;
-    private Images gameImages;
+   // private Images gameImages;
     public static GameController gControl;
 
 

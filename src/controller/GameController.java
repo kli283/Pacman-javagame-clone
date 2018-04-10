@@ -54,9 +54,6 @@ public class GameController { // Class to contain main game loop
 			Rectangle rect4 = new Rectangle(736, 0, 32, 768);
 			rect4.setStroke(Color.BLACK);
 
-
-
-
             //mapPath.add(new Rectangle(0, 0, 32, 768));
             testman = new TestMan(rootLayout, 300, 300, true, 32, 32);
             testman.addToLayer();
