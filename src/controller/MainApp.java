@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import view.*;
 
 import java.io.IOException;
 
@@ -17,6 +18,9 @@ public class MainApp extends Application {
 	public static Stage gameStage;
 	private BorderPane borderPane;
 	private AnchorPane baseLayout;
+	public static final double screenWidth = 1024;
+	public static final double screenHeight = 768;
+	public static final double gameScreenWidth = 1024;
 
 	public static void main(String[] args) {
 		launch(args);
