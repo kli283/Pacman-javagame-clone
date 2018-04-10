@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Barrier;
 import model.TestMan;
 
 public class GameController { // Class to contain main game loop
@@ -38,9 +39,24 @@ public class GameController { // Class to contain main game loop
             mainStage.setScene(scene);
             mainStage.show();
             
+            
+          //Initialise ArrayList to store characters
+            ArrayList<TestMan> characters = new ArrayList<TestMan>();
+            
+          //Initialise ArrayList to store barriers
+            ArrayList<Barrier> barriers = new ArrayList<Barrier>();
+            
+            CollisionDetection detector = new CollisionDetection();
+            
             TestMan testman = new TestMan(rootLayout, 300, 300, true, 50, 50);
             testman.addToLayer();
-            testman.updateUI();
+            //testman.updateUI();
+            characters.add(testman);
+            Barrier wall1 = new Barrier(50, 10, 30, 30, rootLayout);
+            wall1.addToLayer();
+            //wall1.updateUI();
+            
+            
             
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
@@ -54,24 +70,25 @@ public class GameController { // Class to contain main game loop
     						String code = e.getCode().toString();
     						if(!input.contains(code)) {
     							input.add(code);
-    							if(input.contains("UP")) {
-    								System.out.println("Move Up");
-    								testman.move(0, -10);
+    							if((input.contains("UP"))&&!detector.willCollide(testman, wall1)) {
+    								//System.out.println("Move Up");
+    								System.out.println("TestMan x=" + testman.getXPos());
+    								testman.move(0, -1);
     								input.remove(code);
     							}
-    							while(input.contains("RIGHT")) {
-    								System.out.println("Move Right");
-    								testman.move(10, 0);
+    							while(input.contains("RIGHT")&&!detector.willCollide(testman, wall1)) {
+    								//System.out.println("Move Right");
+    								testman.move(1, 0);
     								input.remove(code);
     							}
-    							if(input.contains("DOWN")) {
-    								System.out.println("Move Down");
-    								testman.move(0, 10);
+    							if(input.contains("DOWN")&&!detector.willCollide(testman, wall1)) {
+    								//System.out.println("Move Down");
+    								testman.move(0, 1);
     								input.remove(code);
     							}
-    							if(input.contains("LEFT")) {
-    								System.out.println("Move Left");
-    								testman.move(-10, 0);
+    							if(input.contains("LEFT")&&!detector.willCollide(testman, wall1)) {
+    								//System.out.println("Move Left");
+    								testman.move(-1, 0);
     								input.remove(code);
     							}
     						}
@@ -84,7 +101,7 @@ public class GameController { // Class to contain main game loop
     					{
     						String code = e.getCode().toString();
     						input.remove(code);
-    						System.out.println("Key Released");
+    						//System.out.println("Key Released");
     					}
     				});
     		
@@ -96,6 +113,7 @@ public class GameController { // Class to contain main game loop
 					// TODO Put graphics drawing classes, methods what-have-you in here.
 					// 		Move this into an appropriate view class.
 					testman.updateUI();
+					wall1.updateUI();
 				}
     			
     		}.start();

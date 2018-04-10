@@ -1,5 +1,6 @@
 package model;
 
+import controller.CollisionDetection;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,9 +32,11 @@ public class Character {
 		this.width = setWidth;
 	}
 
-	public void move(double xMove, double yMove) {
-		setXPos(getXPos() + xMove);
-		setYPos(getYPos() + yMove);
+	public void move(double xMove, double yMove) {//, CollisionDetection detector) {
+	//	if(!detector.willCollide(this)) {
+			setXPos(getXPos() + xMove);
+			setYPos(getYPos() + yMove);
+		//}
 	}
 	
 	public double getXPos() {
@@ -70,7 +73,7 @@ public class Character {
 
 	//Returns a rectangle for use with CollisionDetection
 	public Rectangle2D getBoundary() {
-		return new Rectangle2D(getXPos(), getYPos(), height, width);
+		return new Rectangle2D(getXPos(), getYPos(), width, height);
 	}
 	
 	public void setImage(String string) {
