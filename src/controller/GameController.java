@@ -11,6 +11,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.TestMan;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.Group;
+import javafx.fxml.FXML;
 
 public class GameController { // Class to contain main game loop
 	
@@ -18,17 +23,16 @@ public class GameController { // Class to contain main game loop
 	TestMan testman;
 	private double charSpeed = 3;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
-
 	public GameController(Stage mainStage) {
 		
 		initGameController(mainStage);
+
 		
 	}
 	
 	// Get the controller up and running
 	public void initGameController(Stage mainStage) {
 		mainStage.setTitle("Test Character Movement");
-		
 		try {
             // Load root layout from FXML file.
             FXMLLoader loader = new FXMLLoader();
@@ -40,12 +44,15 @@ public class GameController { // Class to contain main game loop
             mainStage.setScene(scene);
             mainStage.show();
 
+			Rectangle rect1 = new Rectangle(0, 0, 32, 768);
+			rect1.setStroke(Color.BLACK);
+			rect1.setStrokeWidth(10);
 
-            mapPath.add(new Rectangle(0, 32, 0, 768));
+            //mapPath.add(new Rectangle(0, 0, 32, 768));
             testman = new TestMan(rootLayout, 300, 300, true, 32, 32);
             testman.addToLayer();
             testman.updateUI();
-            
+			rootLayout.getChildren().addAll(rect1);
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
 
