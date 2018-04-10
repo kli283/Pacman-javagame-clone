@@ -19,7 +19,7 @@ public class MenuControl {
     private static GameModes mode;
     private Group gameRoot;
     private Images gameImages;
-
+    public static GameController gControl;
 
 
     @FXML
@@ -83,7 +83,7 @@ public class MenuControl {
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
         else if (event.getSource() == mapSelectButton) {
-            GameController gControl = new GameController(MainApp.gameStage);
+            gControl = new GameController(MainApp.gameStage);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }

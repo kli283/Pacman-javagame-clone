@@ -15,8 +15,10 @@ import model.TestMan;
 public class GameController { // Class to contain main game loop
 	
 	private AnchorPane rootLayout;
+	TestMan testman;
+	private double charSpeed = 3;
+	private ArrayList<Rectangle> mapPath = new ArrayList<>();
 
-	
 	public GameController(Stage mainStage) {
 		
 		initGameController(mainStage);
@@ -25,7 +27,7 @@ public class GameController { // Class to contain main game loop
 	
 	// Get the controller up and running
 	public void initGameController(Stage mainStage) {
-		mainStage.setTitle("Test Drive");
+		mainStage.setTitle("Test Character Movement");
 		
 		try {
             // Load root layout from FXML file.
@@ -37,8 +39,10 @@ public class GameController { // Class to contain main game loop
             Scene scene = new Scene(rootLayout);
             mainStage.setScene(scene);
             mainStage.show();
-            
-            TestMan testman = new TestMan(rootLayout, 300, 300, true, 50, 50);
+
+
+            mapPath.add(new Rectangle(0, 32, 0, 768));
+            testman = new TestMan(rootLayout, 300, 300, true, 32, 32);
             testman.addToLayer();
             testman.updateUI();
             
@@ -56,22 +60,26 @@ public class GameController { // Class to contain main game loop
     							input.add(code);
     							if(input.contains("UP")) {
     								System.out.println("Move Up");
-    								testman.move(0, -10);
+    								testman.setDx(0);
+    								testman.setDy(-charSpeed);
     								input.remove(code);
     							}
     							while(input.contains("RIGHT")) {
     								System.out.println("Move Right");
-    								testman.move(10, 0);
+									testman.setDx(charSpeed);
+									testman.setDy(0);
     								input.remove(code);
     							}
     							if(input.contains("DOWN")) {
     								System.out.println("Move Down");
-    								testman.move(0, 10);
+									testman.setDx(0);
+									testman.setDy(charSpeed);
     								input.remove(code);
     							}
     							if(input.contains("LEFT")) {
     								System.out.println("Move Left");
-    								testman.move(-10, 0);
+									testman.setDx(-charSpeed);
+									testman.setDy(0);
     								input.remove(code);
     							}
     						}
@@ -103,6 +111,10 @@ public class GameController { // Class to contain main game loop
         } catch (IOException e) {
             e.printStackTrace();
         }
-		
+
+	}
+	public void tickChange(){
+		//testman.setXPos(testman.getXPos() + 1);
+		testman.changeMove();
 	}
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -33,20 +34,6 @@ public class MainApp extends Application {
 		this.gameStage.setResizable(false);
 		this.gameStage.sizeToScene();
 
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(MainApp.class.getResource("BaseScreen.fxml"));
-//			baseLayout = (AnchorPane) loader.load();
-//
-//			Scene scene = new Scene(baseLayout);
-//			gameStage.setScene(scene);
-//			gameStage.show();
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			e.getCause();
-//		}
-
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("MainMenu.fxml"));
@@ -62,6 +49,14 @@ public class MainApp extends Application {
 			e.printStackTrace();
 			e.getCause();
 		}
+		AnimationTimer timer = new AnimationTimer() {
+			public void handle(long now) {
+				if (MenuControl.gControl != null) {
+					MenuControl.gControl.tickChange();
+				}
+			}
+		};
+		timer.start();
 	}
 
 
