@@ -10,24 +10,28 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Barrier;
 import model.TestMan;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.Group;
+import javafx.fxml.FXML;
 
 public class GameController { // Class to contain main game loop
 	
 	private AnchorPane rootLayout;
-
-	
+	TestMan testman;
+	private double charSpeed = 3;
+	private ArrayList<Rectangle> mapPath = new ArrayList<>();
 	public GameController(Stage mainStage) {
 		
 		initGameController(mainStage);
-		
+	
 	}
 	
 	// Get the controller up and running
 	public void initGameController(Stage mainStage) {
-		mainStage.setTitle("Test Drive");
-		
+		mainStage.setTitle("Test Character Movement");
 		try {
             // Load root layout from FXML file.
             FXMLLoader loader = new FXMLLoader();
@@ -38,26 +42,25 @@ public class GameController { // Class to contain main game loop
             Scene scene = new Scene(rootLayout);
             mainStage.setScene(scene);
             mainStage.show();
-            
-            
-          //Initialise ArrayList to store characters
-            ArrayList<TestMan> characters = new ArrayList<TestMan>();
-            
-          //Initialise ArrayList to store barriers
-            ArrayList<Barrier> barriers = new ArrayList<Barrier>();
-            
-            CollisionDetection detector = new CollisionDetection();
-            
-            TestMan testman = new TestMan(rootLayout, 300, 300, true, 50, 50);
+
+            //Hard coding rectangular map
+			Rectangle rect1 = new Rectangle(0, 0, 32, 768);
+			rect1.setStroke(Color.BLACK);
+			Rectangle rect2 = new Rectangle(0, 0, 768, 32);
+			rect2.setStroke(Color.BLACK);
+			Rectangle rect3 = new Rectangle(0, 736, 768, 32);
+			rect3.setStroke(Color.BLACK);
+			Rectangle rect4 = new Rectangle(736, 0, 32, 768);
+			rect4.setStroke(Color.BLACK);
+
+
+
+
+            //mapPath.add(new Rectangle(0, 0, 32, 768));
+            testman = new TestMan(rootLayout, 300, 300, true, 32, 32);
             testman.addToLayer();
-            //testman.updateUI();
-            characters.add(testman);
-            Barrier wall1 = new Barrier(50, 10, 30, 30, rootLayout);
-            wall1.addToLayer();
-            //wall1.updateUI();
-            
-            
-            
+            testman.updateUI();
+			rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
 
@@ -70,25 +73,28 @@ public class GameController { // Class to contain main game loop
     						String code = e.getCode().toString();
     						if(!input.contains(code)) {
     							input.add(code);
-    							if((input.contains("UP"))&&!detector.willCollide(testman, wall1)) {
-    								//System.out.println("Move Up");
-    								System.out.println("TestMan x=" + testman.getXPos());
-    								testman.move(0, -1);
+    							if(input.contains("UP")) {
+    								System.out.println("Move Up");
+    								testman.setDx(0);
+    								testman.setDy(-charSpeed);
     								input.remove(code);
     							}
-    							while(input.contains("RIGHT")&&!detector.willCollide(testman, wall1)) {
-    								//System.out.println("Move Right");
-    								testman.move(1, 0);
+    							while(input.contains("RIGHT")) {
+    								System.out.println("Move Right");
+									testman.setDx(charSpeed);
+									testman.setDy(0);
     								input.remove(code);
     							}
-    							if(input.contains("DOWN")&&!detector.willCollide(testman, wall1)) {
-    								//System.out.println("Move Down");
-    								testman.move(0, 1);
+    							if(input.contains("DOWN")) {
+    								System.out.println("Move Down");
+									testman.setDx(0);
+									testman.setDy(charSpeed);
     								input.remove(code);
     							}
-    							if(input.contains("LEFT")&&!detector.willCollide(testman, wall1)) {
-    								//System.out.println("Move Left");
-    								testman.move(-1, 0);
+    							if(input.contains("LEFT")) {
+    								System.out.println("Move Left");
+									testman.setDx(-charSpeed);
+									testman.setDy(0);
     								input.remove(code);
     							}
     						}
@@ -101,7 +107,7 @@ public class GameController { // Class to contain main game loop
     					{
     						String code = e.getCode().toString();
     						input.remove(code);
-    						//System.out.println("Key Released");
+    						System.out.println("Key Released");
     					}
     				});
     		
@@ -113,7 +119,6 @@ public class GameController { // Class to contain main game loop
 					// TODO Put graphics drawing classes, methods what-have-you in here.
 					// 		Move this into an appropriate view class.
 					testman.updateUI();
-					wall1.updateUI();
 				}
     			
     		}.start();
@@ -121,6 +126,10 @@ public class GameController { // Class to contain main game loop
         } catch (IOException e) {
             e.printStackTrace();
         }
-		
+
+	}
+	public void tickChange(){
+		//testman.setXPos(testman.getXPos() + 1);
+		testman.changeMove();
 	}
 }
