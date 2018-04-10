@@ -23,7 +23,6 @@ public class MainApp extends Application {
 	}
 
 	public void start(Stage gameStage) throws IOException {
-		//GameController gControl = new GameController(primaryStage);
 		this.gameStage = gameStage;
 		this.gameStage.setTitle("Gold Girl");
 		this.gameStage.setResizable(false);
