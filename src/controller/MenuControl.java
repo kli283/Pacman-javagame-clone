@@ -31,6 +31,8 @@ public class MenuControl {
     private Button MPButton;
     @FXML
     private Button backPlayButton;
+    @FXML
+    private Button storyButton;
 
 
     @FXML
@@ -83,6 +85,13 @@ public class MenuControl {
             theScene = new Scene(test);
             MainApp.gameStage.setScene(theScene);
             System.out.print("BackSelected" + "\n");
+        }
+        else if (event.getSource() == storyButton) {
+        	GameController gc = new GameController(MainApp.gameStage);
+        	//test = FXMLLoader.load(getClass().getResource("TestMap.fxml"));
+        	//theScene = new Scene(test);
+        	//MainApp.gameStage.setScene(theScene);
+        	System.out.println("Start test level");
         }
         else if (event.getSource() == quitButton) {
             MainApp.gameStage.close();
