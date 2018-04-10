@@ -44,15 +44,24 @@ public class GameController { // Class to contain main game loop
             mainStage.setScene(scene);
             mainStage.show();
 
+            //Hard coding rectangular map
 			Rectangle rect1 = new Rectangle(0, 0, 32, 768);
 			rect1.setStroke(Color.BLACK);
-			rect1.setStrokeWidth(10);
+			Rectangle rect2 = new Rectangle(0, 0, 768, 32);
+			rect2.setStroke(Color.BLACK);
+			Rectangle rect3 = new Rectangle(0, 736, 768, 32);
+			rect3.setStroke(Color.BLACK);
+			Rectangle rect4 = new Rectangle(736, 0, 32, 768);
+			rect4.setStroke(Color.BLACK);
+
+
+
 
             //mapPath.add(new Rectangle(0, 0, 32, 768));
             testman = new TestMan(rootLayout, 300, 300, true, 32, 32);
             testman.addToLayer();
             testman.updateUI();
-			rootLayout.getChildren().addAll(rect1);
+			rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
 
