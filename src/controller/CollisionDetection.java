@@ -16,19 +16,19 @@ public class CollisionDetection {
 		for(Rectangle x:rectangle) {
 			if(mover.getDx() > 0) { //If moving right
 				//intendedMove = mover.getBoundary();
-				intendedMove.setX(mover.getXPos()+1);
+				intendedMove.setX(mover.getXPos() + 2);
 			}
 			else if(mover.getDx() < 0) { // If moving left
 				//intendedMove = mover.getBoundary();
-				intendedMove.setX(mover.getXPos()-1);
+				intendedMove.setX(mover.getXPos() - 2);
 			}
 			else if(mover.getDy() > 0) { // If moving down
 				//intendedMove = mover.getBoundary();
-				intendedMove.setY(mover.getYPos()+1);
+				intendedMove.setY(mover.getYPos() + 2);
 			}
 			else if(mover.getDy() < 0) { // If moving up
 				//Rectangle intendedMove = mover.getBoundary();
-				intendedMove.setY(mover.getYPos()-1);
+				intendedMove.setY(mover.getYPos() - 2);
 			}
 			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
 				System.out.println(i);

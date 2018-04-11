@@ -1,15 +1,11 @@
 package model;
 
-import controller.CollisionDetection;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
-/*Parent class for all characters - AI or player controlled
- *
- */
+//Parent class for all characters - AI or player controlled
 
 public class Character {
 	AnchorPane layer;//Where to draw the character
@@ -33,11 +29,9 @@ public class Character {
 		this.width = setWidth;
 	}
 
-	public void move(double xMove, double yMove) {//, CollisionDetection detector) {
-	//	if(!detector.willCollide(this)) {
-			setXPos(getXPos() + xMove);
-			setYPos(getYPos() + yMove);
-		//}
+	public void move(double xMove, double yMove) {
+		setXPos(getXPos() + xMove);
+		setYPos(getYPos() + yMove);
 	}
 	public void changeMove() {
 		setXPos(getXPos() + dx);
