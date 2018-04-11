@@ -10,10 +10,31 @@ import model.Character;
 public class CollisionDetection {
 	
 	public boolean scanCollisions(Character mover, ArrayList<Rectangle> rectangle) {
+		Rectangle intendedMove = mover.getBoundary();
+		int i = 0;
+		
 		for(Rectangle x:rectangle) {
-			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
+			if(mover.getDx() > 0) { //If moving right
+				//intendedMove = mover.getBoundary();
+				intendedMove.setX(mover.getXPos()+1);
+			}
+			else if(mover.getDx() < 0) { // If moving left
+				//intendedMove = mover.getBoundary();
+				intendedMove.setX(mover.getXPos()-1);
+			}
+			else if(mover.getDy() > 0) { // If moving down
+				//intendedMove = mover.getBoundary();
+				intendedMove.setY(mover.getYPos()+1);
+			}
+			else if(mover.getDy() < 0) { // If moving up
+				//Rectangle intendedMove = mover.getBoundary();
+				intendedMove.setY(mover.getYPos()-1);
+			}
+			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
+				System.out.println(i);
 				return true;
 			}
+			i++;
 		}
 		return false;
 	}
@@ -26,5 +47,4 @@ public class CollisionDetection {
 		}
 		return false;
 	}
-
 }
