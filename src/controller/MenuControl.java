@@ -73,7 +73,7 @@ public class MenuControl {
             MainApp.gameStage.setScene(testScene);
             System.out.print("SPSelected" + "\n");
         }
-        else if (event.getSource() == storyButton) {
+        else if (event.getSource() == mapSelectButton) {
             gameRoot = new Group();
             testScene = new Scene(gameRoot, MainApp.gameScreenWidth, MainApp.screenHeight);
             MainApp.gameStage.setScene(testScene);
@@ -82,7 +82,7 @@ public class MenuControl {
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
-        else if (event.getSource() == mapSelectButton) {
+        else if (event.getSource() == storyButton) {
             gControl = new GameController(MainApp.gameStage);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());

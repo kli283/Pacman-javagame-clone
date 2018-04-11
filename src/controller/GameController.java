@@ -22,13 +22,21 @@ public class GameController { // Class to contain main game loop
 	
 	private AnchorPane rootLayout;
 	TestMan testman;
-	private double charSpeed = 3;
+	private double charSpeed = 5;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
+
+//	Rectangle rect1;
+//	Rectangle rect2;
+//	Rectangle rect3;
+//	Rectangle rect4;
+
+
     CollisionDetection detector = new CollisionDetection();
     Barrier wall1;
 	
+
 	public GameController(Stage mainStage) {
-		
+
 		initGameController(mainStage);
 	
 	}
@@ -48,20 +56,30 @@ public class GameController { // Class to contain main game loop
             mainStage.show();
           
             //Hard coding rectangular map
-			Rectangle rect1 = new Rectangle(0, 0, 32, 768);
-			rect1.setStroke(Color.BLACK);
-			Rectangle rect2 = new Rectangle(0, 0, 768, 32);
-			rect2.setStroke(Color.BLACK);
-			Rectangle rect3 = new Rectangle(0, 736, 768, 32);
-			rect3.setStroke(Color.BLACK);
-			Rectangle rect4 = new Rectangle(736, 0, 32, 768);
-			rect4.setStroke(Color.BLACK);
+
+//			rect1 = new Rectangle(0, 0, 32, 768);
+//			rect1.setStroke(Color.BLACK);
+//			rect2 = new Rectangle(0, 0, 768, 32);
+//			rect2.setStroke(Color.BLACK);
+//			rect3 = new Rectangle(0, 736, 768, 32);
+//			rect3.setStroke(Color.BLACK);
+//			rect4 = new Rectangle(736, 0, 32, 768);
+//			rect4.setStroke(Color.BLACK);
+
+
+
+			mapPath.add(new Rectangle(0, 0, 32, 768));
+			mapPath.add(new Rectangle(0, 0, 768, 32));
+			mapPath.add(new Rectangle(0, 736, 768, 32));
+			mapPath.add(new Rectangle(736, 0, 32, 768));
+			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
+			rootLayout.getChildren().addAll(mapPath);
 
             //mapPath.add(new Rectangle(0, 0, 32, 768));
             testman = new TestMan(rootLayout, 300, 300, true, 50, 50);
             testman.addToLayer();
             testman.updateUI();
-			rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
+			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
 			wall1 = new Barrier(50, 10, 200, 200, rootLayout);
 			wall1.addToLayer();
           //Initialise ArrayList to store currently pressed keys
@@ -71,8 +89,8 @@ public class GameController { // Class to contain main game loop
     		scene.setOnKeyPressed(
     				new EventHandler<KeyEvent>()
     				{	
-    					public void handle(KeyEvent e)
-    					{
+    					public void handle(KeyEvent e) {
+    						//if (!Collision){
     						String code = e.getCode().toString();
     						if(!input.contains(code)) {
     							input.add(code);
@@ -102,10 +120,10 @@ public class GameController { // Class to contain main game loop
 	    								input.remove(code);
 	    							}
     							}
-    							
-    						
-    					}
-    				});
+    						}
+    						//}
+
+    					});
     		scene.setOnKeyReleased(
     				new EventHandler<KeyEvent>()
     				{
