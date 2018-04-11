@@ -1,11 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
-
-import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Rectangle;
-import model.Barrier;
-import model.TestMan;
 import model.Character;
 
 //this class will check if a move is valid

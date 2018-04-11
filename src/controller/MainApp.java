@@ -1,23 +1,16 @@
 package controller;
 
 import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import view.*;
 
 import java.io.IOException;
 
 public class MainApp extends Application {
 	public static Stage gameStage;
-	private BorderPane borderPane;
 	private AnchorPane baseLayout;
 	public static final double screenWidth = 1024;
 	public static final double screenHeight = 768;
@@ -29,10 +22,10 @@ public class MainApp extends Application {
 
 	public void start(Stage gameStage) throws IOException {
 		//GameController gControl = new GameController(primaryStage);
-		this.gameStage = gameStage;
-		this.gameStage.setTitle("Gold Girl");
-		this.gameStage.setResizable(false);
-		this.gameStage.sizeToScene();
+		MainApp.gameStage = gameStage;
+		MainApp.gameStage.setTitle("Gold Girl");
+		MainApp.gameStage.setResizable(false);
+		MainApp.gameStage.sizeToScene();
 
 		try {
 			FXMLLoader loader = new FXMLLoader();
