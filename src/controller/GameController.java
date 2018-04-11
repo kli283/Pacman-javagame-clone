@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Barrier;
+import model.TestCoin;
 import model.TestMan;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -23,9 +24,12 @@ public class GameController { // Class to contain main game loop
 	
 	private AnchorPane rootLayout;
 	TestMan testman;
-	private double charSpeed = 7;
+	TestCoin testCoin;
+	private double charSpeed = 5;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
 	double pixelScale = 48;
+	double coinPosX;
+	double coinPosY;
 
 
 //	Rectangle rect1;
@@ -106,8 +110,24 @@ public class GameController { // Class to contain main game loop
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
 			rootLayout.getChildren().addAll(mapPath);
 
+
+			//setting coins
+//			coinPosX = pixelScale + 8;
+//			coinPosY = pixelScale + 8;
+//			for (int i = 0; i < 16; i++){
+//				pixelScale = pixelScale + pixelScale + 8;
+//				for (int j; j < 16; j++){
+//					testCoin = new TestCoin(rootLayout, pixelScale + 8, pixelScale + 8);
+//					testCoin.addToLayer();
+//					testCoin.updateUI();
+//					coinPosY = coinPosY + pixelScale + 8;
+//				}
+//			}
+			testCoin = new TestCoin(rootLayout, pixelScale + 8, pixelScale + 8);
+			testCoin.addToLayer();
+			testCoin.updateUI();
             //mapPath.add(new Rectangle(0, 0, 32, 768));
-            testman = new TestMan(rootLayout, 7 * pixelScale + 5, 7 * pixelScale + 5, true, 43, 43);
+            testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 35, 35);
             testman.addToLayer();
             testman.updateUI();
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);

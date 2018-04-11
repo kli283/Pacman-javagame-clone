@@ -1,6 +1,8 @@
 package model;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 public class Item {
@@ -10,8 +12,11 @@ public class Item {
 	private double height;
 	private double width;
 	private Image image;
-	
-	public Item(double xPos, double yPos) {
+	private ImageView imageView;
+	AnchorPane layer;
+
+	public Item(AnchorPane layer, double xPos, double yPos) {
+		this.layer = layer;
 		this.xPos = xPos;
 		this.yPos = yPos;
 	}
@@ -43,6 +48,13 @@ public class Item {
 	public Rectangle getBoundary() {
 		return new Rectangle(this.xPos, this.yPos, this.width, this.height);
 	}
-	
+	public void setImage(String string) {
+		this.image = new Image(string);
+		this.imageView = new ImageView(this.image);
+	}
+
+	public ImageView getImageView() {
+		return imageView;
+	}
 	
 }
