@@ -23,7 +23,7 @@ public class GameController { // Class to contain main game loop
 	
 	private AnchorPane rootLayout;
 	TestMan testman;
-	private double charSpeed = 5;
+	private double charSpeed = 7;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
 	double pixelScale = 48;
 
@@ -107,7 +107,7 @@ public class GameController { // Class to contain main game loop
 			rootLayout.getChildren().addAll(mapPath);
 
             //mapPath.add(new Rectangle(0, 0, 32, 768));
-            testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale, true, 43, 43);
+            testman = new TestMan(rootLayout, 7 * pixelScale + 5, 7 * pixelScale + 5, true, 43, 43);
             testman.addToLayer();
             testman.updateUI();
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
@@ -183,22 +183,22 @@ public class GameController { // Class to contain main game loop
 		}
 		else if(detector.scanCollisions(testman, mapPath)) {
 			if(testman.getDx() > 0) {
-				testman.setXPos(testman.getXPos() - 6);
+				testman.setXPos(testman.getXPos() - 10);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 			else if(testman.getDx() < 0) {
-				testman.setXPos(testman.getXPos() + 6);
+				testman.setXPos(testman.getXPos() + 10);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 			else if(testman.getDy() > 0) {
-				testman.setYPos(testman.getYPos() - 6);
+				testman.setYPos(testman.getYPos() - 10);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 			else if(testman.getDy() < 0) {
-				testman.setYPos(testman.getYPos() + 6);
+				testman.setYPos(testman.getYPos() + 10);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
