@@ -148,7 +148,6 @@ public class GameController { // Class to contain main game loop
 
 				public void handle(long currentNanoTime) {
 					// TODO Put graphics drawing classes, methods what-have-you in here.
-					// 		Move this into an appropriate view class.
 					testman.updateUI();
 				}
     			
