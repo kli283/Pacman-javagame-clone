@@ -38,7 +38,6 @@ public class MainApp extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("MainMenu.fxml"));
 			baseLayout = (AnchorPane) loader.load();
-			//borderPane.setCenter(anchorPane);
 
 			Scene scene = new Scene(baseLayout);
 			gameStage.setScene(scene);

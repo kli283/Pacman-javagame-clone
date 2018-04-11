@@ -25,8 +25,8 @@ public class GameController { // Class to contain main game loop
 	TestMan testman;
 	private double charSpeed = 5;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
-	private ArrayList<Rectangle2D> wallsList = new ArrayList<>();
 	double pixelScale = 48;
+
 
 //	Rectangle rect1;
 //	Rectangle rect2;
@@ -35,8 +35,8 @@ public class GameController { // Class to contain main game loop
 
 
     CollisionDetection detector = new CollisionDetection();
-    Rectangle2D wall1;
-    Rectangle2D wall2;
+    Rectangle wall1;
+    Rectangle wall2;
 	
 
 	public GameController(Stage mainStage) {
@@ -111,12 +111,7 @@ public class GameController { // Class to contain main game loop
             testman.addToLayer();
             testman.updateUI();
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
-//			wall1 = new Rectangle2D(200, 200, 50, 10);
-//			wall2 = new Rectangle2D(400, 500, 20, 20);
-			wallsList.add(new Rectangle2D(0, 0, 48, 768));
-			wallsList.add(new Rectangle2D(0, 0, 768, 48));
-			wallsList.add(new Rectangle2D(0, 720, 768, 48));
-			wallsList.add(new Rectangle2D(720, 0, 48, 768));
+
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
 
@@ -125,11 +120,9 @@ public class GameController { // Class to contain main game loop
     				new EventHandler<KeyEvent>()
     				{	
     					public void handle(KeyEvent e) {
-    						//if (!Collision){
     						String code = e.getCode().toString();
     						if(!input.contains(code)) {
-    							input.add(code);
-    							//if(!detector.willCollide(testman, wall1)){    							
+    							input.add(code);    							
 	    							if(input.contains("UP")) {
 	    								System.out.println("Move Up");
 	    								testman.setDx(0);
@@ -156,8 +149,6 @@ public class GameController { // Class to contain main game loop
 	    							}
     							}
     						}
-    						//}
-
     					});
     		scene.setOnKeyReleased(
     				new EventHandler<KeyEvent>()
@@ -187,11 +178,10 @@ public class GameController { // Class to contain main game loop
 
 	}
 	public void tickChange(){
-		//testman.setXPos(testman.getXPos() + 1);
-		if(!detector.scanCollisions(testman, wallsList)) {
+		if(!detector.scanCollisions(testman, mapPath)) {
 			testman.changeMove();
 		}
-		else if(detector.scanCollisions(testman, wallsList)) {
+		else if(detector.scanCollisions(testman, mapPath)) {
 			if(testman.getDx() > 0) {
 				testman.setXPos(testman.getXPos() - 5);
 				testman.setDx(0);

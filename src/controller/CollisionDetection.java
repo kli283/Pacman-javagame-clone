@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.shape.Rectangle;
 import model.Barrier;
 import model.TestMan;
 import model.Character;
@@ -12,18 +13,18 @@ import model.Character;
 
 public class CollisionDetection {
 	
-	public boolean scanCollisions(Character mover, ArrayList<Rectangle2D> rectangle) {
-		for(Rectangle2D x:rectangle) {
-			if(mover.getBoundary().intersects(x)) {
+	public boolean scanCollisions(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public boolean willCollide(Character mover, ArrayList<Rectangle2D> rectangle) {
-		for(Rectangle2D x:rectangle) {
-			if(mover.getBoundary().intersects(x)) {
+	public boolean willCollide(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
 				return true;
 			}
 		}
