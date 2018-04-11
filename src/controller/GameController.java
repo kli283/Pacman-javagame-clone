@@ -19,6 +19,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.Group;
 import javafx.fxml.FXML;
+import model.TestRobber;
 
 public class GameController { // Class to contain main game loop
 	
@@ -26,7 +27,9 @@ public class GameController { // Class to contain main game loop
 	TestMan testman;
 	TestCoin testCoin;
 	TestWall testWall;
-	private double charSpeed = 5;
+	TestRobber testRobber;
+	private double playerSpeed = 5;
+	private double robberSpeed = 5;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
 	private int pixelScale = 48;
 	double coinPosX;
@@ -48,6 +51,8 @@ public class GameController { // Class to contain main game loop
 
 		initGameController(mainStage);
 		initMap();
+		initPlayer();
+		initRobber();
 	}
 
 	private void initMap(){
@@ -73,6 +78,16 @@ public class GameController { // Class to contain main game loop
 			}
 		}
 		//rootLayout.getChildren().add(levelBackground);
+	}
+	private void initPlayer(){
+		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 35, 35);
+		testman.addToLayer();
+		testman.updateUI();
+	}
+	private void initRobber(){
+		testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35);
+		testRobber.addToLayer();
+		testRobber.updateUI();
 	}
 	
 	// Get the controller up and running
@@ -153,9 +168,9 @@ public class GameController { // Class to contain main game loop
 			//testCoin.addToLayer();
 			//testCoin.updateUI();
             //mapPath.add(new Rectangle(0, 0, 32, 768));
-            testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 35, 35);
-            testman.addToLayer();
-            testman.updateUI();
+//            testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 35, 35);
+//            testman.addToLayer();
+//            testman.updateUI();
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
 
           //Initialise ArrayList to store currently pressed keys
@@ -172,24 +187,24 @@ public class GameController { // Class to contain main game loop
 	    							if(input.contains("UP")) {
 	    								System.out.println("Move Up");
 	    								testman.setDx(0);
-	    								testman.setDy(-charSpeed);
+	    								testman.setDy(-playerSpeed);
 	    								input.remove(code);
 	    							}
 	    							if(input.contains("RIGHT")) {
 	    								System.out.println("Move Right");
-										testman.setDx(charSpeed);
+										testman.setDx(playerSpeed);
 										testman.setDy(0);
 	    								input.remove(code);
 	    							}
 	    							if(input.contains("DOWN")) {
 	    								System.out.println("Move Down");
 										testman.setDx(0);
-										testman.setDy(charSpeed);
+										testman.setDy(playerSpeed);
 	    								input.remove(code);
 	    							}
 	    							if(input.contains("LEFT")) {
 	    								System.out.println("Move Left");
-										testman.setDx(-charSpeed);
+										testman.setDx(-playerSpeed);
 										testman.setDy(0);
 	    								input.remove(code);
 	    							}
@@ -249,5 +264,6 @@ public class GameController { // Class to contain main game loop
 				testman.setDy(0);
 			}
 		}
+		testRobber.changeMove();
 	}
 }
