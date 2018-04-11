@@ -58,7 +58,7 @@ public class GameController { // Class to contain main game loop
 			rect4.setStroke(Color.BLACK);
 
             //mapPath.add(new Rectangle(0, 0, 32, 768));
-            testman = new TestMan(rootLayout, 300, 300, true, 32, 32);
+            testman = new TestMan(rootLayout, 300, 300, true, 50, 50);
             testman.addToLayer();
             testman.updateUI();
 			rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
@@ -141,7 +141,26 @@ public class GameController { // Class to contain main game loop
 			testman.changeMove();
 		}
 		else if(detector.willCollide(testman, wall1)) {
-			testman.setXPos(testman.getXPos()+1);
+			if(testman.getDx() > 0) {
+				testman.setXPos(testman.getXPos() - 5);
+				testman.setDx(0);
+				testman.setDy(0);
+			}
+			else if(testman.getDx() < 0) {
+				testman.setXPos(testman.getXPos() + 5);
+				testman.setDx(0);
+				testman.setDy(0);
+			}
+			else if(testman.getDy() > 0) {
+				testman.setYPos(testman.getYPos() - 5);
+				testman.setDx(0);
+				testman.setDy(0);
+			}
+			else if(testman.getDy() < 0) {
+				testman.setYPos(testman.getYPos() + 5);
+				testman.setDx(0);
+				testman.setDy(0);
+			}
 		}
 	}
 }
