@@ -18,7 +18,7 @@ public class MenuControl {
     private Scene testScene;
     private static GameModes mode;
     private Group gameRoot;
-    private Images gameImages;
+   // private Images gameImages;
     public static GameController gControl;
 
 
@@ -107,6 +107,13 @@ public class MenuControl {
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
             System.out.print("BackSelected" + "\n");
+        }
+        else if (event.getSource() == storyButton) {
+        	GameController gc = new GameController(MainApp.gameStage);
+        	//test = FXMLLoader.load(getClass().getResource("TestMap.fxml"));
+        	//theScene = new Scene(test);
+        	//MainApp.gameStage.setScene(theScene);
+        	System.out.println("Start test level");
         }
         else if (event.getSource() == quitButton) {
             MainApp.gameStage.close();

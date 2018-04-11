@@ -7,7 +7,7 @@ public class TestMan extends Character {
 	public TestMan(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth) {
 		super(layer, xStart, yStart, isPlayer, setHeight, setWidth);
 		
-		this.setImage("/model/testHat.png");
+		this.setImage("/model/testMan.png");
 	}
 	
 	public void addToLayer() {
