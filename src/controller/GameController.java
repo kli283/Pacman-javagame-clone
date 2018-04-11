@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Barrier;
 import model.TestMan;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -23,6 +24,9 @@ public class GameController { // Class to contain main game loop
 	TestMan testman;
 	private double charSpeed = 3;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
+    CollisionDetection detector = new CollisionDetection();
+    Barrier wall1;
+	
 	public GameController(Stage mainStage) {
 		
 		initGameController(mainStage);
@@ -42,7 +46,7 @@ public class GameController { // Class to contain main game loop
             Scene scene = new Scene(rootLayout);
             mainStage.setScene(scene);
             mainStage.show();
-
+          
             //Hard coding rectangular map
 			Rectangle rect1 = new Rectangle(0, 0, 32, 768);
 			rect1.setStroke(Color.BLACK);
@@ -53,14 +57,13 @@ public class GameController { // Class to contain main game loop
 			Rectangle rect4 = new Rectangle(736, 0, 32, 768);
 			rect4.setStroke(Color.BLACK);
 
-
-
-
             //mapPath.add(new Rectangle(0, 0, 32, 768));
             testman = new TestMan(rootLayout, 300, 300, true, 32, 32);
             testman.addToLayer();
             testman.updateUI();
 			rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
+			wall1 = new Barrier(50, 10, 200, 200, rootLayout);
+			wall1.addToLayer();
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
 
@@ -73,31 +76,34 @@ public class GameController { // Class to contain main game loop
     						String code = e.getCode().toString();
     						if(!input.contains(code)) {
     							input.add(code);
-    							if(input.contains("UP")) {
-    								System.out.println("Move Up");
-    								testman.setDx(0);
-    								testman.setDy(-charSpeed);
-    								input.remove(code);
+    							//if(!detector.willCollide(testman, wall1)){    							
+	    							if(input.contains("UP")) {
+	    								System.out.println("Move Up");
+	    								testman.setDx(0);
+	    								testman.setDy(-charSpeed);
+	    								input.remove(code);
+	    							}
+	    							if(input.contains("RIGHT")) {
+	    								System.out.println("Move Right");
+										testman.setDx(charSpeed);
+										testman.setDy(0);
+	    								input.remove(code);
+	    							}
+	    							if(input.contains("DOWN")) {
+	    								System.out.println("Move Down");
+										testman.setDx(0);
+										testman.setDy(charSpeed);
+	    								input.remove(code);
+	    							}
+	    							if(input.contains("LEFT")) {
+	    								System.out.println("Move Left");
+										testman.setDx(-charSpeed);
+										testman.setDy(0);
+	    								input.remove(code);
+	    							}
     							}
-    							while(input.contains("RIGHT")) {
-    								System.out.println("Move Right");
-									testman.setDx(charSpeed);
-									testman.setDy(0);
-    								input.remove(code);
-    							}
-    							if(input.contains("DOWN")) {
-    								System.out.println("Move Down");
-									testman.setDx(0);
-									testman.setDy(charSpeed);
-    								input.remove(code);
-    							}
-    							if(input.contains("LEFT")) {
-    								System.out.println("Move Left");
-									testman.setDx(-charSpeed);
-									testman.setDy(0);
-    								input.remove(code);
-    							}
-    						}
+    							
+    						
     					}
     				});
     		scene.setOnKeyReleased(
@@ -119,6 +125,7 @@ public class GameController { // Class to contain main game loop
 					// TODO Put graphics drawing classes, methods what-have-you in here.
 					// 		Move this into an appropriate view class.
 					testman.updateUI();
+					wall1.updateUI();
 				}
     			
     		}.start();
@@ -130,6 +137,11 @@ public class GameController { // Class to contain main game loop
 	}
 	public void tickChange(){
 		//testman.setXPos(testman.getXPos() + 1);
-		testman.changeMove();
+		if(!detector.willCollide(testman, wall1)) {
+			testman.changeMove();
+		}
+		else if(detector.willCollide(testman, wall1)) {
+			testman.setXPos(testman.getXPos()+1);
+		}
 	}
 }

@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 
-<<<<<<< HEAD
-
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="483.0" layoutX="161.0" layoutY="111.0" stroke="BLACK" strokeType="INSIDE" width="53.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="483.0" layoutX="631.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-   </children>
-</AnchorPane>
-=======
-<AnchorPane fx:id="tMap" prefHeight="768" prefWidth="1024.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" />
->>>>>>> remotes/origin/blockingWithChangeMove
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" />
