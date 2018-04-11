@@ -72,31 +72,31 @@ public class GameController { // Class to contain main game loop
 
 
 			//border
-			mapPath.add(new Rectangle(0, 0, pixelScale, 16 * pixelScale));
-			mapPath.add(new Rectangle(0, 0, 16 * pixelScale, pixelScale));
-			mapPath.add(new Rectangle(0, 15 * pixelScale, 16 * pixelScale, pixelScale));
-			mapPath.add(new Rectangle(15 * pixelScale, 0, pixelScale, 16 * pixelScale));
+			mapPath.add(new Rectangle(0, 0, pixelScale - 8, 16 * pixelScale));
+			mapPath.add(new Rectangle(0, 0, 16 * pixelScale, pixelScale - 8));
+			mapPath.add(new Rectangle(0, 15 * pixelScale + 8, 16 * pixelScale, pixelScale - 8));
+			mapPath.add(new Rectangle(15 * pixelScale + 8, 0, pixelScale - 8, 16 * pixelScale));
 			//top row
-			mapPath.add(new Rectangle(2 * pixelScale, 2 * pixelScale, 3 * pixelScale, pixelScale));
-			mapPath.add(new Rectangle(6 * pixelScale, 2 * pixelScale, 4 * pixelScale, pixelScale));
-			mapPath.add(new Rectangle(11 * pixelScale, 2 * pixelScale, 3 * pixelScale, pixelScale));
+			mapPath.add(new Rectangle(2 * pixelScale + 8, 2 * pixelScale + 8, 3 * pixelScale - 8, pixelScale - 8));
+			mapPath.add(new Rectangle(6 * pixelScale + 8, 2 * pixelScale + 8, 4 * pixelScale - 8, pixelScale - 8));
+			mapPath.add(new Rectangle(11 * pixelScale + 8, 2 * pixelScale + 8, 3 * pixelScale - 8, pixelScale - 8));
 			//rest of map
-			mapPath.add(new Rectangle(2 * pixelScale, 4 * pixelScale, 4 * pixelScale, 3 * pixelScale));
-			mapPath.add(new Rectangle(7 * pixelScale, 4 * pixelScale, 2 * pixelScale, 3 * pixelScale));
-			mapPath.add(new Rectangle(10 * pixelScale, 4 * pixelScale, 4 * pixelScale, 3 * pixelScale));
+			mapPath.add(new Rectangle(2 * pixelScale + 8, 4 * pixelScale + 8, 4 * pixelScale - 8, 3 * pixelScale - 8));
+			mapPath.add(new Rectangle(7 * pixelScale + 8, 4 * pixelScale + 8, 2 * pixelScale - 8, 3 * pixelScale - 8));
+			mapPath.add(new Rectangle(10 * pixelScale + 8, 4 * pixelScale + 8, 4 * pixelScale - 8, 3 * pixelScale - 8));
 
-			mapPath.add(new Rectangle(2 * pixelScale, 8 * pixelScale, 3 * pixelScale, pixelScale));
-			mapPath.add(new Rectangle(6 * pixelScale, 8 * pixelScale, pixelScale, 3 * pixelScale));
-			mapPath.add(new Rectangle(9 * pixelScale, 8 * pixelScale, pixelScale, 3 * pixelScale));
-			mapPath.add(new Rectangle(11 * pixelScale, 8 * pixelScale, 3 * pixelScale, pixelScale));
+			mapPath.add(new Rectangle(2 * pixelScale + 8, 8 * pixelScale + 8, 3 * pixelScale - 8, pixelScale - 8));
+			mapPath.add(new Rectangle(6 * pixelScale + 8, 8 * pixelScale + 8, pixelScale - 8, 2 * pixelScale - 8));
+			mapPath.add(new Rectangle(9 * pixelScale + 8, 8 * pixelScale + 8, pixelScale - 8, 2 * pixelScale - 8));
+			mapPath.add(new Rectangle(11 * pixelScale + 8, 8 * pixelScale + 8, 3 * pixelScale - 8, pixelScale - 8));
 
-			mapPath.add(new Rectangle(4 * pixelScale, 9 * pixelScale, pixelScale, 2 * pixelScale));
-			mapPath.add(new Rectangle(7 * pixelScale, 10 * pixelScale, 2 * pixelScale, pixelScale));
-			mapPath.add(new Rectangle(11 * pixelScale, 9 * pixelScale, pixelScale, 2 * pixelScale));
+			mapPath.add(new Rectangle(4 * pixelScale + 8, 9 * pixelScale - 8, pixelScale - 8, 2 * pixelScale));
+			mapPath.add(new Rectangle(6 * pixelScale + 8, 10 * pixelScale - 8, 4 * pixelScale - 8, pixelScale));
+			mapPath.add(new Rectangle(11 * pixelScale + 8, 9 * pixelScale - 8, pixelScale - 8, 2 * pixelScale));
 
-			mapPath.add(new Rectangle(2 * pixelScale, 10 * pixelScale, pixelScale, 4 * pixelScale));
-			mapPath.add(new Rectangle(4 * pixelScale, 12 * pixelScale, 8 * pixelScale, 2 * pixelScale));
-			mapPath.add(new Rectangle(13 * pixelScale, 10 * pixelScale, pixelScale, 4 * pixelScale));
+			mapPath.add(new Rectangle(2 * pixelScale + 8, 10 * pixelScale + 8, pixelScale - 8, 4 * pixelScale - 8));
+			mapPath.add(new Rectangle(4 * pixelScale + 8, 12 * pixelScale + 8, 8 * pixelScale - 8, 2 * pixelScale - 8));
+			mapPath.add(new Rectangle(13 * pixelScale + 8, 10 * pixelScale + 8, pixelScale - 8, 4 * pixelScale - 8));
 
 
 //			mapPath.add(new Rectangle(288, 384, 48, 144));
@@ -107,7 +107,7 @@ public class GameController { // Class to contain main game loop
 			rootLayout.getChildren().addAll(mapPath);
 
             //mapPath.add(new Rectangle(0, 0, 32, 768));
-            testman = new TestMan(rootLayout, 300, 300, true, 46, 46);
+            testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale, true, 43, 43);
             testman.addToLayer();
             testman.updateUI();
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
@@ -183,22 +183,22 @@ public class GameController { // Class to contain main game loop
 		}
 		else if(detector.scanCollisions(testman, mapPath)) {
 			if(testman.getDx() > 0) {
-				testman.setXPos(testman.getXPos() - 5);
+				testman.setXPos(testman.getXPos() - 6);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 			else if(testman.getDx() < 0) {
-				testman.setXPos(testman.getXPos() + 5);
+				testman.setXPos(testman.getXPos() + 6);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 			else if(testman.getDy() > 0) {
-				testman.setYPos(testman.getYPos() - 5);
+				testman.setYPos(testman.getYPos() - 6);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 			else if(testman.getDy() < 0) {
-				testman.setYPos(testman.getYPos() + 5);
+				testman.setYPos(testman.getYPos() + 6);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
