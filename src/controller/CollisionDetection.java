@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
+
+import javafx.geometry.Rectangle2D;
 import model.Barrier;
 import model.TestMan;
 import model.Character;
@@ -9,11 +12,21 @@ import model.Character;
 
 public class CollisionDetection {
 	
-	public boolean willCollide(Character mover, Barrier blocker) {
-		if(mover.getBoundary().intersects(blocker.getBoundary())) {
-			return true;
+	public boolean scanCollisions(Character mover, ArrayList<Rectangle2D> rectangle) {
+		for(Rectangle2D x:rectangle) {
+			if(mover.getBoundary().intersects(x)) {
+				return true;
+			}
 		}
-		
+		return false;
+	}
+	
+	public boolean willCollide(Character mover, ArrayList<Rectangle2D> rectangle) {
+		for(Rectangle2D x:rectangle) {
+			if(mover.getBoundary().intersects(x)) {
+				return true;
+			}
+		}
 		return false;
 	}
 

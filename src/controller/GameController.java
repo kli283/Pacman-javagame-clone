@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -22,8 +23,9 @@ public class GameController { // Class to contain main game loop
 	
 	private AnchorPane rootLayout;
 	TestMan testman;
-	private double charSpeed = 5;
+	private double charSpeed = 2;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
+	private ArrayList<Rectangle2D> wallsList = new ArrayList<>();
 
 //	Rectangle rect1;
 //	Rectangle rect2;
@@ -32,7 +34,8 @@ public class GameController { // Class to contain main game loop
 
 
     CollisionDetection detector = new CollisionDetection();
-    Barrier wall1;
+    Rectangle2D wall1;
+    Rectangle2D wall2;
 	
 
 	public GameController(Stage mainStage) {
@@ -72,16 +75,20 @@ public class GameController { // Class to contain main game loop
 			mapPath.add(new Rectangle(0, 0, 768, 32));
 			mapPath.add(new Rectangle(0, 736, 768, 32));
 			mapPath.add(new Rectangle(736, 0, 32, 768));
+			mapPath.add(new Rectangle(200, 200, 50, 10));
+			mapPath.add(new Rectangle(400, 500, 20, 20));
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
 			rootLayout.getChildren().addAll(mapPath);
 
             //mapPath.add(new Rectangle(0, 0, 32, 768));
-            testman = new TestMan(rootLayout, 300, 300, true, 50, 50);
+            testman = new TestMan(rootLayout, 300, 300, true, 30, 30);
             testman.addToLayer();
             testman.updateUI();
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
-			wall1 = new Barrier(50, 10, 200, 200, rootLayout);
-			wall1.addToLayer();
+			wall1 = new Rectangle2D(200, 200, 50, 10);
+			wall2 = new Rectangle2D(400, 500, 20, 20);
+			wallsList.add(wall1);
+			wallsList.add(wall2);
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
 
@@ -143,7 +150,6 @@ public class GameController { // Class to contain main game loop
 					// TODO Put graphics drawing classes, methods what-have-you in here.
 					// 		Move this into an appropriate view class.
 					testman.updateUI();
-					wall1.updateUI();
 				}
     			
     		}.start();
@@ -155,10 +161,10 @@ public class GameController { // Class to contain main game loop
 	}
 	public void tickChange(){
 		//testman.setXPos(testman.getXPos() + 1);
-		if(!detector.willCollide(testman, wall1)) {
+		if(!detector.scanCollisions(testman, wallsList)) {
 			testman.changeMove();
 		}
-		else if(detector.willCollide(testman, wall1)) {
+		else if(detector.scanCollisions(testman, wallsList)) {
 			if(testman.getDx() > 0) {
 				testman.setXPos(testman.getXPos() - 5);
 				testman.setDx(0);
