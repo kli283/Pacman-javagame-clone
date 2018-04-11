@@ -23,9 +23,10 @@ public class GameController { // Class to contain main game loop
 	
 	private AnchorPane rootLayout;
 	TestMan testman;
-	private double charSpeed = 2;
+	private double charSpeed = 5;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
 	private ArrayList<Rectangle2D> wallsList = new ArrayList<>();
+	double pixelScale = 48;
 
 //	Rectangle rect1;
 //	Rectangle rect2;
@@ -70,25 +71,52 @@ public class GameController { // Class to contain main game loop
 //			rect4.setStroke(Color.BLACK);
 
 
+			//border
+			mapPath.add(new Rectangle(0, 0, pixelScale, 16 * pixelScale));
+			mapPath.add(new Rectangle(0, 0, 16 * pixelScale, pixelScale));
+			mapPath.add(new Rectangle(0, 15 * pixelScale, 16 * pixelScale, pixelScale));
+			mapPath.add(new Rectangle(15 * pixelScale, 0, pixelScale, 16 * pixelScale));
+			//top row
+			mapPath.add(new Rectangle(2 * pixelScale, 2 * pixelScale, 3 * pixelScale, pixelScale));
+			mapPath.add(new Rectangle(6 * pixelScale, 2 * pixelScale, 4 * pixelScale, pixelScale));
+			mapPath.add(new Rectangle(11 * pixelScale, 2 * pixelScale, 3 * pixelScale, pixelScale));
+			//rest of map
+			mapPath.add(new Rectangle(2 * pixelScale, 4 * pixelScale, 4 * pixelScale, 3 * pixelScale));
+			mapPath.add(new Rectangle(7 * pixelScale, 4 * pixelScale, 2 * pixelScale, 3 * pixelScale));
+			mapPath.add(new Rectangle(10 * pixelScale, 4 * pixelScale, 4 * pixelScale, 3 * pixelScale));
 
-			mapPath.add(new Rectangle(0, 0, 32, 768));
-			mapPath.add(new Rectangle(0, 0, 768, 32));
-			mapPath.add(new Rectangle(0, 736, 768, 32));
-			mapPath.add(new Rectangle(736, 0, 32, 768));
-			mapPath.add(new Rectangle(200, 200, 50, 10));
-			mapPath.add(new Rectangle(400, 500, 20, 20));
+			mapPath.add(new Rectangle(2 * pixelScale, 8 * pixelScale, 3 * pixelScale, pixelScale));
+			mapPath.add(new Rectangle(6 * pixelScale, 8 * pixelScale, pixelScale, 3 * pixelScale));
+			mapPath.add(new Rectangle(9 * pixelScale, 8 * pixelScale, pixelScale, 3 * pixelScale));
+			mapPath.add(new Rectangle(11 * pixelScale, 8 * pixelScale, 3 * pixelScale, pixelScale));
+
+			mapPath.add(new Rectangle(4 * pixelScale, 9 * pixelScale, pixelScale, 2 * pixelScale));
+			mapPath.add(new Rectangle(7 * pixelScale, 10 * pixelScale, 2 * pixelScale, pixelScale));
+			mapPath.add(new Rectangle(11 * pixelScale, 9 * pixelScale, pixelScale, 2 * pixelScale));
+
+			mapPath.add(new Rectangle(2 * pixelScale, 10 * pixelScale, pixelScale, 4 * pixelScale));
+			mapPath.add(new Rectangle(4 * pixelScale, 12 * pixelScale, 8 * pixelScale, 2 * pixelScale));
+			mapPath.add(new Rectangle(13 * pixelScale, 10 * pixelScale, pixelScale, 4 * pixelScale));
+
+
+//			mapPath.add(new Rectangle(288, 384, 48, 144));
+//			mapPath.add(new Rectangle(432, 384, 48, 144));
+//			mapPath.add(new Rectangle(528, 384, 144, 48));
+
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
 			rootLayout.getChildren().addAll(mapPath);
 
             //mapPath.add(new Rectangle(0, 0, 32, 768));
-            testman = new TestMan(rootLayout, 300, 300, true, 30, 30);
+            testman = new TestMan(rootLayout, 300, 300, true, 46, 46);
             testman.addToLayer();
             testman.updateUI();
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
-			wall1 = new Rectangle2D(200, 200, 50, 10);
-			wall2 = new Rectangle2D(400, 500, 20, 20);
-			wallsList.add(wall1);
-			wallsList.add(wall2);
+//			wall1 = new Rectangle2D(200, 200, 50, 10);
+//			wall2 = new Rectangle2D(400, 500, 20, 20);
+			wallsList.add(new Rectangle2D(0, 0, 48, 768));
+			wallsList.add(new Rectangle2D(0, 0, 768, 48));
+			wallsList.add(new Rectangle2D(0, 720, 768, 48));
+			wallsList.add(new Rectangle2D(720, 0, 48, 768));
           //Initialise ArrayList to store currently pressed keys
             ArrayList<String> input = new ArrayList<String>();
 
