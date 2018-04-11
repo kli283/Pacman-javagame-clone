@@ -25,12 +25,13 @@ public class GameController { // Class to contain main game loop
 	private AnchorPane rootLayout;
 	TestMan testman;
 	TestCoin testCoin;
+	TestWall testWall;
 	private double charSpeed = 5;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
-	double pixelScale = 48;
+	private int pixelScale = 48;
 	double coinPosX;
 	double coinPosY;
-
+	private int levelWidth;
 
 //	Rectangle rect1;
 //	Rectangle rect2;
@@ -46,7 +47,32 @@ public class GameController { // Class to contain main game loop
 	public GameController(Stage mainStage) {
 
 		initGameController(mainStage);
-	
+		initMap();
+	}
+
+	private void initMap(){
+		Rectangle levelBackground = new Rectangle(768, 768);
+
+		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
+
+		for (int i = 0; i < LevelData.LEVEL1.length; i++){
+			String line = LevelData.LEVEL1[i];
+			for (int j = 0; j < line.length(); j++){
+				switch (line.charAt(j)){
+					case '0':
+						testWall = new TestWall(rootLayout, j*pixelScale, i*pixelScale);
+						testWall.addToLayer();
+						testWall.updateUI();
+						break;
+					case '1':
+						testCoin = new TestCoin(rootLayout, j*pixelScale + 8, i*pixelScale + 8);
+						testCoin.addToLayer();
+						testCoin.updateUI();
+						break;
+				}
+			}
+		}
+		//rootLayout.getChildren().add(levelBackground);
 	}
 	
 	// Get the controller up and running
@@ -123,9 +149,9 @@ public class GameController { // Class to contain main game loop
 //					coinPosY = coinPosY + pixelScale + 8;
 //				}
 //			}
-			testCoin = new TestCoin(rootLayout, pixelScale + 8, pixelScale + 8);
-			testCoin.addToLayer();
-			testCoin.updateUI();
+			//testCoin = new TestCoin(rootLayout, pixelScale + 8, pixelScale + 8);
+			//testCoin.addToLayer();
+			//testCoin.updateUI();
             //mapPath.add(new Rectangle(0, 0, 32, 768));
             testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 35, 35);
             testman.addToLayer();
