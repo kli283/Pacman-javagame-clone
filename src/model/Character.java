@@ -77,8 +77,8 @@ public class Character {
 	}
 
 	//Returns a rectangle for use with CollisionDetection
-	public Rectangle2D getBoundary() {
-		return new Rectangle2D(getXPos(), getYPos(), width, height);
+	public Rectangle getBoundary() {
+		return new Rectangle(getXPos(), getYPos(), width, height);
 	}
 	
 	public void setImage(String string) {
