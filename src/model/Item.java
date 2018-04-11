@@ -42,7 +42,5 @@ public class Item {
 	
 	public Rectangle getBoundary() {
 		return new Rectangle(this.xPos, this.yPos, this.width, this.height);
-	}
-	
-	
+	}	
 }

@@ -23,7 +23,7 @@ public class GameController { // Class to contain main game loop
 	
 	private AnchorPane rootLayout;
 	TestMan testman;
-	private double charSpeed = 5;
+	private double charSpeed = 2;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
 	double pixelScale = 48;
 
@@ -181,27 +181,27 @@ public class GameController { // Class to contain main game loop
 		if(!detector.scanCollisions(testman, mapPath)) {
 			testman.changeMove();
 		}
-		else if(detector.scanCollisions(testman, mapPath)) {
-			if(testman.getDx() > 0) {
-				testman.setXPos(testman.getXPos() - 6);
-				testman.setDx(0);
-				testman.setDy(0);
-			}
-			else if(testman.getDx() < 0) {
-				testman.setXPos(testman.getXPos() + 6);
-				testman.setDx(0);
-				testman.setDy(0);
-			}
-			else if(testman.getDy() > 0) {
-				testman.setYPos(testman.getYPos() - 6);
-				testman.setDx(0);
-				testman.setDy(0);
-			}
-			else if(testman.getDy() < 0) {
-				testman.setYPos(testman.getYPos() + 6);
-				testman.setDx(0);
-				testman.setDy(0);
-			}
-		}
+		//else if(detector.scanCollisions(testman, mapPath)) {
+//			if(testman.getDx() > 0) {
+				//testman.setXPos(testman.getXPos() - 2);
+			//	testman.setDx(0);
+				//testman.setDy(0);
+			//}
+//			else if(testman.getDx() < 0) {
+//				//testman.setXPos(testman.getXPos() + 2);
+//				testman.setDx(0);
+//				testman.setDy(0);
+//			}
+//			else if(testman.getDy() > 0) {
+//				//testman.setYPos(testman.getYPos() - 2);
+//				testman.setDx(0);
+//				testman.setDy(0);
+//			}
+//			else if(testman.getDy() < 0) {
+//				//testman.setYPos(testman.getYPos() + 2);
+//				testman.setDx(0);
+//				testman.setDy(0);
+//			}
+		//}
 	}
 }
