@@ -29,9 +29,10 @@ public class GameController { // Class to contain main game loop
 	TestCoin testCoin;
 	TestWall testWall;
 	TestRobber testRobber;
-	private double playerSpeed = 1;
-	private double robberSpeed = 5;
-	private ArrayList mapPath = new ArrayList<Rectangle>();
+	private double playerSpeed = 3;
+	private double robberSpeed = 1;
+	private ArrayList<Rectangle> mapPath = new ArrayList<Rectangle>();
+	@SuppressWarnings("rawtypes")
 	private ArrayList charList = new ArrayList<Character>();
 	private int pixelScale = 48;
 	double coinPosX;

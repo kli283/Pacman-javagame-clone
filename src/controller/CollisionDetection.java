@@ -45,7 +45,7 @@ public class CollisionDetection {
 	public boolean checkUp(Character mover, ArrayList<Rectangle> rectangle) {
 		for(Rectangle x:rectangle) {
 			Rectangle intendedMove = mover.getBoundary();
-			intendedMove.setY(intendedMove.getY() - 1);
+			intendedMove.setY(intendedMove.getY() - mover.getPlayerSpeed());
 			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
 				return true;
 			}
@@ -56,7 +56,7 @@ public class CollisionDetection {
 	public boolean checkDown(Character mover, ArrayList<Rectangle> rectangle) {
 		for(Rectangle x:rectangle) {
 			Rectangle intendedMove = mover.getBoundary();
-			intendedMove.setY(intendedMove.getY() + 1);
+			intendedMove.setY(intendedMove.getY() + mover.getPlayerSpeed());
 			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
 				return true;
 			}
@@ -67,7 +67,7 @@ public class CollisionDetection {
 	public boolean checkLeft(Character mover, ArrayList<Rectangle> rectangle) {
 		for(Rectangle x:rectangle) {
 			Rectangle intendedMove = mover.getBoundary();
-			intendedMove.setX(intendedMove.getX() - 1);
+			intendedMove.setX(intendedMove.getX() - mover.getPlayerSpeed());
 			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
 				return true;
 			}
@@ -78,7 +78,7 @@ public class CollisionDetection {
 	public boolean checkRight(Character mover, ArrayList<Rectangle> rectangle) {
 		for(Rectangle x:rectangle) {
 			Rectangle intendedMove = mover.getBoundary();
-			intendedMove.setX(intendedMove.getX() + 1);
+			intendedMove.setX(intendedMove.getX() + mover.getPlayerSpeed());
 			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
 				return true;
 			}
