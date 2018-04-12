@@ -13,6 +13,8 @@ import model.Character;
 
 public class CollisionDetection {
 	
+	
+	//This method is called by the game controller and checks if characters can make moves without going through walls
 	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls) {
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
@@ -86,6 +88,7 @@ public class CollisionDetection {
 		return false;
 	}
 	
+	//Old logic for collisions, checks all 4 directions so has issues with moving parallel to walls
 	public boolean willCollide(Character mover, ArrayList<Rectangle> rectangle) {
 		for(Rectangle x:rectangle) {
 			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
