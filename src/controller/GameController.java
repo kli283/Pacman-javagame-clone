@@ -76,7 +76,7 @@ public class GameController { // Class to contain main game loop
 						testWall.updateUI();
 						break;
 					case '1':
-						itemList.add(testCoin = new TestCoin(rootLayout, j*pixelScale + 15, i*pixelScale + 15));
+						coinList.add(testCoin = new TestCoin(rootLayout, j*pixelScale + 15, i*pixelScale + 15));
 						testCoin.addToLayer();
 						testCoin.updateUI();
 						break;
@@ -286,7 +286,7 @@ public class GameController { // Class to contain main game loop
 
 	}
 	public void tickChange(){
-		detector.scanCollisions(charList, mapPath);
+		detector.scanCollisions(charList, mapPath, coinList);
 		
 		testman.changeMove();
 		testRobber.changeMove();

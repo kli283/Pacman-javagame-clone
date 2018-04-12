@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 import model.Barrier;
 import model.TestMan;
 import model.Character;
+import model.TestCoin;
 
 //this class will check if a move is valid
 // i.e there is no obstacle or boundary in the way of the intended move
@@ -14,8 +15,9 @@ import model.Character;
 public class CollisionDetection {
 	
 	
-	//This method is called by the game controller and checks if characters can make moves without going through walls
-	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls) {
+	//This method is called by the game controller and checks if characters can make moves without going through walls, 
+	//and removes items if collected
+	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<TestCoin> coinList) {
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
 				x.setDy(-x.getPlayerSpeed());
@@ -40,6 +42,15 @@ public class CollisionDetection {
 			}
 			else if((x.getDy() < 0) && (this.checkUp(x, listOfWalls))) {
 				x.setDy(0);
+			}
+		}
+		for(Character x:movers) {
+			if(x.canPickupItems()) {
+				for(TestCoin y:coinList) {
+					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
+						y.removeFromLayer();
+					}
+				}
 			}
 		}
 	}

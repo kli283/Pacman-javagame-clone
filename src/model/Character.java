@@ -21,8 +21,10 @@ public class Character {
 	private double dy;
 	private double height;
 	private double width;
-	boolean isPlayer1; // determines if AI or human. change to int for MP?
-	boolean isPlayer2;
+	boolean isPlayer1 = false; // determines if GoldGirl is AI or human. 
+	boolean isPlayer2 = false; // determines if char is human controlled ghost
+	boolean isPlayer3 = false; // determines if char is human controlled ghost
+	boolean canPickupItems = false;
 	boolean UP;
 	boolean DOWN;
 	boolean LEFT;
@@ -33,7 +35,7 @@ public class Character {
 		this.layer = layer;
 		setXPos(xStart);
 		setYPos(yStart);
-		this.isPlayer1 = isPlayer;
+		this.canPickupItems = isPlayer;
 		this.height = setHeight;
 		this.width = setWidth;
 		this.playerSpeed = playerSpeed;
@@ -50,9 +52,12 @@ public class Character {
 		setYPos(getYPos() + dy);
 	}
 	
-	public boolean checkIfHuman() {
+	public boolean canPickupItems() {
+		if(this.canPickupItems) {
+			return true;
+		}
 		
-		return true;
+		return false;
 	}
 	
 	public double getPlayerSpeed() {
