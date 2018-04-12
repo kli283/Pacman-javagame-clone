@@ -11,14 +11,16 @@ public class Item {
 	private double yPos;
 	private double height;
 	private double width;
+	private int score;
 	private Image image;
 	private ImageView imageView;
 	AnchorPane layer;
 
-	public Item(AnchorPane layer, double xPos, double yPos) {
+	public Item(AnchorPane layer, double xPos, double yPos, int score) {
 		this.layer = layer;
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.score = score;
 	}
 	
 	public double getXPos() {
@@ -28,7 +30,7 @@ public class Item {
 	public void setXPos(double xPos) {
 		this.xPos = xPos;
 	}
-	
+
 	public double getYPos() {
 		return this.yPos;
 	}
@@ -55,6 +57,14 @@ public class Item {
 
 	public ImageView getImageView() {
 		return imageView;
+	}
+
+	public int getScore() {
+		return this.score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 	
 }

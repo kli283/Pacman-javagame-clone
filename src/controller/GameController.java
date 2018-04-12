@@ -8,8 +8,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.Barrier;
 import model.Item;
@@ -34,7 +36,7 @@ public class GameController { // Class to contain main game loop
 	TestWall testWall;
 	TestRobber testRobber;
 	private double playerSpeed = 3;
-	private double robberSpeed = 1;
+	private double robberSpeed = 2;
 	private ArrayList<Rectangle> mapPath = new ArrayList<Rectangle>();
 	@SuppressWarnings("rawtypes")
 	private ArrayList charList = new ArrayList<Character>();
@@ -44,6 +46,7 @@ public class GameController { // Class to contain main game loop
 	double coinPosY;
 	private int levelWidth;
 	private GameModes gameModes;
+	private Label scoreLabel;
 //	Rectangle rect1;
 //	Rectangle rect2;
 //	Rectangle rect3;
@@ -61,7 +64,8 @@ public class GameController { // Class to contain main game loop
 		initMap();
 		initPlayer();
 		initRobber();
-		robberMovement();
+		//robberMovement();
+		initMoney();
 	}
 
 	private void initMap(){
@@ -79,7 +83,7 @@ public class GameController { // Class to contain main game loop
 						testWall.updateUI();
 						break;
 					case '1':
-						coinList.add(testCoin = new TestCoin(rootLayout, j*pixelScale + 15, i*pixelScale + 15));
+						coinList.add(testCoin = new TestCoin(rootLayout, j*pixelScale + 15, i*pixelScale + 15, 2));
 						testCoin.addToLayer();
 						testCoin.updateUI();
 						break;
@@ -121,8 +125,8 @@ public class GameController { // Class to contain main game loop
 			testRobber.setDy(0);
 		}
 		testRobber.updateUI();
-		System.out.println("Direction: " + countDirection);
-		System.out.println("Timer: " + countTimer);
+		//System.out.println("Direction: " + countDirection);
+		//System.out.println("Timer: " + countTimer);
 	}
 	
 	// Get the controller up and running
@@ -187,7 +191,7 @@ public class GameController { // Class to contain main game loop
 			rootLayout.getChildren().addAll(mapPath);
 
 //TESTING GAME MODE
-			if(MenuControl.mode == GameModes.SinglePlayer) {
+
 
 				//Initialise ArrayList to store currently pressed keys
 				ArrayList<String> input = new ArrayList<String>();
@@ -254,18 +258,88 @@ public class GameController { // Class to contain main game loop
 					}
 
 				}.start();
+			if(MenuControl.mode == GameModes.MultiPlayer1) {
+				ArrayList<String> inputMulti1 = new ArrayList<String>();
+
+				//Initialise EventHandler to listen for key presses, add them to input ArrayList, and when they are released remove them
+				scene.setOnKeyPressed(
+						new EventHandler<KeyEvent>() {
+							public void handle(KeyEvent e) {
+								String code = e.getCode().toString();
+								if (!inputMulti1.contains(code)) {
+									inputMulti1.add(code);
+									if (inputMulti1.contains("W")) {
+										System.out.println("Move Up");
+										testRobber.setUP(true);
+									} else {
+										testRobber.setUP(false);
+									}
+									if (inputMulti1.contains("D")) {
+										System.out.println("Move Right");
+										testRobber.setRIGHT(true);
+
+									} else {
+										testRobber.setRIGHT(false);
+									}
+									if (inputMulti1.contains("S")) {
+										testRobber.setDOWN(true);
+										System.out.println("Move Down");
+
+									} else {
+										testRobber.setDOWN(false);
+									}
+									if (inputMulti1.contains("A")) {
+										System.out.println("Move Left");
+										testRobber.setLEFT(true);
+									}
+								}
+							}
+						});
+				scene.setOnKeyReleased(
+						new EventHandler<KeyEvent>() {
+							public void handle(KeyEvent e) {
+								String code = e.getCode().toString();
+								if (code == "A") {
+									testRobber.setLEFT(false);
+								} else if (code == "D") {
+									testRobber.setRIGHT(false);
+								} else if (code == "W") {
+									testRobber.setUP(false);
+								} else if (code == "S") {
+									testRobber.setDOWN(false);
+								}
+								input.remove(code);
+							}
+						});
+				mainStage.show();
+				new AnimationTimer() {
+
+					public void handle(long currentNanoTime) {
+						// TODO Put graphics drawing classes, methods what-have-you in here.
+						testRobber.updateUI();
+					}
+
+				}.start();
 			}
-    		
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 	}
+	private void initMoney(){
+		scoreLabel = new Label((Integer.toString(CollisionDetection.scoreUpdate)));
+		scoreLabel.setFont(new Font("Comic Sans", 32));
+		scoreLabel.setLayoutX(845);
+		scoreLabel.setLayoutY(96);
+		rootLayout.getChildren().add(scoreLabel);
+	}
+
 	public void tickChange(){
 		detector.scanCollisions(charList, mapPath, coinList);
-		
 		testman.changeMove();
 		testRobber.changeMove();
-		robberMovement();
+		//robberMovement();
+		scoreLabel.setText(("$" + Integer.toString(CollisionDetection.scoreUpdate)));
+		//System.out.println(CollisionDetection.scoreUpdate);
 	}
 }

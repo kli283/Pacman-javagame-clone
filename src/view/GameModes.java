@@ -1,5 +1,5 @@
 package view;
 
 public enum GameModes {
-    SinglePlayer, MultiPlayer
+    SinglePlayer, MultiPlayer1, MultiPlayer2
 }

@@ -13,8 +13,8 @@ import model.TestCoin;
 // i.e there is no obstacle or boundary in the way of the intended move
 
 public class CollisionDetection {
-	
-	
+
+	public static int scoreUpdate = 0;
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
 	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<TestCoin> coinList) {
@@ -44,14 +44,22 @@ public class CollisionDetection {
 				x.setDy(0);
 			}
 		}
+		ArrayList<TestCoin> tempCoin = new ArrayList<TestCoin>();
 		for(Character x:movers) {
 			if(x.canPickupItems()) {
 				for(TestCoin y:coinList) {
 					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
 						y.removeFromLayer();
+						tempCoin.add(y);
+
 					}
 				}
 			}
+		}
+		for (TestCoin coin : tempCoin){
+			coinList.remove(coin);
+			scoreUpdate += coin.getScore();
+			System.out.println(scoreUpdate);
 		}
 	}
 	

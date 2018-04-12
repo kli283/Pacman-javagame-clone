@@ -42,6 +42,10 @@ public class MenuControl {
     private Button storyButton;
     @FXML
     private Button mapSelectButton;
+    @FXML
+    private Button oneButton;
+    @FXML
+    private Button twoButton;
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
@@ -101,6 +105,17 @@ public class MenuControl {
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
             System.out.print("MPSelected" + "\n");
+        }
+        else if (event.getSource() == oneButton) {
+            this.mode = GameModes.MultiPlayer1;
+            gControl = new GameController(MainApp.gameStage);
+            //gameImages = new Images(gameRoot);
+            //gameRoot.getChildren().add(gameImages.getBackground());
+        }
+        else if (event.getSource() == twoButton) {
+            gControl = new GameController(MainApp.gameStage);
+            //gameImages = new Images(gameRoot);
+            //gameRoot.getChildren().add(gameImages.getBackground());
         }
         else if (event.getSource() == backButton) {
             MainApp.gameStage = (Stage) backButton.getScene().getWindow();
