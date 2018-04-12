@@ -80,7 +80,7 @@ public class GameController { // Class to contain main game loop
 		//rootLayout.getChildren().add(levelBackground);
 	}
 	private void initPlayer(){
-		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 35, 35);
+		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 50, 50);
 		testman.addToLayer();
 		testman.updateUI();
 	}
@@ -187,9 +187,6 @@ public class GameController { // Class to contain main game loop
 	    							if(input.contains("UP")) {
 	    								System.out.println("Move Up");
 	    								testman.setUP(true);
-	    								//testman.setDx(0);
-	    								//testman.setDy(-playerSpeed);
-	    								//input.remove(code);
 	    							}
 	    							else {
 	    								testman.setUP(false);
@@ -197,9 +194,6 @@ public class GameController { // Class to contain main game loop
 	    							if(input.contains("RIGHT")) {
 	    								System.out.println("Move Right");
 	    								testman.setRIGHT(true);
-										//testman.setDx(playerSpeed);
-										//testman.setDy(0);
-	    								//input.remove(code);
 										
 	    							}
 	    							else {
@@ -208,9 +202,6 @@ public class GameController { // Class to contain main game loop
 	    							if(input.contains("DOWN")) {
 	    								testman.setDOWN(true);
 	    								System.out.println("Move Down");
-										//testman.setDx(0);
-										//testman.setDy(playerSpeed);
-	    								//input.remove(code);
 										
 	    							}
 	    							else {
@@ -219,8 +210,6 @@ public class GameController { // Class to contain main game loop
 	    							if(input.contains("LEFT")){
 	    								System.out.println("Move Left");
 	    								testman.setLEFT(true);
-										//testman.setDx(-playerSpeed);
-										//testman.setDy(0);
 	    							}
     							}
     						}
