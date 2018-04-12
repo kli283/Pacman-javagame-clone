@@ -8,6 +8,7 @@ public class TestMan extends Character {
 		super(layer, xStart, yStart, isPlayer, setHeight, setWidth, playerSpeed);
 		
 		this.setImage("/model/newTestHat.png");
+		this.isPlayer1 = true;
 	}
 	
 	public void addToLayer() {
