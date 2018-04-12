@@ -27,14 +27,16 @@ public class Character {
 	boolean DOWN;
 	boolean LEFT;
 	boolean RIGHT;
+	double playerSpeed;
 	
-	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth) {
+	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed) {
 		this.layer = layer;
 		setXPos(xStart);
 		setYPos(yStart);
 		this.isPlayer1 = isPlayer;
 		this.height = setHeight;
 		this.width = setWidth;
+		this.playerSpeed = playerSpeed;
 	}
 
 	public void move(double xMove, double yMove) {//, CollisionDetection detector) {
@@ -46,6 +48,10 @@ public class Character {
 	public void changeMove() {
 		setXPos(getXPos() + dx);
 		setYPos(getYPos() + dy);
+	}
+	
+	public double getPlayerSpeed() {
+		return this.playerSpeed;
 	}
 	
 	public void setUP(boolean directionFlag) {

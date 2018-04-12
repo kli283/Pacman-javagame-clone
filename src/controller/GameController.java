@@ -31,7 +31,8 @@ public class GameController { // Class to contain main game loop
 	TestRobber testRobber;
 	private double playerSpeed = 1;
 	private double robberSpeed = 5;
-	private ArrayList<Rectangle> mapPath = new ArrayList<>();
+	private ArrayList mapPath = new ArrayList<Rectangle>();
+	private ArrayList charList = new ArrayList<Character>();
 	private int pixelScale = 48;
 	double coinPosX;
 	double coinPosY;
@@ -84,12 +85,14 @@ public class GameController { // Class to contain main game loop
 		//rootLayout.getChildren().add(levelBackground);
 	}
 	private void initPlayer(){
-		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 50, 50);
+		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 50, 50, playerSpeed);
+		charList.add(testman);
 		testman.addToLayer();
 		testman.updateUI();
 	}
 	private void initRobber(){
-		testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35);
+		testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
+		charList.add(testRobber);
 		testRobber.addToLayer();
 		testRobber.updateUI();
 	}
@@ -280,32 +283,9 @@ public class GameController { // Class to contain main game loop
 
 	}
 	public void tickChange(){
-		if(testman.getUP() && !detector.checkUp(testman, mapPath)) {
-			testman.setDy(-playerSpeed);
-		}
-		if(testman.getDOWN() && !detector.checkDown(testman, mapPath)) {
-			testman.setDy(playerSpeed);
-		}
-		if(testman.getLEFT() && !detector.checkLeft(testman, mapPath)) {
-			testman.setDx(-playerSpeed);
-		}
-		if(testman.getRIGHT() && !detector.checkRight(testman, mapPath)) {
-			testman.setDx(playerSpeed);
-		}
+		detector.scanCollisions(charList, mapPath);
+		
 		testman.changeMove();
-
-		if((testman.getDx() > 0) && (detector.checkRight(testman, mapPath))) {
-			testman.setDx(0);
-		}
-		else if((testman.getDx() < 0)  && (detector.checkLeft(testman, mapPath))) {
-			testman.setDx(0);
-		}
-		else if((testman.getDy() > 0) && (detector.checkDown(testman, mapPath))) {
-			testman.setDy(0);
-		}
-		else if((testman.getDy() < 0) && (detector.checkUp(testman, mapPath))) {
-			testman.setDy(0);
-		}
 		testRobber.changeMove();
 		robberMovement();
 	}
