@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Barrier;
+import model.Item;
 import model.TestCoin;
 import model.TestMan;
 import javafx.scene.paint.Color;
@@ -34,6 +35,7 @@ public class GameController { // Class to contain main game loop
 	private ArrayList<Rectangle> mapPath = new ArrayList<Rectangle>();
 	@SuppressWarnings("rawtypes")
 	private ArrayList charList = new ArrayList<Character>();
+	private ArrayList<TestCoin> coinList = new ArrayList<TestCoin>();
 	private int pixelScale = 48;
 	double coinPosX;
 	double coinPosY;
@@ -74,7 +76,7 @@ public class GameController { // Class to contain main game loop
 						testWall.updateUI();
 						break;
 					case '1':
-						testCoin = new TestCoin(rootLayout, j*pixelScale + 15, i*pixelScale + 15);
+						itemList.add(testCoin = new TestCoin(rootLayout, j*pixelScale + 15, i*pixelScale + 15));
 						testCoin.addToLayer();
 						testCoin.updateUI();
 						break;

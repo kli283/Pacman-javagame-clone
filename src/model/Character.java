@@ -50,6 +50,11 @@ public class Character {
 		setYPos(getYPos() + dy);
 	}
 	
+	public boolean checkIfHuman() {
+		
+		return true;
+	}
+	
 	public double getPlayerSpeed() {
 		return this.playerSpeed;
 	}
