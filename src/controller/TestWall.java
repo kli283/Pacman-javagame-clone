@@ -3,8 +3,8 @@ package controller;
 import javafx.scene.layout.AnchorPane;
 
 public class TestWall extends Box{
-    public TestWall(AnchorPane layer, double xPos, double yPos) {
-        super(layer, xPos, yPos);
+    public TestWall(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
+        super(layer, xPos, yPos, setHeight, setWidth);
 
         this.setImage("/model/TestWall.png");
     }

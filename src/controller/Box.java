@@ -15,10 +15,12 @@ public class Box {
     AnchorPane layer;
 
 
-    public Box(AnchorPane layer, double xPos, double yPos) {
+    public Box(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
         this.layer = layer;
         this.xPos = xPos;
         this.yPos = yPos;
+        this.height = setHeight;
+        this.width = setWidth;
     }
 
     public double getXPos() {
@@ -28,6 +30,7 @@ public class Box {
     public void setXPos(double xPos) {
         this.xPos = xPos;
     }
+
 
     public double getYPos() {
         return this.yPos;
@@ -48,6 +51,7 @@ public class Box {
     public Rectangle getBoundary() {
         return new Rectangle(this.xPos, this.yPos, this.width, this.height);
     }
+
     public void setImage(String string) {
         this.image = new Image(string);
         this.imageView = new ImageView(this.image);
