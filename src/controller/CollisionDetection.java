@@ -22,6 +22,42 @@ public class CollisionDetection {
 		return false;
 	}
 	
+	public boolean checkUp(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkDown(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkLeft(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkRight(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean willCollide(Character mover, ArrayList<Rectangle> rectangle) {
 		for(Rectangle x:rectangle) {
 			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
