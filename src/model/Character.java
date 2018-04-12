@@ -63,6 +63,10 @@ public class Character {
 	public double getPlayerSpeed() {
 		return this.playerSpeed;
 	}
+
+	public void setPlayerSpeed(double speed) {
+		this.playerSpeed = speed;
+	}
 	
 	public void setUP(boolean directionFlag) {
 		this.UP = directionFlag;

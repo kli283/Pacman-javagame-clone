@@ -34,12 +34,12 @@ import java.util.Random;
 public class GameController { // Class to contain main game loop
 
 	private AnchorPane rootLayout;
-	TestMan testman;
-	TestCoin testCoin;
-	TestWall testWall;
-	Car car;
-	TestRobber testRobber;
-	public static double playerSpeed = 3;
+	private TestMan testman;
+	private TestCoin testCoin;
+	private TestWall testWall;
+	private Car car;
+	private TestRobber testRobber;
+	private double playerSpeed = 3;
 	private double robberSpeed = 2;
 	private ArrayList<Rectangle> mapPath = new ArrayList<Rectangle>();
 	@SuppressWarnings("rawtypes")
@@ -62,7 +62,7 @@ public class GameController { // Class to contain main game loop
 //	Rectangle rect4;
 
 
-    CollisionDetection detector = new CollisionDetection();
+    private CollisionDetection detector = new CollisionDetection();
     Rectangle wall1;
     Rectangle wall2;
 
@@ -112,7 +112,7 @@ public class GameController { // Class to contain main game loop
 		//rootLayout.getChildren().add(levelBackground);
 	}
 	private void initPlayer(){
-		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 50, 50, playerSpeed);
+		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 45, 45, playerSpeed);
 		charList.add(testman);
 		testman.addToLayer();
 		testman.updateUI();
@@ -126,19 +126,19 @@ public class GameController { // Class to contain main game loop
 
 	private void robberMovement(){
 		Random rand = new Random();
-		int countDirection = rand.nextInt(4) + 0;
-		int countTimer = rand.nextInt(17) + 0;
-		if (countTimer == 16 && countDirection == 0){
+		int countDirection = rand.nextInt(4);
+		int countTimer = rand.nextInt(33);
+		if (countTimer == 32 && countDirection == 0){
 			testRobber.setDx(0);
-			testRobber.setDy(-playerSpeed);
-		}else if (countTimer == 12 && countDirection == 0){
-			testRobber.setDx(playerSpeed);
+			testRobber.setDy(-robberSpeed);
+		}else if (countTimer == 24 && countDirection == 0){
+			testRobber.setDx(robberSpeed);
 			testRobber.setDy(0);
-		}else if (countTimer == 8 && countDirection == 0){
+		}else if (countTimer == 16 && countDirection == 0){
 			testRobber.setDx(0);
-			testRobber.setDy(playerSpeed);
-		}else if (countTimer == 4 && countDirection == 0){
-			testRobber.setDx(-playerSpeed);
+			testRobber.setDy(robberSpeed);
+		}else if (countTimer == 8 && countDirection == 0){
+			testRobber.setDx(-robberSpeed);
 			testRobber.setDy(0);
 		}
 		testRobber.updateUI();
@@ -355,7 +355,7 @@ public class GameController { // Class to contain main game loop
 		detector.scanCollisions(charList, mapPath, coinList, carList);
 		testman.changeMove();
 		testRobber.changeMove();
-		//robberMovement();
+		robberMovement();
 		scoreLabel.setText(("$" + Integer.toString(CollisionDetection.scoreUpdate)));
 		//System.out.println(CollisionDetection.scoreUpdate);
 	}

@@ -68,6 +68,7 @@ public class CollisionDetection {
 				for(Car y:carList) {
 					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
 						y.removeFromLayer();
+						x.setPlayerSpeed(6);
 						tempCar.add(y);
 
 					}
@@ -76,8 +77,6 @@ public class CollisionDetection {
 		}
 		for (Car car : tempCar){
 			coinList.remove(car);
-			GameController.playerSpeed = 5;
-			System.out.println(GameController.playerSpeed);
 		}
 	}
 	
