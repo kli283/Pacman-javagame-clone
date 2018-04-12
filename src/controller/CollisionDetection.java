@@ -13,13 +13,33 @@ import model.Character;
 
 public class CollisionDetection {
 	
-	public boolean scanCollisions(Character mover, ArrayList<Rectangle> rectangle) {
-		for(Rectangle x:rectangle) {
-			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
-				return true;
+	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls) {
+		for(Character x:movers) {
+			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
+				x.setDy(-x.getPlayerSpeed());
+			}
+			if(x.getDOWN() && !this.checkDown(x, listOfWalls)) {
+				x.setDy(x.getPlayerSpeed());
+			}
+			if(x.getLEFT() && !this.checkLeft(x, listOfWalls)) {
+				x.setDx(-x.getPlayerSpeed());
+			}
+			if(x.getRIGHT() && !this.checkRight(x, listOfWalls)) {
+				x.setDx(x.getPlayerSpeed());
+			}
+			if((x.getDx() > 0) && (this.checkRight(x, listOfWalls))) {
+				x.setDx(0);
+			}
+			else if((x.getDx() < 0)  && (this.checkLeft(x, listOfWalls))) {
+				x.setDx(0);
+			}
+			else if((x.getDy() > 0) && (this.checkDown(x, listOfWalls))) {
+				x.setDy(0);
+			}
+			else if((x.getDy() < 0) && (this.checkUp(x, listOfWalls))) {
+				x.setDy(0);
 			}
 		}
-		return false;
 	}
 	
 	public boolean checkUp(Character mover, ArrayList<Rectangle> rectangle) {
