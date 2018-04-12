@@ -23,6 +23,10 @@ public class Character {
 	private double width;
 	boolean isPlayer1; // determines if AI or human. change to int for MP?
 	boolean isPlayer2;
+	boolean UP;
+	boolean DOWN;
+	boolean LEFT;
+	boolean RIGHT;
 	
 	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth) {
 		this.layer = layer;
@@ -42,6 +46,38 @@ public class Character {
 	public void changeMove() {
 		setXPos(getXPos() + dx);
 		setYPos(getYPos() + dy);
+	}
+	
+	public void setUP(boolean directionFlag) {
+		this.UP = directionFlag;
+	}
+	
+	public boolean getUP() {
+		return this.UP;
+	}
+	
+	public void setDOWN(boolean directionFlag) {
+		this.DOWN = directionFlag;
+	}
+	
+	public boolean getDOWN() {
+		return this.DOWN;
+	}
+	
+	public void setLEFT(boolean directionFlag) {
+		this.LEFT = directionFlag;
+	}
+	
+	public boolean getLEFT() {
+		return this.LEFT;
+	}
+	
+	public void setRIGHT(boolean directionFlag) {
+		this.RIGHT = directionFlag;
+	}
+	
+	public boolean getRIGHT() {
+		return this.RIGHT;
 	}
 	
 	public double getXPos() {

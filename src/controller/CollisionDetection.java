@@ -22,6 +22,50 @@ public class CollisionDetection {
 		return false;
 	}
 	
+	public boolean checkUp(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			Rectangle intendedMove = mover.getBoundary();
+			intendedMove.setY(intendedMove.getY() - 1);
+			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkDown(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			Rectangle intendedMove = mover.getBoundary();
+			intendedMove.setY(intendedMove.getY() + 1);
+			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkLeft(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			Rectangle intendedMove = mover.getBoundary();
+			intendedMove.setX(intendedMove.getX() - 1);
+			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkRight(Character mover, ArrayList<Rectangle> rectangle) {
+		for(Rectangle x:rectangle) {
+			Rectangle intendedMove = mover.getBoundary();
+			intendedMove.setX(intendedMove.getX() + 1);
+			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean willCollide(Character mover, ArrayList<Rectangle> rectangle) {
 		for(Rectangle x:rectangle) {
 			if(mover.getBoundary().intersects(x.getBoundsInParent())) {

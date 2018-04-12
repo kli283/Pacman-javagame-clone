@@ -29,7 +29,7 @@ public class GameController { // Class to contain main game loop
 	TestCoin testCoin;
 	TestWall testWall;
 	TestRobber testRobber;
-	private double playerSpeed = 5;
+	private double playerSpeed = 1;
 	private double robberSpeed = 5;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
 	private int pixelScale = 48;
@@ -84,7 +84,7 @@ public class GameController { // Class to contain main game loop
 		//rootLayout.getChildren().add(levelBackground);
 	}
 	private void initPlayer(){
-		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 35, 35);
+		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 50, 50);
 		testman.addToLayer();
 		testman.updateUI();
 	}
@@ -212,27 +212,30 @@ public class GameController { // Class to contain main game loop
     							input.add(code);    							
 	    							if(input.contains("UP")) {
 	    								System.out.println("Move Up");
-	    								testman.setDx(0);
-	    								testman.setDy(-playerSpeed);
-	    								input.remove(code);
+	    								testman.setUP(true);
+	    							}
+	    							else {
+	    								testman.setUP(false);
 	    							}
 	    							if(input.contains("RIGHT")) {
 	    								System.out.println("Move Right");
-										testman.setDx(playerSpeed);
-										testman.setDy(0);
-	    								input.remove(code);
+	    								testman.setRIGHT(true);
+										
+	    							}
+	    							else {
+	    								testman.setRIGHT(false);
 	    							}
 	    							if(input.contains("DOWN")) {
+	    								testman.setDOWN(true);
 	    								System.out.println("Move Down");
-										testman.setDx(0);
-										testman.setDy(playerSpeed);
-	    								input.remove(code);
+										
 	    							}
-	    							if(input.contains("LEFT")) {
+	    							else {
+	    								testman.setDOWN(false);
+	    							}
+	    							if(input.contains("LEFT")){
 	    								System.out.println("Move Left");
-										testman.setDx(-playerSpeed);
-										testman.setDy(0);
-	    								input.remove(code);
+	    								testman.setLEFT(true);
 	    							}
     							}
     						}
@@ -243,6 +246,18 @@ public class GameController { // Class to contain main game loop
     					public void handle(KeyEvent e)
     					{
     						String code = e.getCode().toString();
+    						if(code == "LEFT") {
+    							testman.setLEFT(false);
+    						}
+    						else if(code == "RIGHT") {
+    							testman.setRIGHT(false);
+    						}
+    						else if(code == "UP") {
+    							testman.setUP(false);
+    						}
+							else if(code == "DOWN") {
+								testman.setDOWN(false);
+							}
     						input.remove(code);
     						System.out.println("Key Released");
     					}
@@ -265,30 +280,31 @@ public class GameController { // Class to contain main game loop
 
 	}
 	public void tickChange(){
-		if(!detector.scanCollisions(testman, mapPath)) {
-			testman.changeMove();
+		if(testman.getUP() && !detector.checkUp(testman, mapPath)) {
+			testman.setDy(-playerSpeed);
 		}
-		else if(detector.scanCollisions(testman, mapPath)) {
-			if(testman.getDx() > 0) {
-				testman.setXPos(testman.getXPos() - 7);
-				testman.setDx(0);
-				testman.setDy(0);
-			}
-			else if(testman.getDx() < 0) {
-				testman.setXPos(testman.getXPos() + 7);
-				testman.setDx(0);
-				testman.setDy(0);
-			}
-			else if(testman.getDy() > 0) {
-				testman.setYPos(testman.getYPos() - 7);
-				testman.setDx(0);
-				testman.setDy(0);
-			}
-			else if(testman.getDy() < 0) {
-				testman.setYPos(testman.getYPos() + 7);
-				testman.setDx(0);
-				testman.setDy(0);
-			}
+		if(testman.getDOWN() && !detector.checkDown(testman, mapPath)) {
+			testman.setDy(playerSpeed);
+		}
+		if(testman.getLEFT() && !detector.checkLeft(testman, mapPath)) {
+			testman.setDx(-playerSpeed);
+		}
+		if(testman.getRIGHT() && !detector.checkRight(testman, mapPath)) {
+			testman.setDx(playerSpeed);
+		}
+		testman.changeMove();
+
+		if((testman.getDx() > 0) && (detector.checkRight(testman, mapPath))) {
+			testman.setDx(0);
+		}
+		else if((testman.getDx() < 0)  && (detector.checkLeft(testman, mapPath))) {
+			testman.setDx(0);
+		}
+		else if((testman.getDy() > 0) && (detector.checkDown(testman, mapPath))) {
+			testman.setDy(0);
+		}
+		else if((testman.getDy() < 0) && (detector.checkUp(testman, mapPath))) {
+			testman.setDy(0);
 		}
 		testRobber.changeMove();
 		robberMovement();
