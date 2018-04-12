@@ -8,6 +8,7 @@ import model.Barrier;
 import model.TestMan;
 import model.Character;
 import model.TestCoin;
+import model.Car;
 
 //this class will check if a move is valid
 // i.e there is no obstacle or boundary in the way of the intended move
@@ -17,7 +18,7 @@ public class CollisionDetection {
 	public static int scoreUpdate = 0;
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
-	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<TestCoin> coinList) {
+	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<TestCoin> coinList, ArrayList<Car> carList) {
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
 				x.setDy(-x.getPlayerSpeed());
@@ -44,7 +45,7 @@ public class CollisionDetection {
 				x.setDy(0);
 			}
 		}
-		ArrayList<TestCoin> tempCoin = new ArrayList<TestCoin>();
+		ArrayList<TestCoin> tempCoin = new ArrayList<>();
 		for(Character x:movers) {
 			if(x.canPickupItems()) {
 				for(TestCoin y:coinList) {
@@ -60,6 +61,23 @@ public class CollisionDetection {
 			coinList.remove(coin);
 			scoreUpdate += coin.getScore();
 			System.out.println(scoreUpdate);
+		}
+		ArrayList<Car> tempCar = new ArrayList<>();
+		for(Character x:movers) {
+			if(x.canPickupItems()) {
+				for(Car y:carList) {
+					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
+						y.removeFromLayer();
+						tempCar.add(y);
+
+					}
+				}
+			}
+		}
+		for (Car car : tempCar){
+			coinList.remove(car);
+			GameController.playerSpeed = 5;
+			System.out.println(GameController.playerSpeed);
 		}
 	}
 	

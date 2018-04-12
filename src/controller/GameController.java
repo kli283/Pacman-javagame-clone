@@ -17,6 +17,7 @@ import model.Barrier;
 import model.Item;
 import model.TestCoin;
 import model.TestMan;
+import model.Car;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -25,7 +26,9 @@ import javafx.fxml.FXML;
 import model.TestRobber;
 import view.GameModes;
 import view.Menu;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import java.util.Random;
 
 public class GameController { // Class to contain main game loop
@@ -34,19 +37,25 @@ public class GameController { // Class to contain main game loop
 	TestMan testman;
 	TestCoin testCoin;
 	TestWall testWall;
+	Car car;
 	TestRobber testRobber;
-	private double playerSpeed = 3;
+	public static double playerSpeed = 3;
 	private double robberSpeed = 2;
 	private ArrayList<Rectangle> mapPath = new ArrayList<Rectangle>();
 	@SuppressWarnings("rawtypes")
 	private ArrayList charList = new ArrayList<Character>();
 	private ArrayList<TestCoin> coinList = new ArrayList<TestCoin>();
+	private ArrayList<Car> carList = new ArrayList<Car>();
 	private int pixelScale = 48;
 	double coinPosX;
 	double coinPosY;
 	private int levelWidth;
 	private GameModes gameModes;
 	private Label scoreLabel;
+	private static final Integer STARTTIME = 120;
+	private Timeline timeline;
+	private Label timerLabel = new Label();
+	private Integer timeSeconds = STARTTIME;
 //	Rectangle rect1;
 //	Rectangle rect2;
 //	Rectangle rect3;
@@ -66,6 +75,10 @@ public class GameController { // Class to contain main game loop
 		initRobber();
 		//robberMovement();
 		initMoney();
+		//initTimer();
+	}
+	public void initTimer() {
+
 	}
 
 	private void initMap(){
@@ -89,6 +102,10 @@ public class GameController { // Class to contain main game loop
 						break;
 					case '2':
 						break;
+					case '3':
+						carList.add(car = new Car(rootLayout, j*pixelScale + 3, i*pixelScale + 5, 0));
+						car.addToLayer();
+						car.updateUI();
 				}
 			}
 		}
@@ -328,14 +345,14 @@ public class GameController { // Class to contain main game loop
 	}
 	private void initMoney(){
 		scoreLabel = new Label((Integer.toString(CollisionDetection.scoreUpdate)));
-		scoreLabel.setFont(new Font("Comic Sans", 32));
+		scoreLabel.setFont(new Font("Calibri", 32));
 		scoreLabel.setLayoutX(845);
 		scoreLabel.setLayoutY(96);
 		rootLayout.getChildren().add(scoreLabel);
 	}
 
 	public void tickChange(){
-		detector.scanCollisions(charList, mapPath, coinList);
+		detector.scanCollisions(charList, mapPath, coinList, carList);
 		testman.changeMove();
 		testRobber.changeMove();
 		//robberMovement();

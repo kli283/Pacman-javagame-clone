@@ -3,7 +3,7 @@ package controller;
 public class LevelData {
     public static final String[] LEVEL1 = new String[]{
             "0000000000000000",
-            "0111111111111110",
+            "0111111111111130",
             "0100010000100010",
             "0111111111111110",
             "0100001001000010",
