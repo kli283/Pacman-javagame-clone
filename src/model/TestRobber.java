@@ -13,6 +13,7 @@ public class TestRobber extends Character {
 	public void addToLayer() {
         this.layer.getChildren().add(this.getImageView());
     }
+
 	
 	public void updateUI() {
 		getImageView().relocate(this.getXPos(),this.getYPos());
