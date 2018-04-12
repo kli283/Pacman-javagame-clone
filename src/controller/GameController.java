@@ -20,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.Group;
 import javafx.fxml.FXML;
 import model.TestRobber;
+import java.util.Random;
 
 public class GameController { // Class to contain main game loop
 	
@@ -53,6 +54,7 @@ public class GameController { // Class to contain main game loop
 		initMap();
 		initPlayer();
 		initRobber();
+		robberMovement();
 	}
 
 	private void initMap(){
@@ -70,9 +72,11 @@ public class GameController { // Class to contain main game loop
 						testWall.updateUI();
 						break;
 					case '1':
-						testCoin = new TestCoin(rootLayout, j*pixelScale + 8, i*pixelScale + 8);
+						testCoin = new TestCoin(rootLayout, j*pixelScale + 15, i*pixelScale + 15);
 						testCoin.addToLayer();
 						testCoin.updateUI();
+						break;
+					case '2':
 						break;
 				}
 			}
@@ -88,6 +92,28 @@ public class GameController { // Class to contain main game loop
 		testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35);
 		testRobber.addToLayer();
 		testRobber.updateUI();
+	}
+
+	private void robberMovement(){
+		Random rand = new Random();
+		int countDirection = rand.nextInt(4) + 0;
+		int countTimer = rand.nextInt(17) + 0;
+		if (countTimer == 16 && countDirection == 0){
+			testRobber.setDx(0);
+			testRobber.setDy(-playerSpeed);
+		}else if (countTimer == 12 && countDirection == 0){
+			testRobber.setDx(playerSpeed);
+			testRobber.setDy(0);
+		}else if (countTimer == 8 && countDirection == 0){
+			testRobber.setDx(0);
+			testRobber.setDy(playerSpeed);
+		}else if (countTimer == 4 && countDirection == 0){
+			testRobber.setDx(-playerSpeed);
+			testRobber.setDy(0);
+		}
+		testRobber.updateUI();
+		System.out.println("Direction: " + countDirection);
+		System.out.println("Timer: " + countTimer);
 	}
 	
 	// Get the controller up and running
@@ -244,26 +270,27 @@ public class GameController { // Class to contain main game loop
 		}
 		else if(detector.scanCollisions(testman, mapPath)) {
 			if(testman.getDx() > 0) {
-				testman.setXPos(testman.getXPos() - 10);
+				testman.setXPos(testman.getXPos() - 7);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 			else if(testman.getDx() < 0) {
-				testman.setXPos(testman.getXPos() + 10);
+				testman.setXPos(testman.getXPos() + 7);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 			else if(testman.getDy() > 0) {
-				testman.setYPos(testman.getYPos() - 10);
+				testman.setYPos(testman.getYPos() - 7);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 			else if(testman.getDy() < 0) {
-				testman.setYPos(testman.getYPos() + 10);
+				testman.setYPos(testman.getYPos() + 7);
 				testman.setDx(0);
 				testman.setDy(0);
 			}
 		}
 		testRobber.changeMove();
+		robberMovement();
 	}
 }
