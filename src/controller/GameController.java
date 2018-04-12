@@ -20,10 +20,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.Group;
 import javafx.fxml.FXML;
 import model.TestRobber;
+import view.GameModes;
+import view.Menu;
+
 import java.util.Random;
 
 public class GameController { // Class to contain main game loop
-	
+
 	private AnchorPane rootLayout;
 	TestMan testman;
 	TestCoin testCoin;
@@ -38,7 +41,7 @@ public class GameController { // Class to contain main game loop
 	double coinPosX;
 	double coinPosY;
 	private int levelWidth;
-
+	private GameModes gameModes;
 //	Rectangle rect1;
 //	Rectangle rect2;
 //	Rectangle rect3;
@@ -48,7 +51,7 @@ public class GameController { // Class to contain main game loop
     CollisionDetection detector = new CollisionDetection();
     Rectangle wall1;
     Rectangle wall2;
-	
+
 
 	public GameController(Stage mainStage) {
 
@@ -181,102 +184,75 @@ public class GameController { // Class to contain main game loop
 			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
 			rootLayout.getChildren().addAll(mapPath);
 
+//TESTING GAME MODE
+			if(MenuControl.mode == GameModes.SinglePlayer) {
 
-			//setting coins
-//			coinPosX = pixelScale + 8;
-//			coinPosY = pixelScale + 8;
-//			for (int i = 0; i < 16; i++){
-//				pixelScale = pixelScale + pixelScale + 8;
-//				for (int j; j < 16; j++){
-//					testCoin = new TestCoin(rootLayout, pixelScale + 8, pixelScale + 8);
-//					testCoin.addToLayer();
-//					testCoin.updateUI();
-//					coinPosY = coinPosY + pixelScale + 8;
-//				}
-//			}
-			//testCoin = new TestCoin(rootLayout, pixelScale + 8, pixelScale + 8);
-			//testCoin.addToLayer();
-			//testCoin.updateUI();
-            //mapPath.add(new Rectangle(0, 0, 32, 768));
-//            testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 35, 35);
-//            testman.addToLayer();
-//            testman.updateUI();
-			//rootLayout.getChildren().addAll(rect1, rect2, rect3, rect4);
+				//Initialise ArrayList to store currently pressed keys
+				ArrayList<String> input = new ArrayList<String>();
 
-          //Initialise ArrayList to store currently pressed keys
-            ArrayList<String> input = new ArrayList<String>();
+				//Initialise EventHandler to listen for key presses, add them to input ArrayList, and when they are released remove them
+				scene.setOnKeyPressed(
+						new EventHandler<KeyEvent>() {
+							public void handle(KeyEvent e) {
+								String code = e.getCode().toString();
+								if (!input.contains(code)) {
+									input.add(code);
+									if (input.contains("UP")) {
+										System.out.println("Move Up");
+										testman.setUP(true);
+									} else {
+										testman.setUP(false);
+									}
+									if (input.contains("RIGHT")) {
+										System.out.println("Move Right");
+										testman.setRIGHT(true);
 
-          //Initialise EventHandler to listen for key presses, add them to input ArrayList, and when they are released remove them
-    		scene.setOnKeyPressed(
-    				new EventHandler<KeyEvent>()
-    				{	
-    					public void handle(KeyEvent e) {
-    						String code = e.getCode().toString();
-    						if(!input.contains(code)) {
-    							input.add(code);    							
-	    							if(input.contains("UP")) {
-	    								System.out.println("Move Up");
-	    								testman.setUP(true);
-	    							}
-	    							else {
-	    								testman.setUP(false);
-	    							}
-	    							if(input.contains("RIGHT")) {
-	    								System.out.println("Move Right");
-	    								testman.setRIGHT(true);
-										
-	    							}
-	    							else {
-	    								testman.setRIGHT(false);
-	    							}
-	    							if(input.contains("DOWN")) {
-	    								testman.setDOWN(true);
-	    								System.out.println("Move Down");
-										
-	    							}
-	    							else {
-	    								testman.setDOWN(false);
-	    							}
-	    							if(input.contains("LEFT")){
-	    								System.out.println("Move Left");
-	    								testman.setLEFT(true);
-	    							}
-    							}
-    						}
-    					});
-    		scene.setOnKeyReleased(
-    				new EventHandler<KeyEvent>()
-    				{
-    					public void handle(KeyEvent e)
-    					{
-    						String code = e.getCode().toString();
-    						if(code == "LEFT") {
-    							testman.setLEFT(false);
-    						}
-    						else if(code == "RIGHT") {
-    							testman.setRIGHT(false);
-    						}
-    						else if(code == "UP") {
-    							testman.setUP(false);
-    						}
-							else if(code == "DOWN") {
-								testman.setDOWN(false);
+									} else {
+										testman.setRIGHT(false);
+									}
+									if (input.contains("DOWN")) {
+										testman.setDOWN(true);
+										System.out.println("Move Down");
+
+									} else {
+										testman.setDOWN(false);
+									}
+									if (input.contains("LEFT")) {
+										System.out.println("Move Left");
+										testman.setLEFT(true);
+									}
+								}
 							}
-    						input.remove(code);
-    						System.out.println("Key Released");
-    					}
-    				});
-    		
-    		mainStage.show();
-    		
-    		new AnimationTimer() {
+						});
+				scene.setOnKeyReleased(
+						new EventHandler<KeyEvent>() {
+							public void handle(KeyEvent e) {
+								String code = e.getCode().toString();
+								if (code == "LEFT") {
+									testman.setLEFT(false);
+								} else if (code == "RIGHT") {
+									testman.setRIGHT(false);
+								} else if (code == "UP") {
+									testman.setUP(false);
+								} else if (code == "DOWN") {
+									testman.setDOWN(false);
+								}
+								input.remove(code);
+								System.out.println("Key Released");
+							}
+						});
 
-				public void handle(long currentNanoTime) {
-					// TODO Put graphics drawing classes, methods what-have-you in here.
-					testman.updateUI();
-				}
-    			
-    		}.start();
+				mainStage.show();
+
+				new AnimationTimer() {
+
+					public void handle(long currentNanoTime) {
+						// TODO Put graphics drawing classes, methods what-have-you in here.
+						testman.updateUI();
+					}
+
+				}.start();
+			}
     		
         } catch (IOException e) {
             e.printStackTrace();

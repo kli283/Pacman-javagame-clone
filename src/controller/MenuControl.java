@@ -16,7 +16,7 @@ import java.io.IOException;
 public class MenuControl {
     private AnchorPane test;
     private Scene testScene;
-    private static GameModes mode;
+    public static GameModes mode;
     private Group gameRoot;
    // private Images gameImages;
     public static GameController gControl;
@@ -67,6 +67,7 @@ public class MenuControl {
             System.out.print("SettingsSelected" + "\n");
         }
         else if (event.getSource() == SPButton) {
+            this.mode = GameModes.SinglePlayer;
             MainApp.gameStage = (Stage) SPButton.getScene().getWindow();
             test = FXMLLoader.load(getClass().getResource("SinglePlayerMenu.fxml"));
             testScene = new Scene(test);
