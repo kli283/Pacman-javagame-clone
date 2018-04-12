@@ -14,6 +14,10 @@ public class TestCoin extends Item {
         this.layer.getChildren().add(this.getImageView());
     }
 
+    public void removeFromLayer() {
+        this.layer.getChildren().remove(this.getImageView());
+    }
+
     public void updateUI() {
         getImageView().relocate(this.getXPos(),this.getYPos());
     }
