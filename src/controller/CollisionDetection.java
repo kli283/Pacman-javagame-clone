@@ -22,15 +22,19 @@ public class CollisionDetection {
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
 				x.setDy(-x.getPlayerSpeed());
+				x.setDx(0);
 			}
 			if(x.getDOWN() && !this.checkDown(x, listOfWalls)) {
 				x.setDy(x.getPlayerSpeed());
+				x.setDx(0);
 			}
 			if(x.getLEFT() && !this.checkLeft(x, listOfWalls)) {
 				x.setDx(-x.getPlayerSpeed());
+				x.setDy(0);
 			}
 			if(x.getRIGHT() && !this.checkRight(x, listOfWalls)) {
 				x.setDx(x.getPlayerSpeed());
+				x.setDy(0);
 			}
 			if((x.getDx() > 0) && (this.checkRight(x, listOfWalls))) {
 				x.setDx(0);
