@@ -38,6 +38,7 @@ public class GameController { // Class to contain main game loop
 	@SuppressWarnings("rawtypes")
 	private ArrayList charList = new ArrayList<Character>();
 	private ArrayList<TestCoin> coinList = new ArrayList<>();
+	private ArrayList<Box> wallList = new ArrayList<>();
 	private ArrayList<BrickWall> brickWallList = new ArrayList<>();
 	private ArrayList<GreyWall> greyWallList = new ArrayList<>();
 	private ArrayList<DirtWall> dirtWallList = new ArrayList<>();
@@ -78,24 +79,25 @@ public class GameController { // Class to contain main game loop
 	public void initTimer() {
 
 	}
-
-	public void initMap1() {
+	public void initMap(String[] Level, String wallType){
 		Rectangle levelBackground = new Rectangle(768, 768);
 
-		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
+		levelWidth = Level[0].length() * pixelScale;
+		String imageURL = "/model/" + wallType + ".png";
 
-		for (int i = 0; i < LevelData.LEVEL1.length; i++) {
-			String line = LevelData.LEVEL1[i];
+		for (int i = 0; i < Level.length; i++) {
+			String line = Level[i];
 			for (int j = 0; j < line.length(); j++) {
 				switch (line.charAt(j)) {
 					case 'p':
 						initPlayer(j * pixelScale, i * pixelScale);
 						break;
 					case '0':
-						brickWallList.add(brickWall = new BrickWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
-						mapPath.add(brickWall.getBoundary());
-						brickWall.addToLayer();
-						brickWall.updateUI();
+						Wall wall = new Wall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale, imageURL);
+						wallList.add(wall);
+						mapPath.add(wall.getBoundary());
+						wall.addToLayer();
+						wall.updateUI();
 						break;
 					case '1':
 						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
@@ -113,70 +115,104 @@ public class GameController { // Class to contain main game loop
 			}
 		}
 	}
-	public void initMap2() {
-
-		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
-
-		for (int i = 0; i < LevelData.LEVEL2.length; i++) {
-			String line = LevelData.LEVEL2[i];
-			for (int j = 0; j < line.length(); j++) {
-				switch (line.charAt(j)) {
-					case 'p':
-						initPlayer(j * pixelScale, i * pixelScale);
-						break;
-					case '0':
-						greyWallList.add(greyWall = new GreyWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
-						mapPath.add(greyWall.getBoundary());
-						greyWall.addToLayer();
-						greyWall.updateUI();
-						break;
-					case '1':
-						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
-						testCoin.addToLayer();
-						testCoin.updateUI();
-						break;
-					case '2':
-						break;
-					case '3':
-						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
-						car.addToLayer();
-						car.updateUI();
-				}
-			}
-		}
-	}
-	public void initMap3() {
-
-		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
-
-		for (int i = 0; i < LevelData.LEVEL3.length; i++) {
-			String line = LevelData.LEVEL3[i];
-			for (int j = 0; j < line.length(); j++) {
-				switch (line.charAt(j)) {
-					case 'p':
-						initPlayer(j * pixelScale, i * pixelScale);
-						break;
-					case '0':
-						dirtWallList.add(dirtWall = new DirtWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
-						mapPath.add(greyWall.getBoundary());
-						greyWall.addToLayer();
-						greyWall.updateUI();
-						break;
-					case '1':
-						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
-						testCoin.addToLayer();
-						testCoin.updateUI();
-						break;
-					case '2':
-						break;
-					case '3':
-						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
-						car.addToLayer();
-						car.updateUI();
-				}
-			}
-		}
-	}
+//	public void initMap1() {
+//		Rectangle levelBackground = new Rectangle(768, 768);
+//
+//		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
+//
+//		for (int i = 0; i < LevelData.LEVEL1.length; i++) {
+//			String line = LevelData.LEVEL1[i];
+//			for (int j = 0; j < line.length(); j++) {
+//				switch (line.charAt(j)) {
+//					case 'p':
+//						initPlayer(j * pixelScale, i * pixelScale);
+//						break;
+//					case '0':
+//						brickWallList.add(brickWall = new BrickWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
+//						mapPath.add(brickWall.getBoundary());
+//						brickWall.addToLayer();
+//						brickWall.updateUI();
+//						break;
+//					case '1':
+//						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
+//						testCoin.addToLayer();
+//						testCoin.updateUI();
+//						break;
+//					case '2':
+//						break;
+//					case '3':
+//						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
+//						car.addToLayer();
+//						car.updateUI();
+//
+//				}
+//			}
+//		}
+//	}
+//	public void initMap2() {
+//
+//		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
+//
+//		for (int i = 0; i < LevelData.LEVEL2.length; i++) {
+//			String line = LevelData.LEVEL2[i];
+//			for (int j = 0; j < line.length(); j++) {
+//				switch (line.charAt(j)) {
+//					case 'p':
+//						initPlayer(j * pixelScale, i * pixelScale);
+//						break;
+//					case '0':
+//						greyWallList.add(greyWall = new GreyWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
+//						mapPath.add(greyWall.getBoundary());
+//						greyWall.addToLayer();
+//						greyWall.updateUI();
+//						break;
+//					case '1':
+//						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
+//						testCoin.addToLayer();
+//						testCoin.updateUI();
+//						break;
+//					case '2':
+//						break;
+//					case '3':
+//						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
+//						car.addToLayer();
+//						car.updateUI();
+//				}
+//			}
+//		}
+//	}
+//	public void initMap3() {
+//
+//		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
+//
+//		for (int i = 0; i < LevelData.LEVEL3.length; i++) {
+//			String line = LevelData.LEVEL3[i];
+//			for (int j = 0; j < line.length(); j++) {
+//				switch (line.charAt(j)) {
+//					case 'p':
+//						initPlayer(j * pixelScale, i * pixelScale);
+//						break;
+//					case '0':
+//						dirtWallList.add(dirtWall = new DirtWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
+//						mapPath.add(dirtWall.getBoundary());
+//						dirtWall.addToLayer();
+//						dirtWall.updateUI();
+//						break;
+//					case '1':
+//						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
+//						testCoin.addToLayer();
+//						testCoin.updateUI();
+//						break;
+//					case '2':
+//						break;
+//					case '3':
+//						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
+//						car.addToLayer();
+//						car.updateUI();
+//				}
+//			}
+//		}
+//	}
 		//rootLayout.getChildren().add(levelBackground);
 	public void initPlayer(double xPosition, double yPosition){
 		testman = new TestMan(rootLayout, xPosition, yPosition, true, 38, 38, playerSpeed);
