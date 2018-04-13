@@ -1,7 +1,5 @@
 package model;
 
-import controller.CollisionDetection;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -45,12 +43,11 @@ public class Character {
 		}
 	}
 
-	public void move(double xMove, double yMove) {//, CollisionDetection detector) {
-	//	if(!detector.willCollide(this)) {
-			setXPos(getXPos() + xMove);
-			setYPos(getYPos() + yMove);
-		//}
+	public void move(double xMove, double yMove) {
+		setXPos(getXPos() + xMove);
+		setYPos(getYPos() + yMove);
 	}
+	
 	public void changeMove() {
 		setXPos(getXPos() + dx);
 		setYPos(getYPos() + dy);

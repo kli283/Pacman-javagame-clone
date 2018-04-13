@@ -81,7 +81,7 @@ public class MenuControl {
             System.out.print("SettingsSelected" + "\n");
         }
         else if (event.getSource() == SPButton) {
-            this.mode = GameModes.SinglePlayer;
+            MenuControl.mode = GameModes.SinglePlayer;
             MainApp.gameStage = (Stage) SPButton.getScene().getWindow();
             test = FXMLLoader.load(getClass().getResource("SinglePlayerMenu.fxml"));
             testScene = new Scene(test);
@@ -140,7 +140,7 @@ public class MenuControl {
             System.out.print("MPSelected" + "\n");
         }
         else if (event.getSource() == oneButton) {
-            this.mode = GameModes.MultiPlayer1;
+            MenuControl.mode = GameModes.MultiPlayer1;
             gControl = new GameController(MainApp.gameStage);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
@@ -158,7 +158,7 @@ public class MenuControl {
             System.out.print("BackSelected" + "\n");
         }
         else if (event.getSource() == storyButton) {
-            GameController gc = new GameController(MainApp.gameStage);
+            gControl = new GameController(MainApp.gameStage);
             //test = FXMLLoader.load(getClass().getResource("TestMap.fxml"));
             //theScene = new Scene(test);
             //MainApp.gameStage.setScene(theScene);

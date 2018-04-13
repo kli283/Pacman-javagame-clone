@@ -1,8 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-
-import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Rectangle;
 import model.*;
 import model.Character;
@@ -111,7 +109,7 @@ public class CollisionDetection {
 			}
 		}
 		for (Car car : tempCar){
-			coinList.remove(car);
+			carList.remove(car);
 		}
 	}
 	

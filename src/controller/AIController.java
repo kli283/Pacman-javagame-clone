@@ -1,7 +1,6 @@
 package controller;
 
 import model.Character;
-import java.math.*;
 
 public class AIController {
 	
