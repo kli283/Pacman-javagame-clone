@@ -22,8 +22,8 @@ public class Character {
 	private double height;
 	private double width;
 	boolean isPlayer1 = false; // determines if GoldGirl is AI or human. 
-	boolean isPlayer2 = false; // determines if char is human controlled ghost
-	boolean isPlayer3 = false; // determines if char is human controlled ghost
+	boolean isAI = false;
+	boolean dumbAI = false;
 	boolean canPickupItems = false;
 	boolean UP;
 	boolean DOWN;
@@ -39,6 +39,10 @@ public class Character {
 		this.height = setHeight;
 		this.width = setWidth;
 		this.playerSpeed = playerSpeed;
+		if(!isPlayer1) {
+			this.isAI = true;
+			this.dumbAI = true;
+		}
 	}
 
 	public void move(double xMove, double yMove) {//, CollisionDetection detector) {
@@ -58,6 +62,10 @@ public class Character {
 		}
 		
 		return false;
+	}
+	
+	public boolean isDumbAI() {
+		return dumbAI;
 	}
 	
 	public double getPlayerSpeed() {

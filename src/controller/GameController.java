@@ -32,6 +32,7 @@ public class GameController { // Class to contain main game loop
 	private DirtWall dirtWall;
 	private Car car;
 	private TestRobber testRobber;
+	private AIController AI;
 	private double playerSpeed = 3;
 	private double robberSpeed = 2;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
@@ -136,25 +137,27 @@ public class GameController { // Class to contain main game loop
 		charList.add(testRobber);
 		testRobber.addToLayer();
 		testRobber.updateUI();
+		AI = new AIController(testRobber, testman);
 	}
 
 	private void robberMovement(){
-		Random rand = new Random();
-		int countDirection = rand.nextInt(4);
-		int countTimer = rand.nextInt(33);
-		if (countTimer == 32 && countDirection == 0){
-			testRobber.setDx(0);
-			testRobber.setDy(-robberSpeed);
-		}else if (countTimer == 24 && countDirection == 0){
-			testRobber.setDx(robberSpeed);
-			testRobber.setDy(0);
-		}else if (countTimer == 16 && countDirection == 0){
-			testRobber.setDx(0);
-			testRobber.setDy(robberSpeed);
-		}else if (countTimer == 8 && countDirection == 0){
-			testRobber.setDx(-robberSpeed);
-			testRobber.setDy(0);
-		}
+//		Random rand = new Random();
+//		int countDirection = rand.nextInt(4);
+//		int countTimer = rand.nextInt(33);
+//		if (countTimer == 32 && countDirection == 0){
+//			testRobber.setDx(0);
+//			testRobber.setDy(-robberSpeed);
+//		}else if (countTimer == 24 && countDirection == 0){
+//			testRobber.setDx(robberSpeed);
+//			testRobber.setDy(0);
+//		}else if (countTimer == 16 && countDirection == 0){
+//			testRobber.setDx(0);
+//			testRobber.setDy(robberSpeed);
+//		}else if (countTimer == 8 && countDirection == 0){
+//			testRobber.setDx(-robberSpeed);
+//			testRobber.setDy(0);
+//		}
+		AI.navigate(testRobber, testman);
 		testRobber.updateUI();
 		//System.out.println("Direction: " + countDirection);
 		//System.out.println("Timer: " + countTimer);
