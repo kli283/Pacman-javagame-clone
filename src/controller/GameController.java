@@ -12,13 +12,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.TestCoin;
-import model.TestMan;
-import model.Car;
+import model.*;
 import javafx.scene.shape.Rectangle;
-import model.TestRobber;
 import view.GameModes;
 import javafx.animation.Timeline;
+import model.Character;
 
 import java.util.Random;
 
@@ -27,6 +25,8 @@ public class GameController { // Class to contain main game loop
 	private AnchorPane rootLayout;
 	private TestMan testman;
 	private TestCoin testCoin;
+	private SmallCash smallCash;
+	private BigCash bigCash;
 	private BrickWall brickWall;
 	private GreyWall greyWall;
 	private DirtWall dirtWall;
@@ -38,12 +38,9 @@ public class GameController { // Class to contain main game loop
 	@SuppressWarnings("rawtypes")
 	private ArrayList charList = new ArrayList<Character>();
 	private ArrayList<TestCoin> coinList = new ArrayList<>();
+	private ArrayList<SmallCash> smallCashList = new ArrayList<>();
+	private ArrayList<BigCash> bigCashList = new ArrayList<>();
 	private ArrayList<Box> wallList = new ArrayList<>();
-	private ArrayList<BrickWall> brickWallList = new ArrayList<>();
-	private ArrayList<GreyWall> greyWallList = new ArrayList<>();
-	private ArrayList<DirtWall> dirtWallList = new ArrayList<>();
-
-	//private ArrayList<Rectangle> wallList = new ArrayList<>();
 	private ArrayList<Car> carList = new ArrayList<>();
 	private int pixelScale = 48;
 	double coinPosX;
@@ -110,112 +107,25 @@ public class GameController { // Class to contain main game loop
 						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
 						car.addToLayer();
 						car.updateUI();
+						break;
+					case '4':
+						smallCashList.add(smallCash = new SmallCash(rootLayout, j * pixelScale + 4, i * pixelScale + 8, 10));
+						smallCash.addToLayer();
+						smallCash.updateUI();
+						break;
+					case '5':
+						bigCashList.add(bigCash = new BigCash(rootLayout, j * pixelScale + 4, i * pixelScale + 8, 25));
+						bigCash.addToLayer();
+						bigCash.updateUI();
+						break;
 
 				}
 			}
 		}
 	}
-//	public void initMap1() {
-//		Rectangle levelBackground = new Rectangle(768, 768);
-//
-//		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
-//
-//		for (int i = 0; i < LevelData.LEVEL1.length; i++) {
-//			String line = LevelData.LEVEL1[i];
-//			for (int j = 0; j < line.length(); j++) {
-//				switch (line.charAt(j)) {
-//					case 'p':
-//						initPlayer(j * pixelScale, i * pixelScale);
-//						break;
-//					case '0':
-//						brickWallList.add(brickWall = new BrickWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
-//						mapPath.add(brickWall.getBoundary());
-//						brickWall.addToLayer();
-//						brickWall.updateUI();
-//						break;
-//					case '1':
-//						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
-//						testCoin.addToLayer();
-//						testCoin.updateUI();
-//						break;
-//					case '2':
-//						break;
-//					case '3':
-//						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
-//						car.addToLayer();
-//						car.updateUI();
-//
-//				}
-//			}
-//		}
-//	}
-//	public void initMap2() {
-//
-//		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
-//
-//		for (int i = 0; i < LevelData.LEVEL2.length; i++) {
-//			String line = LevelData.LEVEL2[i];
-//			for (int j = 0; j < line.length(); j++) {
-//				switch (line.charAt(j)) {
-//					case 'p':
-//						initPlayer(j * pixelScale, i * pixelScale);
-//						break;
-//					case '0':
-//						greyWallList.add(greyWall = new GreyWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
-//						mapPath.add(greyWall.getBoundary());
-//						greyWall.addToLayer();
-//						greyWall.updateUI();
-//						break;
-//					case '1':
-//						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
-//						testCoin.addToLayer();
-//						testCoin.updateUI();
-//						break;
-//					case '2':
-//						break;
-//					case '3':
-//						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
-//						car.addToLayer();
-//						car.updateUI();
-//				}
-//			}
-//		}
-//	}
-//	public void initMap3() {
-//
-//		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
-//
-//		for (int i = 0; i < LevelData.LEVEL3.length; i++) {
-//			String line = LevelData.LEVEL3[i];
-//			for (int j = 0; j < line.length(); j++) {
-//				switch (line.charAt(j)) {
-//					case 'p':
-//						initPlayer(j * pixelScale, i * pixelScale);
-//						break;
-//					case '0':
-//						dirtWallList.add(dirtWall = new DirtWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
-//						mapPath.add(dirtWall.getBoundary());
-//						dirtWall.addToLayer();
-//						dirtWall.updateUI();
-//						break;
-//					case '1':
-//						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
-//						testCoin.addToLayer();
-//						testCoin.updateUI();
-//						break;
-//					case '2':
-//						break;
-//					case '3':
-//						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
-//						car.addToLayer();
-//						car.updateUI();
-//				}
-//			}
-//		}
-//	}
 		//rootLayout.getChildren().add(levelBackground);
 	public void initPlayer(double xPosition, double yPosition){
-		testman = new TestMan(rootLayout, xPosition, yPosition, true, 38, 38, playerSpeed);
+		testman = new TestMan(rootLayout, xPosition, yPosition, true, 42, 42, playerSpeed);
 		//testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
 		charList.add(testman);
 		testman.addToLayer();
@@ -410,7 +320,7 @@ public class GameController { // Class to contain main game loop
 	}
 
 	public void tickChange(){
-		detector.scanCollisions(charList, mapPath, coinList, carList);
+		detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
 		testman.changeMove();
 		testRobber.changeMove();
 		robberMovement();
