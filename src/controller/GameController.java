@@ -187,6 +187,7 @@ public class GameController { // Class to contain main game loop
 		charList.add(testRobber);
 		testRobber.addToLayer();
 		testRobber.updateUI();
+		AIController AI = new AIController(testRobber, testman);
 	}
 
 	private void robberMovement(){
