@@ -18,8 +18,9 @@ public class MenuControl {
     private Scene testScene;
     public static GameModes mode;
     private Group gameRoot;
-   // private Images gameImages;
+    // private Images gameImages;
     public static GameController gControl;
+    private int positionScale = 48;
 
 
     @FXML
@@ -46,6 +47,15 @@ public class MenuControl {
     private Button oneButton;
     @FXML
     private Button twoButton;
+    @FXML
+    private Button map1Button;
+    @FXML
+    private Button map2Button;
+    @FXML
+    private Button map3Button;
+    @FXML
+    private Button map4Button;
+
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
@@ -79,16 +89,39 @@ public class MenuControl {
             System.out.print("SPSelected" + "\n");
         }
         else if (event.getSource() == mapSelectButton) {
-            gameRoot = new Group();
-            testScene = new Scene(gameRoot, MainApp.gameScreenWidth, MainApp.screenHeight);
+            MainApp.gameStage = (Stage) mapSelectButton.getScene().getWindow();
+            test = FXMLLoader.load(getClass().getResource("MapSelect.fxml"));
+            testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
-            MainApp.gameStage.setResizable(false);
-            MainApp.gameStage.sizeToScene();
+            System.out.print("MapSelectSelected" + "\n");
+        }
+        else if (event.getSource() == map1Button) {
+            gControl = new GameController(MainApp.gameStage);
+            gControl.initMap1();
+            //gControl.initPlayer(7 * positionScale, 7 * positionScale + 8);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
+        else if (event.getSource() == map2Button) {
+            gControl = new GameController(MainApp.gameStage);
+            gControl.initMap2();
+           // gControl.initPlayer(7*positionScale + 10, 6*positionScale);
+            //gameImages = new Images(gameRoot);
+            //gameRoot.getChildren().add(gameImages.getBackground());
+        }
+        else if (event.getSource() == map3Button) {
+           // gControl = new GameController(MainApp.gameStage);
+           // gControl.initMap3();
+            //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
+            //gameImages = new Images(gameRoot);
+            //gameRoot.getChildren().add(gameImages.getBackground());
+            System.out.print("Gold Mine Selected" + "\n");
+        }
+
         else if (event.getSource() == storyButton) {
             gControl = new GameController(MainApp.gameStage);
+            gControl.initMap1();
+            //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
@@ -125,11 +158,11 @@ public class MenuControl {
             System.out.print("BackSelected" + "\n");
         }
         else if (event.getSource() == storyButton) {
-        	GameController gc = new GameController(MainApp.gameStage);
-        	//test = FXMLLoader.load(getClass().getResource("TestMap.fxml"));
-        	//theScene = new Scene(test);
-        	//MainApp.gameStage.setScene(theScene);
-        	System.out.println("Start test level");
+            GameController gc = new GameController(MainApp.gameStage);
+            //test = FXMLLoader.load(getClass().getResource("TestMap.fxml"));
+            //theScene = new Scene(test);
+            //MainApp.gameStage.setScene(theScene);
+            System.out.println("Start test level");
         }
         else if (event.getSource() == quitButton) {
             MainApp.gameStage.close();

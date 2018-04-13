@@ -6,29 +6,20 @@ import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.Barrier;
-import model.Item;
 import model.TestCoin;
 import model.TestMan;
 import model.Car;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.Group;
-import javafx.fxml.FXML;
 import model.TestRobber;
 import view.GameModes;
-import view.Menu;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.util.Duration;
+
 import java.util.Random;
 
 public class GameController { // Class to contain main game loop
@@ -36,8 +27,9 @@ public class GameController { // Class to contain main game loop
 	private AnchorPane rootLayout;
 	private TestMan testman;
 	private TestCoin testCoin;
-	private TestWall testWall;
-	private TestWall mapWall;
+	private BrickWall brickWall;
+	private GreyWall greyWall;
+	private DirtWall dirtWall;
 	private Car car;
 	private TestRobber testRobber;
 	private double playerSpeed = 3;
@@ -46,7 +38,10 @@ public class GameController { // Class to contain main game loop
 	@SuppressWarnings("rawtypes")
 	private ArrayList charList = new ArrayList<Character>();
 	private ArrayList<TestCoin> coinList = new ArrayList<>();
-	private ArrayList<TestWall> mapWallList = new ArrayList<>();
+	private ArrayList<BrickWall> brickWallList = new ArrayList<>();
+	private ArrayList<GreyWall> greyWallList = new ArrayList<>();
+	private ArrayList<DirtWall> dirtWallList = new ArrayList<>();
+
 	//private ArrayList<Rectangle> wallList = new ArrayList<>();
 	private ArrayList<Car> carList = new ArrayList<>();
 	private int pixelScale = 48;
@@ -73,8 +68,8 @@ public class GameController { // Class to contain main game loop
 	public GameController(Stage mainStage) {
 
 		initGameController(mainStage);
-		initMap();
-		initPlayer();
+		//initMap1();
+		//initPlayer();
 		initRobber();
 		//robberMovement();
 		initMoney();
@@ -84,40 +79,105 @@ public class GameController { // Class to contain main game loop
 
 	}
 
-	private void initMap(){
+	public void initMap1() {
 		Rectangle levelBackground = new Rectangle(768, 768);
 
 		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
 
-		for (int i = 0; i < LevelData.LEVEL1.length; i++){
+		for (int i = 0; i < LevelData.LEVEL1.length; i++) {
 			String line = LevelData.LEVEL1[i];
-			for (int j = 0; j < line.length(); j++){
-				switch (line.charAt(j)){
+			for (int j = 0; j < line.length(); j++) {
+				switch (line.charAt(j)) {
+					case 'p':
+						initPlayer(j * pixelScale, i * pixelScale);
+						break;
 					case '0':
-						mapWallList.add(mapWall = new TestWall(rootLayout, j*pixelScale, i*pixelScale, pixelScale, pixelScale));
-						mapPath.add(mapWall.getBoundary());
-						mapWall.addToLayer();
-						mapWall.updateUI();
+						brickWallList.add(brickWall = new BrickWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
+						mapPath.add(brickWall.getBoundary());
+						brickWall.addToLayer();
+						brickWall.updateUI();
 						break;
 					case '1':
-						coinList.add(testCoin = new TestCoin(rootLayout, j*pixelScale + 15, i*pixelScale + 15, 2));
+						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
 						testCoin.addToLayer();
 						testCoin.updateUI();
 						break;
 					case '2':
 						break;
 					case '3':
-						carList.add(car = new Car(rootLayout, j*pixelScale + 3, i*pixelScale + 5, 0));
+						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
+						car.addToLayer();
+						car.updateUI();
+
+				}
+			}
+		}
+	}
+	public void initMap2() {
+
+		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
+
+		for (int i = 0; i < LevelData.LEVEL2.length; i++) {
+			String line = LevelData.LEVEL2[i];
+			for (int j = 0; j < line.length(); j++) {
+				switch (line.charAt(j)) {
+					case '0':
+						greyWallList.add(greyWall = new GreyWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
+						mapPath.add(greyWall.getBoundary());
+						greyWall.addToLayer();
+						greyWall.updateUI();
+						break;
+					case '1':
+						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
+						testCoin.addToLayer();
+						testCoin.updateUI();
+						break;
+					case '2':
+						break;
+					case '3':
+						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
+						car.addToLayer();
+						car.updateUI();
+					case 'p':
+						initPlayer(j * pixelScale, i * pixelScale);
+						break;
+				}
+			}
+		}
+	}
+	public void initMap3() {
+
+		levelWidth = LevelData.LEVEL1[0].length() * pixelScale;
+
+		for (int i = 0; i < LevelData.LEVEL3.length; i++) {
+			String line = LevelData.LEVEL3[i];
+			for (int j = 0; j < line.length(); j++) {
+				switch (line.charAt(j)) {
+					case '0':
+						dirtWallList.add(dirtWall = new DirtWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
+						mapPath.add(greyWall.getBoundary());
+						greyWall.addToLayer();
+						greyWall.updateUI();
+						break;
+					case '1':
+						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
+						testCoin.addToLayer();
+						testCoin.updateUI();
+						break;
+					case '2':
+						break;
+					case '3':
+						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
 						car.addToLayer();
 						car.updateUI();
 				}
 			}
 		}
-
-		//rootLayout.getChildren().add(levelBackground);
 	}
-	private void initPlayer(){
-		testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
+		//rootLayout.getChildren().add(levelBackground);
+	public void initPlayer(double xPosition, double yPosition){
+		testman = new TestMan(rootLayout, xPosition, yPosition, true, 38, 38, playerSpeed);
+		//testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
 		charList.add(testman);
 		testman.addToLayer();
 		testman.updateUI();
