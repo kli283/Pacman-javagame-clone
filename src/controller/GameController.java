@@ -121,6 +121,9 @@ public class GameController { // Class to contain main game loop
 			String line = LevelData.LEVEL2[i];
 			for (int j = 0; j < line.length(); j++) {
 				switch (line.charAt(j)) {
+					case 'p':
+						initPlayer(j * pixelScale, i * pixelScale);
+						break;
 					case '0':
 						greyWallList.add(greyWall = new GreyWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
 						mapPath.add(greyWall.getBoundary());
@@ -138,9 +141,6 @@ public class GameController { // Class to contain main game loop
 						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
 						car.addToLayer();
 						car.updateUI();
-					case 'p':
-						initPlayer(j * pixelScale, i * pixelScale);
-						break;
 				}
 			}
 		}
@@ -153,6 +153,9 @@ public class GameController { // Class to contain main game loop
 			String line = LevelData.LEVEL3[i];
 			for (int j = 0; j < line.length(); j++) {
 				switch (line.charAt(j)) {
+					case 'p':
+						initPlayer(j * pixelScale, i * pixelScale);
+						break;
 					case '0':
 						dirtWallList.add(dirtWall = new DirtWall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale));
 						mapPath.add(greyWall.getBoundary());
