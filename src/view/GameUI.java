@@ -2,7 +2,7 @@ package view;
 
 import java.util.ArrayList;
 
-import javax.xml.stream.events.Characters;
+import model.Character;
 
 public class GameUI {
 	
@@ -10,14 +10,9 @@ public class GameUI {
 		
 	}
 	
-	public void draw(ArrayList<Character> actors) {
+	public static void update(ArrayList<Character> actors) {
 		for(Character x:actors) {
 			x.getImageView().relocate(x.getXPos(), x.getYPos());
 		}
-	}
-	
-	public void update() {
-
-	}
-	
+	}	
 }

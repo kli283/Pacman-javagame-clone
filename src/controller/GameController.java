@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,10 +12,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.*;
 import javafx.scene.shape.Rectangle;
-import view.GameModes;
+import view.*;
 import javafx.animation.Timeline;
 import model.Character;
-
 import java.util.Random;
 
 public class GameController { // Class to contain main game loop
@@ -33,6 +30,7 @@ public class GameController { // Class to contain main game loop
 	private Car car;
 	private TestRobber testRobber;
 	private AIController AI;
+	private GameUI UI;
 	private double playerSpeed = 3;
 	private double robberSpeed = 2;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
@@ -130,13 +128,13 @@ public class GameController { // Class to contain main game loop
 		//testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
 		charList.add(testman);
 		testman.addToLayer();
-		testman.updateUI();
+		//testman.updateUI();
 	}
 	private void initRobber(){
 		testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
 		charList.add(testRobber);
 		testRobber.addToLayer();
-		testRobber.updateUI();
+		//testRobber.updateUI();
 		AI = new AIController(testRobber, testman);
 	}
 
@@ -158,7 +156,6 @@ public class GameController { // Class to contain main game loop
 //			testRobber.setDy(0);
 //		}
 		AI.navigate(testRobber, testman);
-		testRobber.updateUI();
 		//System.out.println("Direction: " + countDirection);
 		//System.out.println("Timer: " + countTimer);
 	}
@@ -236,16 +233,6 @@ public class GameController { // Class to contain main game loop
 							}
 						});
 
-				mainStage.show();
-
-				new AnimationTimer() {
-
-					public void handle(long currentNanoTime) {
-						// TODO Put graphics drawing classes, methods what-have-you in here.
-						testman.updateUI();
-					}
-
-				}.start();
 			if(MenuControl.mode == GameModes.MultiPlayer1) {
 				ArrayList<String> inputMulti1 = new ArrayList<String>();
 
@@ -299,15 +286,6 @@ public class GameController { // Class to contain main game loop
 								input.remove(code);
 							}
 						});
-				mainStage.show();
-				new AnimationTimer() {
-
-					public void handle(long currentNanoTime) {
-						// TODO Put graphics drawing classes, methods what-have-you in here.
-						testRobber.updateUI();
-					}
-
-				}.start();
 			}
         } catch (IOException e) {
             e.printStackTrace();
@@ -326,6 +304,7 @@ public class GameController { // Class to contain main game loop
 		detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
 		testman.changeMove();
 		testRobber.changeMove();
+		UI.update(charList);
 		robberMovement();
 		scoreLabel.setText(("$" + Integer.toString(CollisionDetection.scoreUpdate)));
 		//System.out.println(CollisionDetection.scoreUpdate);
