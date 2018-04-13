@@ -23,6 +23,7 @@ public class Character {
 	private double width;
 	boolean isPlayer1 = false; // determines if GoldGirl is AI or human. 
 	boolean isAI = false;
+	boolean dumbAI = false;
 	boolean canPickupItems = false;
 	boolean UP;
 	boolean DOWN;
@@ -40,6 +41,7 @@ public class Character {
 		this.playerSpeed = playerSpeed;
 		if(!isPlayer1) {
 			this.isAI = true;
+			this.dumbAI = true;
 		}
 	}
 
@@ -60,6 +62,10 @@ public class Character {
 		}
 		
 		return false;
+	}
+	
+	public boolean isDumbAI() {
+		return dumbAI;
 	}
 	
 	public double getPlayerSpeed() {
