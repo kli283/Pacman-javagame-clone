@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -61,7 +62,7 @@ public class GameController { // Class to contain main game loop
     Rectangle wall2;
 
 
-	public GameController(Stage mainStage) {
+	public GameController(Stage mainStage) throws IOException {
 
 		initGameController(mainStage);
 		//initMap1();
@@ -164,9 +165,9 @@ public class GameController { // Class to contain main game loop
 	}
 	
 	// Get the controller up and running
-	public void initGameController(Stage mainStage) {
+	public void initGameController(Stage mainStage) throws IOException {
 		mainStage.setTitle("Test Character Movement");
-		try {
+//		try {
             // Load root layout from FXML file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("TestMap.fxml"));
@@ -179,120 +180,104 @@ public class GameController { // Class to contain main game loop
           
 
 //TESTING GAME MODE
+			scene.setOnKeyPressed(event -> {
+				if (event.getCode() == KeyCode.UP) {
+					System.out.println("Move Up");
+					testman.setUP(true);
+				} else {
+					testman.setUP(false);
+				}
+				if (event.getCode() == KeyCode.RIGHT) {
+					System.out.println("Move RIGHT");
+					testman.setRIGHT(true);
+				} else {
+					testman.setRIGHT(false);
+				}
+				if (event.getCode() == KeyCode.DOWN) {
+					System.out.println("Move DOWN");
+					testman.setDOWN(true);
+				} else {
+					testman.setDOWN(false);
+				}
+				if (event.getCode() == KeyCode.LEFT) {
+					System.out.println("Move LEFT");
+					testman.setLEFT(true);
+				} else {
+					testman.setLEFT(false);
+				}
+					});
+			scene.setOnKeyReleased(event -> {
+
+						if (event.getCode() == KeyCode.LEFT) {
+							testman.setLEFT(false);
+						} else if (event.getCode() == KeyCode.UP) {
+							testman.setUP(false);
+						} else if (event.getCode() == KeyCode.DOWN) {
+							testman.setDOWN(false);
+						} else if (event.getCode() == KeyCode.RIGHT) {
+							testman.setRIGHT(false);
+						}
+					});
 
 
-				//Initialise ArrayList to store currently pressed keys
-				ArrayList<String> input = new ArrayList<String>();
-
-				//Initialise EventHandler to listen for key presses, add them to input ArrayList, and when they are released remove them
-				scene.setOnKeyPressed(
-						new EventHandler<KeyEvent>() {
-							public void handle(KeyEvent e) {
-								String code = e.getCode().toString();
-								if (!input.contains(code)) {
-									input.add(code);
-									if (input.contains("UP")) {
-										System.out.println("Move Up");
-										testman.setUP(true);
-									} else {
-										testman.setUP(false);
-									}
-									if (input.contains("RIGHT")) {
-										System.out.println("Move Right");
-										testman.setRIGHT(true);
-
-									} else {
-										testman.setRIGHT(false);
-									}
-									if (input.contains("DOWN")) {
-										testman.setDOWN(true);
-										System.out.println("Move Down");
-
-									} else {
-										testman.setDOWN(false);
-									}
-									if (input.contains("LEFT")) {
-										System.out.println("Move Left");
-										testman.setLEFT(true);
-									}
-								}
-							}
-						});
-				scene.setOnKeyReleased(
-						new EventHandler<KeyEvent>() {
-							public void handle(KeyEvent e) {
-								String code = e.getCode().toString();
-								if (code == "LEFT") {
-									testman.setLEFT(false);
-								} else if (code == "RIGHT") {
-									testman.setRIGHT(false);
-								} else if (code == "UP") {
-									testman.setUP(false);
-								} else if (code == "DOWN") {
-									testman.setDOWN(false);
-								}
-								input.remove(code);
-								System.out.println("Key Released");
-							}
-						});
-
-			if(MenuControl.mode == GameModes.MultiPlayer1) {
-				ArrayList<String> inputMulti1 = new ArrayList<String>();
-
-				//Initialise EventHandler to listen for key presses, add them to input ArrayList, and when they are released remove them
-				scene.setOnKeyPressed(
-						new EventHandler<KeyEvent>() {
-							public void handle(KeyEvent e) {
-								String code = e.getCode().toString();
-								if (!inputMulti1.contains(code)) {
-									inputMulti1.add(code);
-									if (inputMulti1.contains("W")) {
-										System.out.println("Move Up");
-										testRobber.setUP(true);
-									} else {
-										testRobber.setUP(false);
-									}
-									if (inputMulti1.contains("D")) {
-										System.out.println("Move Right");
-										testRobber.setRIGHT(true);
-
-									} else {
-										testRobber.setRIGHT(false);
-									}
-									if (inputMulti1.contains("S")) {
-										testRobber.setDOWN(true);
-										System.out.println("Move Down");
-
-									} else {
-										testRobber.setDOWN(false);
-									}
-									if (inputMulti1.contains("A")) {
-										System.out.println("Move Left");
-										testRobber.setLEFT(true);
-									}
-								}
-							}
-						});
-				scene.setOnKeyReleased(
-						new EventHandler<KeyEvent>() {
-							public void handle(KeyEvent e) {
-								String code = e.getCode().toString();
-								if (code == "A") {
-									testRobber.setLEFT(false);
-								} else if (code == "D") {
-									testRobber.setRIGHT(false);
-								} else if (code == "W") {
-									testRobber.setUP(false);
-								} else if (code == "S") {
-									testRobber.setDOWN(false);
-								}
-								input.remove(code);
-							}
-						});
-			}
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//				//Initialise ArrayList to store currently pressed keys
+//				ArrayList<String> input = new ArrayList<String>();
+//
+//				//Initialise EventHandler to listen for key presses, add them to input ArrayList, and when they are released remove them
+//				scene.setOnKeyPressed(
+//						new EventHandler<KeyEvent>() {
+//							public void handle(KeyEvent e) {
+//								String code = e.getCode().toString();
+//								if (!input.contains(code)) {
+//									input.add(code);
+//									if (input.contains("UP")) {
+//										System.out.println("Move Up");
+//										testman.setUP(true);
+//									} else {
+//										testman.setUP(false);
+//									}
+//									if (input.contains("RIGHT")) {
+//										System.out.println("Move Right");
+//										testman.setRIGHT(true);
+//
+//									} else {
+//										testman.setRIGHT(false);
+//									}
+//									if (input.contains("DOWN")) {
+//										testman.setDOWN(true);
+//										System.out.println("Move Down");
+//
+//									} else {
+//										testman.setDOWN(false);
+//									}
+//									if (input.contains("LEFT")) {
+//										System.out.println("Move Left");
+//										testman.setLEFT(true);
+//									}
+//								}
+//							}
+//						});
+//				scene.setOnKeyReleased(
+//						new EventHandler<KeyEvent>() {
+//							public void handle(KeyEvent e) {
+//								String code = e.getCode().toString();
+//								if (code == "LEFT") {
+//									testman.setLEFT(false);
+//								} else if (code == "RIGHT") {
+//									testman.setRIGHT(false);
+//								} else if (code == "UP") {
+//									testman.setUP(false);
+//								} else if (code == "DOWN") {
+//									testman.setDOWN(false);
+//								}
+//								input.remove(code);
+//								System.out.println("Key Released");
+//							}
+//						});
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 	}
 	private void initMoney(){
