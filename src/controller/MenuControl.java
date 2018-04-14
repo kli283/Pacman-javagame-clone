@@ -120,6 +120,7 @@ public class MenuControl {
 
         else if (event.getSource() == storyButton) {
             gControl = new GameController(MainApp.gameStage);
+            //gcontrol.
             gControl.initMap(LevelData.LEVEL1, "Brick");
             //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
             //gameImages = new Images(gameRoot);

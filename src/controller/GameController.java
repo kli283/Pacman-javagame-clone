@@ -52,12 +52,6 @@ public class GameController { // Class to contain main game loop
 	private Timeline timeline;
 	private Label timerLabel = new Label();
 	private Integer timeSeconds = STARTTIME;
-//	Rectangle rect1;
-//	Rectangle rect2;
-//	Rectangle rect3;
-//	Rectangle rect4;
-
-
     private CollisionDetection detector = new CollisionDetection();
     Rectangle wall1;
     Rectangle wall2;
@@ -127,7 +121,7 @@ public class GameController { // Class to contain main game loop
 			}
 		}
 	}
-		//rootLayout.getChildren().add(levelBackground);
+
 	public void initPlayer(double xPosition, double yPosition){
 		testman = new TestMan(rootLayout, xPosition, yPosition, true, 42, 42, playerSpeed);
 		//testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
@@ -135,6 +129,7 @@ public class GameController { // Class to contain main game loop
 		GameUI.spawn(testman);
 		//testman.updateUI();
 	}
+	
 	private void initRobber(){
 		testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
 		charList.add(testRobber);
@@ -168,57 +163,62 @@ public class GameController { // Class to contain main game loop
 	// Get the controller up and running
 	public void initGameController(Stage mainStage) throws IOException {
 		mainStage.setTitle("Test Character Movement");
-//		try {
-            // Load root layout from FXML file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("TestMap.fxml"));
-            rootLayout = (AnchorPane) loader.load();
 
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
-            mainStage.setScene(scene);
-            mainStage.show();
+        // Load root layout from FXML file.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("TestMap.fxml"));
+        rootLayout = (AnchorPane) loader.load();
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+        mainStage.setScene(scene);
+        mainStage.show();
           
 
 //TESTING GAME MODE
-			scene.setOnKeyPressed(event -> {
-				if (event.getCode() == KeyCode.UP) {
-					System.out.println("Move Up");
-					testman.setUP(true);
-				} else {
-					testman.setUP(false);
-				}
-				if (event.getCode() == KeyCode.RIGHT) {
-					System.out.println("Move RIGHT");
-					testman.setRIGHT(true);
-				} else {
-					testman.setRIGHT(false);
-				}
-				if (event.getCode() == KeyCode.DOWN) {
-					System.out.println("Move DOWN");
-					testman.setDOWN(true);
-				} else {
-					testman.setDOWN(false);
-				}
-				if (event.getCode() == KeyCode.LEFT) {
-					System.out.println("Move LEFT");
-					testman.setLEFT(true);
-				} else {
-					testman.setLEFT(false);
-				}
-					});
-			scene.setOnKeyReleased(event -> {
+		scene.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.UP) {
+				System.out.println("Move Up");
+				testman.setUP(true);
+			} //else {
+				//testman.setUP(false);
+			//}
+			if (event.getCode() == KeyCode.RIGHT) {
+				System.out.println("Move RIGHT");
+				testman.setRIGHT(true);
+			} //else {
+				//testman.setRIGHT(false);
+			//}
+			if (event.getCode() == KeyCode.DOWN) {
+				System.out.println("Move DOWN");
+				testman.setDOWN(true);
+			} //else {
+				//testman.setDOWN(false);
+			//}
+			if (event.getCode() == KeyCode.LEFT) {
+				System.out.println("Move LEFT");
+				testman.setLEFT(true);
+			} //else {
+				//testman.setLEFT(false);
+			//}
+			if (event.getCode() == KeyCode.PAGE_DOWN) {
+				coinList.clear();
+				smallCashList.clear();
+				bigCashList.clear();
+			}
+		});
+		scene.setOnKeyReleased(event -> {
 
-						if (event.getCode() == KeyCode.LEFT) {
-							testman.setLEFT(false);
-						} else if (event.getCode() == KeyCode.UP) {
-							testman.setUP(false);
-						} else if (event.getCode() == KeyCode.DOWN) {
-							testman.setDOWN(false);
-						} else if (event.getCode() == KeyCode.RIGHT) {
-							testman.setRIGHT(false);
-						}
-					});
+			if (event.getCode() == KeyCode.LEFT) {
+				testman.setLEFT(false);
+			} else if (event.getCode() == KeyCode.UP) {
+				testman.setUP(false);
+			} else if (event.getCode() == KeyCode.DOWN) {
+				testman.setDOWN(false);
+			} else if (event.getCode() == KeyCode.RIGHT) {
+				testman.setRIGHT(false);
+			}
+		});
 
 //				//Initialise ArrayList to store currently pressed keys
 //				ArrayList<String> input = new ArrayList<String>();
@@ -280,6 +280,7 @@ public class GameController { // Class to contain main game loop
 //        }
 
 	}
+	
 	private void initMoney(){
 		scoreLabel = new Label((Integer.toString(CollisionDetection.scoreUpdate)));
 		scoreLabel.setFont(new Font("Calibri", 32));
@@ -291,7 +292,7 @@ public class GameController { // Class to contain main game loop
 	public void tickChange(){
 		detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
 		testman.changeMove();
-		testRobber.changeMove();
+		//testRobber.changeMove();
 		GameUI.updateActors(charList);
 		GameUI.updateBoxes(wallList);
 		GameUI.updateItems(coinList);
@@ -299,7 +300,14 @@ public class GameController { // Class to contain main game loop
 		GameUI.updateItems(bigCashList);
 		GameUI.updateItems(carList);
 		if(this.checkWin()){
-			
+			//if(storyMode) {
+				try {
+					this.initGameController(MainApp.gameStage);
+					this.initMap(LevelData.LEVEL2, "BrickGrey");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			//}
 		}
 		//robberMovement();
 		scoreLabel.setText(("$" + Integer.toString(CollisionDetection.scoreUpdate)));
