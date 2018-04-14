@@ -45,6 +45,7 @@ public class GameController { // Class to contain main game loop
 	double coinPosY;
 	private int levelWidth;
 	private GameModes gameModes;
+	private boolean storyMode;
 	private Label scoreLabel;
 	private static final Integer STARTTIME = 120;
 	private Timeline timeline;
@@ -192,13 +193,13 @@ public class GameController { // Class to contain main game loop
 								if (!input.contains(code)) {
 									input.add(code);
 									if (input.contains("UP")) {
-										System.out.println("Move Up");
+									//	System.out.println("Move Up");
 										testman.setUP(true);
 									} else {
 										testman.setUP(false);
 									}
 									if (input.contains("RIGHT")) {
-										System.out.println("Move Right");
+									//	System.out.println("Move Right");
 										testman.setRIGHT(true);
 
 									} else {
@@ -206,13 +207,13 @@ public class GameController { // Class to contain main game loop
 									}
 									if (input.contains("DOWN")) {
 										testman.setDOWN(true);
-										System.out.println("Move Down");
+									//	System.out.println("Move Down");
 
 									} else {
 										testman.setDOWN(false);
 									}
 									if (input.contains("LEFT")) {
-										System.out.println("Move Left");
+									//	System.out.println("Move Left");
 										testman.setLEFT(true);
 									}
 								}
@@ -232,7 +233,7 @@ public class GameController { // Class to contain main game loop
 									testman.setDOWN(false);
 								}
 								input.remove(code);
-								System.out.println("Key Released");
+								//System.out.println("Key Released");
 							}
 						});
 
@@ -312,9 +313,19 @@ public class GameController { // Class to contain main game loop
 		GameUI.updateItems(coinList);
 		GameUI.updateItems(smallCashList);
 		GameUI.updateItems(bigCashList);
-		GameUI.updateItems(carList);;
-		robberMovement();
+		GameUI.updateItems(carList);
+		this.checkWin();
+		//robberMovement();
 		scoreLabel.setText(("$" + Integer.toString(CollisionDetection.scoreUpdate)));
 		//System.out.println(CollisionDetection.scoreUpdate);
+	}
+	
+	public boolean checkWin() {
+		if(this.coinList.isEmpty()&&this.smallCashList.isEmpty()&&this.bigCashList.isEmpty()) {
+			System.out.println("GAME WON");
+			return true;
+		}
+			
+		return false;
 	}
 }
