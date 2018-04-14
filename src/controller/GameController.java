@@ -2,21 +2,18 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.*;
 import javafx.scene.shape.Rectangle;
 import view.*;
-import javafx.animation.Timeline;
 import model.Character;
-import java.util.Random;
 
 public class GameController { // Class to contain main game loop
 
@@ -48,25 +45,101 @@ public class GameController { // Class to contain main game loop
 	private GameModes gameModes;
 	private boolean storyMode;
 	private Label scoreLabel;
-	private static final Integer STARTTIME = 120;
-	private Timeline timeline;
+	private Label timeLabel;
+	private Label pregameLabel;
+	private static final int STARTTIME = 120;
 	private Label timerLabel = new Label();
-	private Integer timeSeconds = STARTTIME;
+	private int timeSeconds = STARTTIME;
+	private int timeRemaining;
+	private int preTimeRemaining = 3;
+	private int numOfTimesTicked;
+	private int preGameTimer;
+	private boolean escPressed;
+	private boolean pausePressed;
+	private boolean endGamePressed;
+	private boolean gameOver;
+	private boolean readyToStart;
+	private boolean winGame;
+//	Rectangle rect1;
+//	Rectangle rect2;
+//	Rectangle rect3;
+//	Rectangle rect4;
+
     private CollisionDetection detector = new CollisionDetection();
     Rectangle wall1;
     Rectangle wall2;
 
 
 	public GameController(Stage mainStage) throws IOException {
-
+		timeRemaining = 0;
+		numOfTimesTicked = 0;
+		escPressed = false;
+		pausePressed = false;
+		endGamePressed = false;
+		winGame = false;
+		resetTimer();
 		initGameController(mainStage);
+
 		//initMap1();
 		//initPlayer();
 		initRobber();
 		//robberMovement();
-		initMoney();
+		//initLabels();
 		//initTimer();
 	}
+	public boolean startGame() {
+		return this.readyToStart;
+	}
+
+	public void endGame() {
+		this.gameOver = true;
+		if (winGame == true) {
+			//label displays win
+		} else {
+			//label displays lose
+		}
+	}
+
+	public boolean gameIsPaused() {
+		if ((this.escPressed) || (this.pausePressed) || (this.gameOver)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isFinished() {
+		if (this.timeRemaining <= 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public void decreaseTime() {
+
+		this.timeRemaining--;
+	}
+	public void decreasePreTime() {
+		this.preTimeRemaining--;
+	}
+
+	/**
+	 * resetTimer resets the game's timer.
+	 */
+	public void resetTimer() {
+		this.timeRemaining = 120;
+	}
+
+	/**
+	 * timeRemaining returns the amount of time left in the game.
+	 */
+	public int timeAmount() {
+		return this.timeRemaining;
+	}
+	public int preTimeAmount() {
+		return this.preTimeRemaining;
+	}
+
 	public void initTimer() {
 
 	}
@@ -164,15 +237,17 @@ public class GameController { // Class to contain main game loop
 	public void initGameController(Stage mainStage) throws IOException {
 		mainStage.setTitle("Test Character Movement");
 
+
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("TestMap.fxml"));
         rootLayout = (AnchorPane) loader.load();
 
-        // Show the scene containing the root layout.
-        Scene scene = new Scene(rootLayout);
-        mainStage.setScene(scene);
-        mainStage.show();
+            // Show the scene containing the root layout.
+		preGameTimer = 3;
+            Scene scene = new Scene(rootLayout);
+            mainStage.setScene(scene);
+            mainStage.show();
           
 
 //TESTING GAME MODE
@@ -208,6 +283,7 @@ public class GameController { // Class to contain main game loop
 			}
 		});
 		scene.setOnKeyReleased(event -> {
+
 
 			if (event.getCode() == KeyCode.LEFT) {
 				testman.setLEFT(false);
@@ -280,38 +356,72 @@ public class GameController { // Class to contain main game loop
 //        }
 
 	}
-	
-	private void initMoney(){
-		scoreLabel = new Label((Integer.toString(CollisionDetection.scoreUpdate)));
+
+	public void initLabels(){
+		scoreLabel = new Label("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
 		scoreLabel.setFont(new Font("Calibri", 32));
 		scoreLabel.setLayoutX(845);
 		scoreLabel.setLayoutY(96);
-		rootLayout.getChildren().add(scoreLabel);
+		timeLabel = new Label(Integer.toString(timeSeconds) + " seconds");
+		timeLabel.setFont(new Font("Calibri", 32));
+		timeLabel.setLayoutX(845);
+		timeLabel.setLayoutY(150);
+		pregameLabel = new Label(Integer.toString(preGameTimer));
+		pregameLabel.setFont(new Font("Calibri", 95));
+		pregameLabel.setLayoutX(350);
+		pregameLabel.setLayoutY(330);
+		rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel);
 	}
 
 	public void tickChange(){
-		detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
-		testman.changeMove();
-		//testRobber.changeMove();
 		GameUI.updateActors(charList);
 		GameUI.updateBoxes(wallList);
 		GameUI.updateItems(coinList);
 		GameUI.updateItems(smallCashList);
 		GameUI.updateItems(bigCashList);
 		GameUI.updateItems(carList);
-		if(this.checkWin()){
-			//if(storyMode) {
-				try {
-					this.initGameController(MainApp.gameStage);
-					this.initMap(LevelData.LEVEL2, "BrickGrey");
-				} catch (IOException e) {
-					e.printStackTrace();
+		if (!gameIsPaused()) {
+			if (startGame() == true) {
+				detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
+				testman.changeMove();
+				testRobber.changeMove();
+				robberMovement();
+				scoreLabel.setText("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
+
+				numOfTimesTicked++;
+				if (numOfTimesTicked == 60) {
+					decreaseTime();
+					if (timeAmount() == 0) {
+						endGame();
+					}
+					timeLabel.setText(timeAmount() + " seconds");
+					numOfTimesTicked = 0;
 				}
-			//}
+				if(this.checkWin()){
+					//if(storyMode) {
+						try {
+							this.initGameController(MainApp.gameStage);
+							this.initMap(LevelData.LEVEL2, "BrickGrey");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					//}
+				}
+			} else {
+				numOfTimesTicked++;
+				if (numOfTimesTicked == 60) {
+					numOfTimesTicked = 0;
+					decreasePreTime();
+					pregameLabel.setText(Integer.toString(preTimeAmount()));
+					this.preGameTimer--;
+				}
+
+				if (preGameTimer == 0) {
+					this.readyToStart = true;
+					pregameLabel.setText("");
+				}
+			}
 		}
-		//robberMovement();
-		scoreLabel.setText(("$" + Integer.toString(CollisionDetection.scoreUpdate)));
-		//System.out.println(CollisionDetection.scoreUpdate);
 	}
 	
 	public boolean checkWin() {
