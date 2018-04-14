@@ -104,18 +104,21 @@ public class GameController { // Class to contain main game loop
 						break;
 					case '3':
 						carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
-						car.addToLayer();
-						car.updateUI();
+						GameUI.spawn(car);
+						//car.addToLayer();
+						//car.updateUI();
 						break;
 					case '4':
 						smallCashList.add(smallCash = new SmallCash(rootLayout, j * pixelScale + 4, i * pixelScale + 8, 10));
-						smallCash.addToLayer();
-						smallCash.updateUI();
+						GameUI.spawn(smallCash);
+						//smallCash.addToLayer();
+						//smallCash.updateUI();
 						break;
 					case '5':
 						bigCashList.add(bigCash = new BigCash(rootLayout, j * pixelScale + 4, i * pixelScale + 8, 25));
-						bigCash.addToLayer();
-						bigCash.updateUI();
+						GameUI.spawn(bigCash);
+						//bigCash.addToLayer();
+						//bigCash.updateUI();
 						break;
 
 				}
@@ -304,9 +307,12 @@ public class GameController { // Class to contain main game loop
 		detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
 		testman.changeMove();
 		testRobber.changeMove();
-		UI.updateActors(charList);
-		UI.updateBoxes(wallList);
-		UI.updateItems(coinList);
+		GameUI.updateActors(charList);
+		GameUI.updateBoxes(wallList);
+		GameUI.updateItems(coinList);
+		GameUI.updateItems(smallCashList);
+		GameUI.updateItems(bigCashList);
+		GameUI.updateItems(carList);;
 		robberMovement();
 		scoreLabel.setText(("$" + Integer.toString(CollisionDetection.scoreUpdate)));
 		//System.out.println(CollisionDetection.scoreUpdate);
