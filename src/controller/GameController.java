@@ -272,8 +272,9 @@ public class GameController { // Class to contain main game loop
 				if (event.getCode() == KeyCode.LEFT) {
 					System.out.println("Move LEFT");
 					testman.setLEFT(true);
-				} else {
-					testman.setLEFT(false);
+				}
+				if (event.getCode() == KeyCode.P) {
+					pressPause();
 				}
 					});
 			scene.setOnKeyReleased(event -> {
@@ -290,6 +291,7 @@ public class GameController { // Class to contain main game loop
 					});
 
 	}
+	
 	public void initLabels(){
 		scoreLabel = new Label("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
 		scoreLabel.setFont(new Font("Calibri", 32));
@@ -304,6 +306,15 @@ public class GameController { // Class to contain main game loop
 		pregameLabel.setLayoutX(350);
 		pregameLabel.setLayoutY(330);
 		rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel);
+	}
+	
+	public void pressPause() {
+		if(!this.pausePressed) {	
+			this.pausePressed = true;
+		}
+		else {
+			this.pausePressed = false;
+		}
 	}
 
 	public void tickChange(){
