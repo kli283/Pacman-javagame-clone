@@ -98,6 +98,7 @@ public class MenuControl {
         else if (event.getSource() == map1Button) {
             gControl = new GameController(MainApp.gameStage);
             gControl.initMap(LevelData.LEVEL1, "Brick");
+            gControl.initLabels();
             //gControl.initPlayer(7 * positionScale, 7 * positionScale + 8);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
@@ -105,6 +106,7 @@ public class MenuControl {
         else if (event.getSource() == map2Button) {
             gControl = new GameController(MainApp.gameStage);
             gControl.initMap(LevelData.LEVEL2, "BrickGrey");
+            gControl.initLabels();
            // gControl.initPlayer(7*positionScale + 10, 6*positionScale);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
@@ -112,6 +114,7 @@ public class MenuControl {
         else if (event.getSource() == map3Button) {
             gControl = new GameController(MainApp.gameStage);
             gControl.initMap(LevelData.LEVEL3, "Dirt");
+            gControl.initLabels();
             //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
@@ -121,6 +124,7 @@ public class MenuControl {
         else if (event.getSource() == storyButton) {
             gControl = new GameController(MainApp.gameStage);
             gControl.initMap(LevelData.LEVEL1, "Brick");
+            gControl.initLabels();
             //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
