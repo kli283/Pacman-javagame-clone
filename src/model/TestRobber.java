@@ -10,9 +10,9 @@ public class TestRobber extends Character {
 		this.setImage("/model/TestRobber.png");
 	}
 	
-	public void addToLayer() {
-        this.layer.getChildren().add(this.getImageView());
-    }
+//	public void addToLayer() {
+//        this.layer.getChildren().add(this.getImageView());
+//    }
 
 	
 	public void updateUI() {

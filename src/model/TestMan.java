@@ -11,9 +11,9 @@ public class TestMan extends Character {
 		this.isPlayer1 = true;
 	}
 	
-	public void addToLayer() {
-        this.layer.getChildren().add(this.getImageView());
-    }
+//	public void addToLayer() {
+//        this.layer.getChildren().add(this.getImageView());
+//    }
 	
 	public void updateUI() {
 		getImageView().relocate(this.getXPos(),this.getYPos());

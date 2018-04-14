@@ -31,7 +31,14 @@ public class Box {
         this.xPos = xPos;
     }
 
-
+    public void setLayer(AnchorPane layer) {
+    	this.layer = layer;
+    }
+    
+    public AnchorPane getLayer() {
+    	return this.layer;
+    }
+    
     public double getYPos() {
         return this.yPos;
     }

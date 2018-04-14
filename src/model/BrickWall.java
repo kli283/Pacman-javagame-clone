@@ -1,6 +1,7 @@
 package model;
 
 import javafx.scene.layout.AnchorPane;
+import model.Box;
 
 public class BrickWall extends Box{
     public BrickWall(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
@@ -10,7 +11,7 @@ public class BrickWall extends Box{
     }
 
     public void addToLayer() {
-        this.layer.getChildren().add(this.getImageView());
+        this.getLayer().getChildren().add(this.getImageView());
     }
 
     public void updateUI() {
