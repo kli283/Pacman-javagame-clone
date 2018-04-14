@@ -10,7 +10,7 @@ import javafx.scene.shape.Rectangle;
  */
 
 public class Character {
-	AnchorPane layer;//Where to draw the character
+	private AnchorPane layer;//Where to draw the character
 	private Image image;//How the character
 	private ImageView imageView;// should look
 	private double xPos;
@@ -63,6 +63,14 @@ public class Character {
 	
 	public boolean isDumbAI() {
 		return dumbAI;
+	}
+	
+	public AnchorPane getLayer() {
+		return this.layer;
+	}
+	
+	public void setLayer(AnchorPane layer) {
+		this.layer = layer;
 	}
 	
 	public double getPlayerSpeed() {

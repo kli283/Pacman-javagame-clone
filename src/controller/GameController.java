@@ -34,13 +34,12 @@ public class GameController { // Class to contain main game loop
 	private double playerSpeed = 3;
 	private double robberSpeed = 2;
 	private ArrayList<Rectangle> mapPath = new ArrayList<>();
-	@SuppressWarnings("rawtypes")
-	private ArrayList charList = new ArrayList<Character>();
-	private ArrayList<TestCoin> coinList = new ArrayList<>();
-	private ArrayList<SmallCash> smallCashList = new ArrayList<>();
-	private ArrayList<BigCash> bigCashList = new ArrayList<>();
+	private ArrayList<Character> charList = new ArrayList<Character>();
+	private ArrayList<Item> coinList = new ArrayList<Item>();
+	private ArrayList<Item> smallCashList = new ArrayList<>();
+	private ArrayList<Item> bigCashList = new ArrayList<>();
 	private ArrayList<Box> wallList = new ArrayList<>();
-	private ArrayList<Car> carList = new ArrayList<>();
+	private ArrayList<Item> carList = new ArrayList<>();
 	private int pixelScale = 48;
 	double coinPosX;
 	double coinPosY;
@@ -92,13 +91,14 @@ public class GameController { // Class to contain main game loop
 						Wall wall = new Wall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale, imageURL);
 						wallList.add(wall);
 						mapPath.add(wall.getBoundary());
-						wall.addToLayer();
-						wall.updateUI();
+						GameUI.spawn(wall);
+						//wall.addToLayer();
+						//wall.updateUI();
 						break;
 					case '1':
 						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
-						testCoin.addToLayer();
-						testCoin.updateUI();
+						GameUI.spawn(testCoin);
+						//testCoin.updateUI();
 						break;
 					case '2':
 						break;
@@ -127,13 +127,13 @@ public class GameController { // Class to contain main game loop
 		testman = new TestMan(rootLayout, xPosition, yPosition, true, 42, 42, playerSpeed);
 		//testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
 		charList.add(testman);
-		testman.addToLayer();
+		GameUI.spawn(testman);
 		//testman.updateUI();
 	}
 	private void initRobber(){
 		testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
 		charList.add(testRobber);
-		testRobber.addToLayer();
+		GameUI.spawn(testRobber);
 		//testRobber.updateUI();
 		AI = new AIController(testRobber, testman);
 	}
@@ -304,7 +304,9 @@ public class GameController { // Class to contain main game loop
 		detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
 		testman.changeMove();
 		testRobber.changeMove();
-		UI.update(charList);
+		UI.updateActors(charList);
+		UI.updateBoxes(wallList);
+		UI.updateItems(coinList);
 		robberMovement();
 		scoreLabel.setText(("$" + Integer.toString(CollisionDetection.scoreUpdate)));
 		//System.out.println(CollisionDetection.scoreUpdate);

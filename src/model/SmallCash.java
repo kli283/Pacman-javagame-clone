@@ -11,11 +11,11 @@ public class SmallCash extends Item {
     }
 
     public void addToLayer() {
-        this.layer.getChildren().add(this.getImageView());
+        this.getLayer().getChildren().add(this.getImageView());
     }
 
     public void removeFromLayer() {
-        this.layer.getChildren().remove(this.getImageView());
+        this.getLayer().getChildren().remove(this.getImageView());
     }
 
     public void updateUI() {

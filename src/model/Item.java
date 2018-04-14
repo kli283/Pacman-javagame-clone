@@ -14,13 +14,21 @@ public class Item {
 	private int score;
 	private Image image;
 	private ImageView imageView;
-	AnchorPane layer;
+	private AnchorPane layer;
 
 	public Item(AnchorPane layer, double xPos, double yPos, int score) {
 		this.layer = layer;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.score = score;
+	}
+	
+	public AnchorPane getLayer() {
+		return this.layer;
+	}
+	
+	public void setLayer(AnchorPane layer) {
+		this.layer = layer;
 	}
 	
 	public double getXPos() {
