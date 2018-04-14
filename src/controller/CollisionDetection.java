@@ -97,7 +97,7 @@ public class CollisionDetection {
 		for (Item bigCash : tempBigCash){
 			bigCashList.remove(bigCash);
 			scoreUpdate += bigCash.getScore();
-			System.out.println(scoreUpdate);
+			//System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempCar = new ArrayList<>();
 		for(Character x:movers) {
