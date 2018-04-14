@@ -1,7 +1,5 @@
 package model;
 
-import controller.CollisionDetection;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,31 +19,58 @@ public class Character {
 	private double dy;
 	private double height;
 	private double width;
-	boolean isPlayer1; // determines if AI or human. change to int for MP?
-	boolean isPlayer2;
+	boolean isPlayer1 = false; // determines if GoldGirl is AI or human. 
+	boolean isAI = false;
+	boolean dumbAI = false;
+	boolean canPickupItems = false;
 	boolean UP;
 	boolean DOWN;
 	boolean LEFT;
 	boolean RIGHT;
+	double playerSpeed;
 	
-	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth) {
+	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed) {
 		this.layer = layer;
 		setXPos(xStart);
 		setYPos(yStart);
-		this.isPlayer1 = isPlayer;
+		this.canPickupItems = isPlayer;
 		this.height = setHeight;
 		this.width = setWidth;
+		this.playerSpeed = playerSpeed;
+		if(!isPlayer1) {
+			this.isAI = true;
+			this.dumbAI = true;
+		}
 	}
 
-	public void move(double xMove, double yMove) {//, CollisionDetection detector) {
-	//	if(!detector.willCollide(this)) {
-			setXPos(getXPos() + xMove);
-			setYPos(getYPos() + yMove);
-		//}
+	public void move(double xMove, double yMove) {
+		setXPos(getXPos() + xMove);
+		setYPos(getYPos() + yMove);
 	}
+	
 	public void changeMove() {
 		setXPos(getXPos() + dx);
 		setYPos(getYPos() + dy);
+	}
+	
+	public boolean canPickupItems() {
+		if(this.canPickupItems) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean isDumbAI() {
+		return dumbAI;
+	}
+	
+	public double getPlayerSpeed() {
+		return this.playerSpeed;
+	}
+
+	public void setPlayerSpeed(double speed) {
+		this.playerSpeed = speed;
 	}
 	
 	public void setUP(boolean directionFlag) {
