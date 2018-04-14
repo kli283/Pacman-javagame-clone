@@ -1,12 +1,12 @@
-package controller;
+package model;
 
 import javafx.scene.layout.AnchorPane;
 
-public class BrickWall extends Box{
-    public BrickWall(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
+public class GreyWall extends Box{
+    public GreyWall(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
         super(layer, xPos, yPos, setHeight, setWidth);
 
-        this.setImage("/model/Brick.png");
+        this.setImage("/model/BrickGrey.png");
     }
 
     public void addToLayer() {

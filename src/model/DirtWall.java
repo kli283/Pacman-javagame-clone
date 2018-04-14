@@ -1,12 +1,12 @@
-package controller;
+package model;
 
 import javafx.scene.layout.AnchorPane;
 
-public class Wall extends Box{
-    public Wall(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth, String imageURL) {
+public class DirtWall extends Box{
+    public DirtWall(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
         super(layer, xPos, yPos, setHeight, setWidth);
 
-        this.setImage(imageURL);
+        this.setImage("/model/Dirt.png");
     }
 
     public void addToLayer() {
