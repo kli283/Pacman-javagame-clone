@@ -11,6 +11,7 @@ public class AIController {
 		if(AI.isDumbAI()) {
 			if(this.isAbove(AI, player)) {
 				AI.setUP(true);
+				AI.rotateUP();
 				System.out.println("UP");
 			}
 			else {
@@ -18,6 +19,7 @@ public class AIController {
 			}
 			if(this.isBelow(AI, player)) {
 				AI.setDOWN(true);
+				AI.rotateDOWN();
 				System.out.println("DOWN");
 			}
 			else {
@@ -25,12 +27,14 @@ public class AIController {
 			}
 			if(this.isLeft(AI, player)) {
 				AI.setLEFT(true);
+				AI.rotateLEFT();
 				System.out.println("LEFT");
 			}
 			else {
 				AI.setLEFT(false);
 			}
 			if(this.isRight(AI, player)) {
+				AI.rotateRIGHT();
 				AI.setRIGHT(true);
 				System.out.println("RIGHT");
 			}

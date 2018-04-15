@@ -82,7 +82,6 @@ public class Character {
 	}
 	
 	public void setUP(boolean directionFlag) {
-		this.imageView.setRotate(180);
 		this.UP = directionFlag;
 	}
 	public void rotateUP() {
