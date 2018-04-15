@@ -94,7 +94,7 @@ public class GameController { // Class to contain main game loop
 	}
 
 	public void endGame() {
-		timeRemaining = 0;
+		this.timeRemaining = 1;
 		this.gameOver = true;
 		if (winGame == true) {
 			winLabel.setText("GAME OVER \n YOU WIN");
@@ -131,6 +131,9 @@ public class GameController { // Class to contain main game loop
 	 */
 	public void resetTimer() {
 		this.timeRemaining = 120;
+	}
+	public void zeroTimer() {
+		this.timeRemaining = 1;
 	}
 
 	/**
@@ -292,7 +295,6 @@ public class GameController { // Class to contain main game loop
 				}
 
 
-				// Pressing Y when the quit game prompt is on the screen will take the game back to the main menu of the game
 				if (event.getCode() == KeyCode.ENTER) {
 					if (this.escPressed == true) {
 						try {
@@ -308,7 +310,6 @@ public class GameController { // Class to contain main game loop
 						}
 					}
 				}
-				// Pressing N when the quit game prompt is on the screen will resume the game
 				if (event.getCode() == KeyCode.BACK_SPACE) {
 					if (this.escPressed == true) {
 						this.escPressed = false;
@@ -316,10 +317,11 @@ public class GameController { // Class to contain main game loop
 					}
 				}
 				if (event.getCode() == KeyCode.PAGE_DOWN) {
+					//this.timeRemaining = 1;
 					if (endGamePressed == true) {
 					} else {
 						endGamePressed = true;
-						//this.timeRemaining = 0;
+						zeroTimer();
 						endGame();
 					}
 				}
@@ -393,6 +395,7 @@ public class GameController { // Class to contain main game loop
 					decreaseTime();
 					if (timeAmount() == 0) {
 						endGame();
+						//timeLabel.setText(timeAmount() + " seconds");
 					}
 					timeLabel.setText(timeAmount() + " seconds");
 					numOfTimesTicked = 0;

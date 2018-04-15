@@ -5,12 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.application.Application;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
 import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainApp extends Application {
 	public static Stage gameStage;
 	private AnchorPane baseLayout;
+	private MediaPlayer gameMusic;
 	public static final double screenWidth = 1024;
 	public static final double screenHeight = 768;
 	public static final double gameScreenWidth = 1024;
@@ -19,13 +22,27 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
+	public void initMusic(){
+		Media theme = new Media((MainApp.class.getResource("Cool Vibes.mp3").toString()));
+		gameMusic = new MediaPlayer(theme);
+		gameMusic.setCycleCount(MediaPlayer.INDEFINITE);;
+	}
+
+	public void playMusic(){
+		gameMusic.play();
+	}
+
+	public void stopMusic() {
+		gameMusic.pause();
+	}
+
+
 	public void start(Stage gameStage) throws IOException {
 		//GameController gControl = new GameController(primaryStage);
 		MainApp.gameStage = gameStage;
 		MainApp.gameStage.setTitle("Gold Girl");
 		MainApp.gameStage.setResizable(false);
 		MainApp.gameStage.sizeToScene();
-
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("MainMenu.fxml"));
@@ -34,6 +51,8 @@ public class MainApp extends Application {
 			Scene scene = new Scene(baseLayout);
 			gameStage.setScene(scene);
 			gameStage.show();
+			initMusic();
+			playMusic();
 
 
 		} catch (IOException e) {
