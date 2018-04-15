@@ -12,6 +12,7 @@ import view.GameUI;
 public class CollisionDetection {
 
 	public static int scoreUpdate = 0;
+	
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
 	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList,ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList) {
@@ -35,7 +36,7 @@ public class CollisionDetection {
 			if((x.getDx() > 0) && (this.checkRight(x, listOfWalls))) {
 				x.setDx(0);
 			}
-			else if((x.getDx() < 0)  && (this.checkLeft(x, listOfWalls))) {
+			else if((x.getDx() < 0) && (this.checkLeft(x, listOfWalls))) {
 				x.setDx(0);
 			}
 			else if((x.getDy() > 0) && (this.checkDown(x, listOfWalls))) {

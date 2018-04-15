@@ -235,7 +235,7 @@ public class GameController { // Class to contain main game loop
 //			testRobber.setDx(-robberSpeed);
 //			testRobber.setDy(0);
 //		}
-		AI.navigate(charList, testman);
+		AI.navigate(charList, testman, detector, mapPath);
 		//System.out.println("Direction: " + countDirection);
 		//System.out.println("Timer: " + countTimer);
 	}
