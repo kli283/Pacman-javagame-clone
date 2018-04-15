@@ -1,72 +1,78 @@
 package controller;
 
+import java.util.ArrayList;
+
+import javafx.scene.shape.Rectangle;
 import model.Character;
 
 public class AIController {
 	
-	public AIController(Character AI, Character player) {
-	}
+	public AIController() {}
 	
-	public void navigate(Character AI, Character player) {
-		if(AI.isDumbAI()) {
-			if(this.isAbove(AI, player)) {
-				AI.setUP(true);
-				AI.rotateUP();
-				System.out.println("UP");
-			}
-			else {
-				AI.setUP(false);
-			}
-			if(this.isBelow(AI, player)) {
-				AI.setDOWN(true);
-				AI.rotateDOWN();
-				System.out.println("DOWN");
-			}
-			else {
-				AI.setDOWN(false);
-			}
-			if(this.isLeft(AI, player)) {
-				AI.setLEFT(true);
-				AI.rotateLEFT();
-				System.out.println("LEFT");
-			}
-			else {
-				AI.setLEFT(false);
-			}
-			if(this.isRight(AI, player)) {
-				AI.rotateRIGHT();
-				AI.setRIGHT(true);
-				System.out.println("RIGHT");
-			}
-			else {
-				AI.setRIGHT(false);
+	public void navigate(ArrayList<Character> AI, Character player, CollisionDetection detector, ArrayList<Rectangle> wallList) {
+		for(Character x:AI) {
+			if(!x.isHuman()) {
+				if(x.isDumbAI()) {
+					if(this.isAbove(x, player) && !detector.checkUp(x, wallList)) {
+						x.setUP(true);
+						x.rotateUP();
+						System.out.println("UP");
+					}
+					else {
+						x.setUP(false);
+					}
+					if(this.isBelow(x, player) && !detector.checkDown(x, wallList)) {
+						x.setDOWN(true);
+						x.rotateDOWN();
+						System.out.println("DOWN");
+					}
+					else {
+						x.setDOWN(false);
+					}
+					if(this.isLeft(x, player) && !detector.checkLeft(x, wallList)) {
+						x.setLEFT(true);
+						x.rotateLEFT();
+						System.out.println("LEFT");
+					}
+					else {
+						x.setLEFT(false);
+					}
+					if(this.isRight(x, player) && !detector.checkRight(x, wallList)) {
+						x.rotateRIGHT();
+						x.setRIGHT(true);
+						System.out.println("RIGHT");
+					}
+					else {
+						x.setRIGHT(false);
+					}
+				}
 			}
 		}
 	}
 	
 	public boolean isAbove(Character AI, Character player) {
-		if(player.getYPos()<AI.getYPos()) {
+		if(player.getYPos()<AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos())>2)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean isBelow(Character AI, Character player) {
-		if(player.getYPos()>AI.getYPos()) {
+		if(player.getYPos()>AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos())>2)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean isRight(Character AI, Character player) {
-		if(player.getXPos()>AI.getXPos()) {
+		if(player.getXPos()>AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos())>2)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean isLeft(Character AI, Character player) {
-		if(player.getXPos()<AI.getXPos()) {
+		if(player.getXPos()<AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos())>2)) {
 			return true;
 		}
 		return false;
