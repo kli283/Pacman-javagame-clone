@@ -66,11 +66,9 @@ public class GameController { // Class to contain main game loop
 //	Rectangle rect3;
 //	Rectangle rect4;
 
-
     private CollisionDetection detector = new CollisionDetection();
     Rectangle wall1;
     Rectangle wall2;
-
 
 	public GameController(Stage mainStage) throws IOException {
 		timeRemaining = 0;
@@ -139,6 +137,7 @@ public class GameController { // Class to contain main game loop
 	public int timeAmount() {
 		return this.timeRemaining;
 	}
+	
 	public int preTimeAmount() {
 		return this.preTimeRemaining;
 	}
@@ -146,6 +145,7 @@ public class GameController { // Class to contain main game loop
 	public void initTimer() {
 
 	}
+	
 	public void initMap(String[] Level, String wallType){
 		Rectangle levelBackground = new Rectangle(768, 768);
 
@@ -205,6 +205,7 @@ public class GameController { // Class to contain main game loop
 		GameUI.spawn(testman);
 		//testman.updateUI();
 	}
+	
 	private void initRobber(){
 		testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
 		charList.add(testRobber);
@@ -292,7 +293,7 @@ public class GameController { // Class to contain main game loop
 				}
 
 
-				// Pressing Y when the quit game prompt is on the screen will take the game back to the main menu of the game
+				// Pressing Enter when the quit game prompt is on the screen will take the game back to the main menu of the game
 				if (event.getCode() == KeyCode.ENTER) {
 					if (this.escPressed == true) {
 						try {
@@ -308,7 +309,7 @@ public class GameController { // Class to contain main game loop
 						}
 					}
 				}
-				// Pressing N when the quit game prompt is on the screen will resume the game
+				// Pressing backspace when the quit game prompt is on the screen will resume the game
 				if (event.getCode() == KeyCode.BACK_SPACE) {
 					if (this.escPressed == true) {
 						this.escPressed = false;
