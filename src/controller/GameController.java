@@ -255,24 +255,28 @@ public class GameController { // Class to contain main game loop
 				if (event.getCode() == KeyCode.UP) {
 					System.out.println("Move Up");
 					testman.setUP(true);
+					testman.rotateUP();
 				} else {
 					testman.setUP(false);
 				}
 				if (event.getCode() == KeyCode.RIGHT) {
 					System.out.println("Move RIGHT");
 					testman.setRIGHT(true);
+					testman.rotateRIGHT();
 				} else {
 					testman.setRIGHT(false);
 				}
 				if (event.getCode() == KeyCode.DOWN) {
 					System.out.println("Move DOWN");
 					testman.setDOWN(true);
+					testman.rotateDOWN();
 				} else {
 					testman.setDOWN(false);
 				}
 				if (event.getCode() == KeyCode.LEFT) {
 					System.out.println("Move LEFT");
 					testman.setLEFT(true);
+					testman.rotateLEFT();
 				}
 				if (event.getCode() == KeyCode.P) {
 					pressPause();

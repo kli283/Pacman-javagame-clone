@@ -82,7 +82,20 @@ public class Character {
 	}
 	
 	public void setUP(boolean directionFlag) {
+		this.imageView.setRotate(180);
 		this.UP = directionFlag;
+	}
+	public void rotateUP() {
+		this.imageView.setRotate(180);
+	}
+	public void rotateDOWN() {
+		this.imageView.setRotate(0);
+	}
+	public void rotateRIGHT() {
+		this.imageView.setRotate(270);
+	}
+	public void rotateLEFT() {
+		this.imageView.setRotate(90);
 	}
 	
 	public boolean getUP() {
