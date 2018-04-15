@@ -65,6 +65,10 @@ public class Character {
 		return dumbAI;
 	}
 	
+	public boolean isHuman() {
+		return isPlayer1;
+	}
+	
 	public AnchorPane getLayer() {
 		return this.layer;
 	}

@@ -79,10 +79,11 @@ public class GameController { // Class to contain main game loop
 		winGame = false;
 		resetTimer();
 		initGameController(mainStage);
+		AI = new AIController();
 
 		//initMap1();
 		//initPlayer();
-		initRobber();
+		//initRobber();
 		//robberMovement();
 		//initLabels();
 		//initTimer();
@@ -159,6 +160,9 @@ public class GameController { // Class to contain main game loop
 					case 'p':
 						initPlayer(j * pixelScale, i * pixelScale);
 						break;
+					case 'r':
+						initRobber(j * pixelScale, i * pixelScale);
+						break;
 					case '0':
 						Wall wall = new Wall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale, imageURL);
 						wallList.add(wall);
@@ -206,12 +210,12 @@ public class GameController { // Class to contain main game loop
 		//testman.updateUI();
 	}
 	
-	private void initRobber(){
-		testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
+	private void initRobber(double xPosition, double yPosition){
+		//testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
+		testRobber = new TestRobber(rootLayout, xPosition, yPosition, false, 35, 35, robberSpeed);
 		charList.add(testRobber);
 		GameUI.spawn(testRobber);
 		//testRobber.updateUI();
-		AI = new AIController(testRobber, testman);
 	}
 
 	private void robberMovement(){
@@ -231,7 +235,7 @@ public class GameController { // Class to contain main game loop
 //			testRobber.setDx(-robberSpeed);
 //			testRobber.setDy(0);
 //		}
-		AI.navigate(testRobber, testman);
+		AI.navigate(charList, testman);
 		//System.out.println("Direction: " + countDirection);
 		//System.out.println("Timer: " + countTimer);
 	}
@@ -291,8 +295,6 @@ public class GameController { // Class to contain main game loop
 						this.escPressed = true;
 					}
 				}
-
-
 				// Pressing Enter when the quit game prompt is on the screen will take the game back to the main menu of the game
 				if (event.getCode() == KeyCode.ENTER) {
 					if (this.escPressed == true) {
@@ -384,8 +386,11 @@ public class GameController { // Class to contain main game loop
 		if (!gameIsPaused()) {
 			if (startGame() == true) {
 				detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
-				testman.changeMove();
-				testRobber.changeMove();
+//				testman.changeMove();
+//				testRobber.changeMove();
+				for(Character x:charList) {
+					x.changeMove();
+				}
 				robberMovement();
 				scoreLabel.setText("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
 

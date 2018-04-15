@@ -1,45 +1,49 @@
 package controller;
 
+import java.util.ArrayList;
 import model.Character;
 
 public class AIController {
 	
-	public AIController(Character AI, Character player) {
-	}
+	public AIController() {}
 	
-	public void navigate(Character AI, Character player) {
-		if(AI.isDumbAI()) {
-			if(this.isAbove(AI, player)) {
-				AI.setUP(true);
-				AI.rotateUP();
-				System.out.println("UP");
-			}
-			else {
-				AI.setUP(false);
-			}
-			if(this.isBelow(AI, player)) {
-				AI.setDOWN(true);
-				AI.rotateDOWN();
-				System.out.println("DOWN");
-			}
-			else {
-				AI.setDOWN(false);
-			}
-			if(this.isLeft(AI, player)) {
-				AI.setLEFT(true);
-				AI.rotateLEFT();
-				System.out.println("LEFT");
-			}
-			else {
-				AI.setLEFT(false);
-			}
-			if(this.isRight(AI, player)) {
-				AI.rotateRIGHT();
-				AI.setRIGHT(true);
-				System.out.println("RIGHT");
-			}
-			else {
-				AI.setRIGHT(false);
+	public void navigate(ArrayList<Character> AI, Character player) {
+		for(Character x:AI) {
+			if(!x.isHuman()) {
+				if(x.isDumbAI()) {
+					if(this.isAbove(x, player)) {
+						x.setUP(true);
+						x.rotateUP();
+						System.out.println("UP");
+					}
+					else {
+						x.setUP(false);
+					}
+					if(this.isBelow(x, player)) {
+						x.setDOWN(true);
+						x.rotateDOWN();
+						System.out.println("DOWN");
+					}
+					else {
+						x.setDOWN(false);
+					}
+					if(this.isLeft(x, player)) {
+						x.setLEFT(true);
+						x.rotateLEFT();
+						System.out.println("LEFT");
+					}
+					else {
+						x.setLEFT(false);
+					}
+					if(this.isRight(x, player)) {
+						x.rotateRIGHT();
+						x.setRIGHT(true);
+						System.out.println("RIGHT");
+					}
+					else {
+						x.setRIGHT(false);
+					}
+				}
 			}
 		}
 	}
