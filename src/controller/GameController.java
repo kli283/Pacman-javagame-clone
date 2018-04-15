@@ -47,6 +47,7 @@ public class GameController { // Class to contain main game loop
 	private Label timeLabel;
 	private Label pregameLabel;
 	private Label escLabel;
+	private Label winLabel;
 	private static final int STARTTIME = 120;
 	private Label timerLabel = new Label();
 	private int timeSeconds = STARTTIME;
@@ -93,11 +94,12 @@ public class GameController { // Class to contain main game loop
 	}
 
 	public void endGame() {
+		timeRemaining = 0;
 		this.gameOver = true;
 		if (winGame == true) {
-			//label displays win
+			winLabel.setText("GAME OVER \n YOU WIN");
 		} else {
-			//label displays lose
+			winLabel.setText("GAME OVER \n YOU LOSE");
 		}
 	}
 
@@ -313,7 +315,16 @@ public class GameController { // Class to contain main game loop
 						escLabel.setText("");
 					}
 				}
-					});
+				if (event.getCode() == KeyCode.PAGE_DOWN) {
+					if (endGamePressed == true) {
+					} else {
+						endGamePressed = true;
+						//this.timeRemaining = 0;
+						endGame();
+					}
+				}
+
+			});
 			scene.setOnKeyReleased(event -> {
 
 						if (event.getCode() == KeyCode.LEFT) {
@@ -346,7 +357,11 @@ public class GameController { // Class to contain main game loop
 		escLabel.setFont(new Font("Calibri", 45));
 		escLabel.setLayoutX(150);
 		escLabel.setLayoutY(330);
-		rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel);
+		winLabel = new Label("");
+		winLabel.setFont(new Font("Calibri", 50));
+		winLabel.setLayoutX(260);
+		winLabel.setLayoutY(330);
+		rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel, winLabel);
 	}
 	
 	public void pressPause() {
