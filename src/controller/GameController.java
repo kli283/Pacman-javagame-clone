@@ -46,6 +46,7 @@ public class GameController { // Class to contain main game loop
 	private Label scoreLabel;
 	private Label timeLabel;
 	private Label pregameLabel;
+	private Label escLabel;
 	private static final int STARTTIME = 120;
 	private Label timerLabel = new Label();
 	private int timeSeconds = STARTTIME;
@@ -276,6 +277,38 @@ public class GameController { // Class to contain main game loop
 				if (event.getCode() == KeyCode.P) {
 					pressPause();
 				}
+				if (event.getCode() == KeyCode.ESCAPE) {
+					if (escPressed == true) {
+					} else if (!this.pausePressed) {
+						escLabel.setText("Press Enter to quit, Backspace to go back");
+						this.escPressed = true;
+					}
+				}
+
+
+				// Pressing Y when the quit game prompt is on the screen will take the game back to the main menu of the game
+				if (event.getCode() == KeyCode.ENTER) {
+					if (this.escPressed == true) {
+						try {
+							FXMLLoader reload = new FXMLLoader();
+							reload.setLocation(MainApp.class.getResource("MainMenu.fxml"));
+							rootLayout = (AnchorPane) reload.load();
+							Scene menuScene = new Scene(rootLayout);
+							mainStage.setScene(menuScene);
+							//mainStage.show();
+						} catch (IOException e) {
+							e.printStackTrace();
+							e.getCause();
+						}
+					}
+				}
+				// Pressing N when the quit game prompt is on the screen will resume the game
+				if (event.getCode() == KeyCode.BACK_SPACE) {
+					if (this.escPressed == true) {
+						this.escPressed = false;
+						escLabel.setText("");
+					}
+				}
 					});
 			scene.setOnKeyReleased(event -> {
 
@@ -305,7 +338,11 @@ public class GameController { // Class to contain main game loop
 		pregameLabel.setFont(new Font("Calibri", 95));
 		pregameLabel.setLayoutX(350);
 		pregameLabel.setLayoutY(330);
-		rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel);
+		escLabel = new Label("");
+		escLabel.setFont(new Font("Calibri", 45));
+		escLabel.setLayoutX(150);
+		escLabel.setLayoutY(330);
+		rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel);
 	}
 	
 	public void pressPause() {
