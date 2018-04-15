@@ -162,6 +162,15 @@ public class CollisionDetection {
 		return false;
 	}
 	
+	//This method is called to see if a player gets touched by an enemy and updates score and/or lives accordingly
+	public void playerHit(ArrayList<Character> actors) {
+		for(Character x:actors) {
+			//) {
+				
+			//}
+		}
+	}
+	
 	//Old logic for collisions, checks all 4 directions so has issues with moving parallel along walls
 	public boolean willCollide(Character mover, ArrayList<Rectangle> rectangle) {
 		for(Rectangle x:rectangle) {
