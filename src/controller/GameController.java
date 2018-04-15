@@ -19,7 +19,7 @@ public class GameController { // Class to contain main game loop
 
 	private AnchorPane rootLayout;
 	private TestMan testman;
-	private TestCoin testCoin;
+	private Coin coin;
 	private SmallCash smallCash;
 	private BigCash bigCash;
 	private BrickWall brickWall;
@@ -92,7 +92,7 @@ public class GameController { // Class to contain main game loop
 	}
 
 	public void endGame() {
-		this.timeRemaining = 1;
+		this.timeRemaining = 0;
 		this.gameOver = true;
 		if (winGame == true) {
 			winLabel.setText("GAME OVER \n YOU WIN");
@@ -153,15 +153,12 @@ public class GameController { // Class to contain main game loop
 		Rectangle levelBackground = new Rectangle(768, 768);
 
 		levelWidth = Level[0].length() * pixelScale;
-		String imageURL = "/model/" + wallType + ".png";
+		String imageURL = "/view/Resources/" + wallType + ".png";
 
 		for (int i = 0; i < Level.length; i++) {
 			String line = Level[i];
 			for (int j = 0; j < line.length(); j++) {
 				switch (line.charAt(j)) {
-					case 'p':
-						initPlayer(j * pixelScale, i * pixelScale);
-						break;
 					case '0':
 						Wall wall = new Wall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale, imageURL);
 						wallList.add(wall);
@@ -170,10 +167,13 @@ public class GameController { // Class to contain main game loop
 						//wall.addToLayer();
 						//wall.updateUI();
 						break;
+					case 'p':
+						initPlayer(j * pixelScale, i * pixelScale);
+						break;
 					case '1':
-						coinList.add(testCoin = new TestCoin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
-						GameUI.spawn(testCoin);
-						//testCoin.updateUI();
+						coinList.add(coin = new Coin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
+						GameUI.spawn(coin);
+						//coin.updateUI();
 						break;
 					case '2':
 						break;
@@ -202,7 +202,7 @@ public class GameController { // Class to contain main game loop
 	}
 		//rootLayout.getChildren().add(levelBackground);
 	public void initPlayer(double xPosition, double yPosition){
-		testman = new TestMan(rootLayout, xPosition, yPosition, true, 42, 42, playerSpeed);
+		testman = new TestMan(rootLayout, xPosition+2, yPosition+2, true, 42, 42, playerSpeed);
 		//testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
 		charList.add(testman);
 		GameUI.spawn(testman);
@@ -381,7 +381,7 @@ public class GameController { // Class to contain main game loop
 	}
 
 	public void tickChange(){
-		GameUI.updateActors(charList);
+
 		GameUI.updateBoxes(wallList);
 		GameUI.updateItems(coinList);
 		GameUI.updateItems(smallCashList);
@@ -389,6 +389,7 @@ public class GameController { // Class to contain main game loop
 		GameUI.updateItems(carList);
 		if (!gameIsPaused()) {
 			if (startGame() == true) {
+				GameUI.updateActors(charList);
 				detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
 				testman.changeMove();
 				testRobber.changeMove();
@@ -419,6 +420,8 @@ public class GameController { // Class to contain main game loop
 					pregameLabel.setText("");
 				}
 			}
+		} else if (gameOver == true){
+			timeLabel.setText(timeAmount() + " seconds");
 		}
 		//System.out.println(CollisionDetection.scoreUpdate);
 	}

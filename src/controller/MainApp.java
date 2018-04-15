@@ -23,7 +23,7 @@ public class MainApp extends Application {
 	}
 
 	public void initMusic(){
-		Media theme = new Media((MainApp.class.getResource("Cool Vibes.mp3").toString()));
+		Media theme = new Media((MainApp.class.getResource("/view/Resources/Cool Vibes.mp3").toString()));
 		gameMusic = new MediaPlayer(theme);
 		gameMusic.setCycleCount(MediaPlayer.INDEFINITE);;
 	}
