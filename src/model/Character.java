@@ -1,5 +1,6 @@
 package model;
 
+import controller.MenuControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -19,10 +20,15 @@ public class Character {
 	private double dy;
 	private double height;
 	private double width;
-	boolean isPlayer1 = false; // determines if GoldGirl is AI or human. 
+	boolean isPlayer1 = false; // determines if GoldGirl is AI or human.
+	boolean isRobber = false;
+	boolean isAgent = false;
+	boolean isGG = false;
 	boolean isAI = false;
 	boolean dumbAI = false;
 	boolean canPickupItems = false;
+	boolean canAttackPlayer = false;
+	private int lastAttackTime = 120;
 	boolean UP;
 	boolean DOWN;
 	boolean LEFT;
@@ -159,6 +165,23 @@ public class Character {
 
 	public void setDy(double yVelocity) {
 		this.dy = yVelocity;
+	}
+	
+	public boolean canAttack() {
+		if(MenuControl.gControl.timeAmount() <= lastAttackTime - 5) {
+			if(this.canAttackPlayer) {
+				lastAttackTime = MenuControl.gControl.timeAmount();
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean attackScore(){
+		if(this.canAttack()) {
+			return true;
+		}
+		return false;
 	}
 
 	//Returns a rectangle for use with CollisionDetection

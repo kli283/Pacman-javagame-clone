@@ -8,14 +8,7 @@ public class TestRobber extends Character {
 		super(layer, xStart, yStart, isPlayer, setHeight, setWidth, playerSpeed);
 		
 		this.setImage("/model/TestRobber.png");
-	}
-	
-//	public void addToLayer() {
-//        this.layer.getChildren().add(this.getImageView());
-//    }
-
-	
-	public void updateUI() {
-		getImageView().relocate(this.getXPos(),this.getYPos());
+		
+		this.canAttackPlayer = true;
 	}
 }

@@ -45,6 +45,10 @@ public class CollisionDetection {
 			else if((x.getDy() < 0) && (this.checkUp(x, listOfWalls))) {
 				x.setDy(0);
 			}
+			if(playerHit(movers)) {
+				scoreUpdate *= 0.7;
+				System.out.println("OUCH!");
+			}
 		}
 		ArrayList<Item> tempCoin = new ArrayList<>();
 		for(Character x:movers) {
@@ -163,13 +167,19 @@ public class CollisionDetection {
 		return false;
 	}
 	
-	//This method is called to see if a player gets touched by an enemy and updates score and/or lives accordingly
-	public void playerHit(ArrayList<Character> actors) {
+	//This method is called to see if a player gets touched by an enemy who can attack
+	public boolean playerHit(ArrayList<Character> actors) {
 		for(Character x:actors) {
-			//) {
-				
-			//}
+			if(x.isHuman()) {
+				for(Character y:actors) {
+					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())) {
+						y.attackScore();
+						return true;
+					}
+				}
+			}
 		}
+		return false;
 	}
 	
 	//Old logic for collisions, checks all 4 directions so has issues with moving parallel along walls
