@@ -486,4 +486,8 @@ public class GameController { // Class to contain main game loop
         }
         //System.out.println(CollisionDetection.scoreUpdate);
     }
+    
+    public double getPixelScale() {
+    	return this.pixelScale;
+    }
 }
