@@ -7,7 +7,7 @@ public class BigCash extends Item {
     public BigCash(AnchorPane layer, double xPos, double yPos, int score) {
         super(layer, xPos, yPos, score);
 
-        this.setImage("/model/BigCash.png");
+        this.setImage("/view/Resources/BigCash.png");
     }
 
     public void addToLayer() {

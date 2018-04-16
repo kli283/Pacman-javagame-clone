@@ -391,9 +391,9 @@ public class GameController { // Class to contain main game loop
 		GameUI.updateItems(smallCashList);
 		GameUI.updateItems(bigCashList);
 		GameUI.updateItems(carList);
+		GameUI.updateActors(charList);
 		if (!gameIsPaused()) {
 			if (startGame() == true) {
-				GameUI.updateActors(charList);
 				detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
 //				testman.changeMove();
 //				testRobber.changeMove();
