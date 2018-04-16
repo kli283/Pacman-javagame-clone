@@ -194,7 +194,7 @@ public class GameController { // Class to contain main game loop
                         }
                         break;
                     case 'm':
-                        if (gameModes == GameModes.SinglePlayer) {
+                        if (gameModes == GameModes.MultiPlayer1) {
                             robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, isPlayer);
                         } else if (gameModes == GameModes.MultiPlayer2) {
                             robber3 = initRobber(robber3, j * pixelScale, i * pixelScale, isPlayer);
