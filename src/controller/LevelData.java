@@ -58,7 +58,7 @@ public class LevelData {
     };
     public static final String[] LEVEL4 = new String[]{
             "0000000000000000",
-            "01cccrcccr111130",
+            "01cccrcccm111130",
             "0100010000100010",
             "0111111111111110",
             "0100001001000010",
