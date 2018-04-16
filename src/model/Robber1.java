@@ -8,7 +8,8 @@ public class Robber1 extends Character {
 		super(layer, xStart, yStart, isPlayer, setHeight, setWidth, playerSpeed);
 		
 		this.setImage("/view/Resources/Robber1.png");
-		
+
 		this.canAttackPlayer = true;
 	}
+
 }
