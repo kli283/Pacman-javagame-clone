@@ -86,6 +86,7 @@ public class CollisionDetection {
 		}
 		for (Item smallCash : tempSmallCash){
 			smallCashList.remove(smallCash);
+			GameController.soundEffects.playCash();
 			scoreUpdate += smallCash.getScore();
 			System.out.println(scoreUpdate);
 		}
@@ -104,6 +105,7 @@ public class CollisionDetection {
 		}
 		for (Item bigCash : tempBigCash){
 			bigCashList.remove(bigCash);
+			GameController.soundEffects.playCash();
 			scoreUpdate += bigCash.getScore();
 			System.out.println(scoreUpdate);
 		}
@@ -123,6 +125,7 @@ public class CollisionDetection {
 		}
 		for (Item car : tempCar){
 			carList.remove(car);
+			GameController.soundEffects.playCar();
 		}
 	}
 	

@@ -4,16 +4,28 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class SoundEffects {
-    Media coin = new Media((SoundEffects.class.getResource("/view/Resources/Coin.wav").toString()));
+    Media coin = new Media((SoundEffects.class.getResource("/view/Resources/New Coin.wav").toString()));
     MediaPlayer coinSound = new MediaPlayer(coin);
+    Media cash = new Media((SoundEffects.class.getResource("/view/Resources/Cash.wav").toString()));
+    MediaPlayer cashSound = new MediaPlayer(cash);
+    Media car = new Media((SoundEffects.class.getResource("/view/Resources/car.wav").toString()));
+    MediaPlayer carSound = new MediaPlayer(car);
 
-    public SoundEffects(){
+    public SoundEffects() {
 
     }
 
     public void playCoin() {
-            soundHandler(coinSound);
-        }
+        soundHandler(coinSound);
+    }
+
+    public void playCar() {
+        soundHandler(carSound);
+    }
+
+    public void playCash() {
+        soundHandler(cashSound);
+    }
 
     public void soundHandler(MediaPlayer sound) {
         try {
