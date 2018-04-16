@@ -12,4 +12,5 @@ public class Robber1 extends Character {
 		this.canAttackPlayer = true;
 	}
 
+
 }

@@ -24,7 +24,9 @@ public class GameController { // Class to contain main game loop
     private SmallCash smallCash;
     private BigCash bigCash;
     private Car car;
-    private Robber1 robber;
+    private Robber1 robber1;
+    private Robber1 robber2;
+    private Robber1 robber3;
     private AIController AI;
     private Agent agent;
     private GameUI UI;
@@ -72,16 +74,20 @@ public class GameController { // Class to contain main game loop
     Rectangle wall1;
     Rectangle wall2;
 
-    public GameController(Stage mainStage) throws IOException {
+    public GameController(Stage mainStage, GameModes gameModes) throws IOException {
         timeRemaining = 0;
         numOfTimesTicked = 0;
         escPressed = false;
         pausePressed = false;
         endGamePressed = false;
         winGame = false;
-        isPlayer = true;
         resetTimer();
-        initGameController(mainStage);
+        initGameController(mainStage, gameModes);
+        if (gameModes == GameModes.SinglePlayer){
+            isPlayer = false;
+        } else {
+            isPlayer = true;
+        }
         AI = new AIController();
 
         //initMap1();
@@ -155,7 +161,7 @@ public class GameController { // Class to contain main game loop
 
     }
 
-    public void initMap(String[] Level, String wallType) {
+    public void initMap(String[] Level, String wallType, GameModes gameModes) {
         Rectangle levelBackground = new Rectangle(768, 768);
 
         levelWidth = Level[0].length() * pixelScale;
@@ -177,7 +183,18 @@ public class GameController { // Class to contain main game loop
                         initPlayer(j * pixelScale, i * pixelScale);
                         break;
                     case 'r':
-                        initRobber(j * pixelScale, i * pixelScale, true);
+                        if (gameModes == GameModes.SinglePlayer) {
+                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, isPlayer);
+                        } else if (gameModes == GameModes.MultiPlayer1) {
+                            robber2 = initRobber(robber2, j * pixelScale, i * pixelScale, isPlayer);
+                        }
+                        break;
+                    case 'm':
+                        if (gameModes == GameModes.MultiPlayer1) {
+                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, isPlayer);
+                        } else if (gameModes == GameModes.MultiPlayer2) {
+                            robber3 = initRobber(robber3, j * pixelScale, i * pixelScale, isPlayer);
+                        }
                         break;
                     case 'a':
                         initAgent(j * pixelScale, i * pixelScale);
@@ -222,11 +239,13 @@ public class GameController { // Class to contain main game loop
         //testman.updateUI();
     }
 
-    private void initRobber(double xPosition, double yPosition, boolean isPlayer) {
+    private Robber1 initRobber(Robber1 robber, double xPosition, double yPosition, boolean isPlayer) {
         //testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
         robber = new Robber1(rootLayout, xPosition, yPosition, isPlayer, 40, 40, robberSpeed);
         charList.add(robber);
         GameUI.spawn(robber);
+
+        return robber;
         //testRobber.updateUI();
     }
     private void initAgent(double xPosition, double yPosition) {
@@ -260,7 +279,7 @@ public class GameController { // Class to contain main game loop
     }
 
     // Get the controller up and running
-    public void initGameController(Stage mainStage) throws IOException {
+    public void initGameController(Stage mainStage, GameModes gameModes) throws IOException {
         mainStage.setTitle("Test Character Movement");
 //		try {
         // Load root layout from FXML file.
@@ -330,34 +349,62 @@ public class GameController { // Class to contain main game loop
                     }
                 }
             }
-           //if (gameModes == GameModes.MultiPlayer1) {
+           if (gameModes == GameModes.MultiPlayer1) {
                 if (event.getCode() == KeyCode.W) {
                     //System.out.println("Move Up");
-                    robber.setUP(true);
-                    robber.rotateUP();
+                    robber2.setUP(true);
+                    robber2.rotateUP();
                 } else {
-                    robber.setUP(false);
+                    robber2.setUP(false);
                 }
                 if (event.getCode() == KeyCode.D) {
                     //System.out.println("Move RIGHT");
-                    robber.setRIGHT(true);
-                    robber.rotateRIGHT();
+                    robber2.setRIGHT(true);
+                    robber2.rotateRIGHT();
                 } else {
-                    robber.setRIGHT(false);
+                    robber2.setRIGHT(false);
                 }
                 if (event.getCode() == KeyCode.S) {
                     //System.out.println("Move DOWN");
-                    robber.setDOWN(true);
-                    robber.rotateDOWN();
+                    robber2.setDOWN(true);
+                    robber2.rotateDOWN();
                 } else {
-                    robber.setDOWN(false);
+                    robber2.setDOWN(false);
                 }
                 if (event.getCode() == KeyCode.A) {
                     //System.out.println("Move LEFT");
-                    robber.setLEFT(true);
-                    robber.rotateLEFT();
+                    robber2.setLEFT(true);
+                    robber2.rotateLEFT();
                 }
-            //}
+            }
+//            if (gameModes == GameModes.MultiPlayer2) {
+//                if (event.getCode() == KeyCode.I) {
+//                    //System.out.println("Move Up");
+//                    robber3.setUP(true);
+//                    robber3.rotateUP();
+//                } else {
+//                    robber3.setUP(false);
+//                }
+//                if (event.getCode() == KeyCode.L) {
+//                    //System.out.println("Move RIGHT");
+//                    robber3.setRIGHT(true);
+//                    robber3.rotateRIGHT();
+//                } else {
+//                    robber3.setRIGHT(false);
+//                }
+//                if (event.getCode() == KeyCode.K) {
+//                    //System.out.println("Move DOWN");
+//                    robber3.setDOWN(true);
+//                    robber3.rotateDOWN();
+//                } else {
+//                    robber3.setDOWN(false);
+//                }
+//                if (event.getCode() == KeyCode.J) {
+//                    //System.out.println("Move LEFT");
+//                    robber3.setLEFT(true);
+//                    robber3.rotateLEFT();
+//                }
+//            }
 
             // Pressing backspace when the quit game prompt is on the screen will resume the game
 
@@ -389,17 +436,28 @@ public class GameController { // Class to contain main game loop
             } else if (event.getCode() == KeyCode.RIGHT) {
                 testman.setRIGHT(false);
             }
-            //if (gameModes == GameModes.MultiPlayer1) {
+            if (gameModes == GameModes.MultiPlayer1) {
                 if (event.getCode() == KeyCode.A) {
-                    robber.setLEFT(false);
+                    robber2.setLEFT(false);
                 } else if (event.getCode() == KeyCode.W) {
-                    robber.setUP(false);
+                    robber2.setUP(false);
                 } else if (event.getCode() == KeyCode.S) {
-                    robber.setDOWN(false);
+                    robber2.setDOWN(false);
                 } else if (event.getCode() == KeyCode.D) {
-                    robber.setRIGHT(false);
+                    robber2.setRIGHT(false);
                 }
-            //}
+            }
+            if (gameModes == GameModes.MultiPlayer2) {
+                if (event.getCode() == KeyCode.J) {
+                    robber3.setLEFT(false);
+                } else if (event.getCode() == KeyCode.I) {
+                    robber3.setUP(false);
+                } else if (event.getCode() == KeyCode.K) {
+                    robber3.setDOWN(false);
+                } else if (event.getCode() == KeyCode.L) {
+                    robber3.setRIGHT(false);
+                }
+            }
         });
 
     }

@@ -20,7 +20,10 @@ public class Character {
 	private double dy;
 	private double height;
 	private double width;
-	boolean isPlayer1 = false; // determines if GoldGirl is AI or human.
+
+
+
+	boolean isPlayer = false; // determines if GoldGirl is AI or human.
 	boolean isRobber = false;
 	boolean isAgent = false;
 	boolean isGG = false;
@@ -43,7 +46,7 @@ public class Character {
 		this.height = setHeight;
 		this.width = setWidth;
 		this.playerSpeed = playerSpeed;
-		if(!isPlayer1) {
+		if(!this.isPlayer) {
 			this.isAI = true;
 			this.dumbAI = true;
 		}
@@ -72,7 +75,7 @@ public class Character {
 	}
 	
 	public boolean isHuman() {
-		return isPlayer1;
+		return isPlayer;
 	}
 	
 	public AnchorPane getLayer() {
@@ -202,4 +205,5 @@ public class Character {
 	public ImageView getImageView() {
 		return imageView;
 	}
+
 }

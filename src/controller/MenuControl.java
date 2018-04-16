@@ -97,24 +97,24 @@ public class MenuControl {
             System.out.print("MapSelectSelected" + "\n");
         }
         else if (event.getSource() == map1Button) {
-            gControl = new GameController(MainApp.gameStage);
-            gControl.initMap(LevelData.LEVEL1, "Brick");
+            gControl = new GameController(MainApp.gameStage, this.mode);
+            gControl.initMap(LevelData.LEVEL1, "Brick", this.mode);
             gControl.initLabels();
             //gControl.initPlayer(7 * positionScale, 7 * positionScale + 8);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
         else if (event.getSource() == map2Button) {
-            gControl = new GameController(MainApp.gameStage);
-            gControl.initMap(LevelData.LEVEL2, "BrickGrey");
+            gControl = new GameController(MainApp.gameStage, this.mode);
+            gControl.initMap(LevelData.LEVEL2, "BrickGrey", this.mode);
             gControl.initLabels();
            // gControl.initPlayer(7*positionScale + 10, 6*positionScale);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
         else if (event.getSource() == map3Button) {
-            gControl = new GameController(MainApp.gameStage);
-            gControl.initMap(LevelData.LEVEL3, "Dirt");
+            gControl = new GameController(MainApp.gameStage, this.mode);
+            gControl.initMap(LevelData.LEVEL3, "Dirt", this.mode);
             gControl.initLabels();
             //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
             //gameImages = new Images(gameRoot);
@@ -122,8 +122,8 @@ public class MenuControl {
             System.out.print("Gold Mine Selected" + "\n");
         }
         else if (event.getSource() == map4Button) {
-            gControl = new GameController(MainApp.gameStage);
-            gControl.initMap(LevelData.LEVEL4, "bitcoin");
+            gControl = new GameController(MainApp.gameStage, this.mode);
+            gControl.initMap(LevelData.LEVEL4, "bitcoin", this.mode);
             gControl.initLabels();
             //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
             //gameImages = new Images(gameRoot);
@@ -132,8 +132,8 @@ public class MenuControl {
         }
 
         else if (event.getSource() == storyButton) {
-            gControl = new GameController(MainApp.gameStage);
-            gControl.initMap(LevelData.LEVEL1, "Brick");
+            gControl = new GameController(MainApp.gameStage, this.mode);
+            gControl.initMap(LevelData.LEVEL1, "Brick", this.mode);
             gControl.initLabels();
             //MainApp.muteMusic();
             //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
@@ -156,15 +156,15 @@ public class MenuControl {
         }
         else if (event.getSource() == oneButton) {
             MenuControl.mode = GameModes.MultiPlayer1;
-            gControl = new GameController(MainApp.gameStage);
-            gControl.initMap(LevelData.LEVEL4, "bitcoin");
+            gControl = new GameController(MainApp.gameStage, this.mode);
+            gControl.initMap(LevelData.LEVEL4, "bitcoin", this.mode);
             gControl.initLabels();
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
         else if (event.getSource() == twoButton) {
             MenuControl.mode = GameModes.MultiPlayer2;
-            gControl = new GameController(MainApp.gameStage);
+            gControl = new GameController(MainApp.gameStage, this.mode);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
@@ -174,13 +174,6 @@ public class MenuControl {
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
             System.out.print("BackSelected" + "\n");
-        }
-        else if (event.getSource() == storyButton) {
-            gControl = new GameController(MainApp.gameStage);
-            //test = FXMLLoader.load(getClass().getResource("TestMap.fxml"));
-            //theScene = new Scene(test);
-            //MainApp.gameStage.setScene(theScene);
-            System.out.println("Start test level");
         }
         else if (event.getSource() == quitButton) {
             MainApp.gameStage.close();
