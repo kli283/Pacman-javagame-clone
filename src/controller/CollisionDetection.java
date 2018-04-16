@@ -11,6 +11,7 @@ import view.GameUI;
 
 public class CollisionDetection {
 
+	//public static SoundEffects soundEffects;
 	public static int scoreUpdate = 0;
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
@@ -61,6 +62,8 @@ public class CollisionDetection {
 		for (Item coin : tempCoin){
 			coinList.remove(coin);
 			scoreUpdate += coin.getScore();
+			GameController.soundEffects.playCoin();
+
 			System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempSmallCash = new ArrayList<>();
