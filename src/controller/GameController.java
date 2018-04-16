@@ -43,6 +43,7 @@ public class GameController { // Class to contain main game loop
 	double coinPosY;
 	private int levelWidth;
 	private GameModes gameModes;
+	public static SoundEffects soundEffects;
 	private Label scoreLabel;
 	private Label timeLabel;
 	private Label pregameLabel;
@@ -86,6 +87,7 @@ public class GameController { // Class to contain main game loop
 		//initRobber();
 		//robberMovement();
 		//initLabels();
+		soundEffects = new SoundEffects();
 		//initTimer();
 	}
 	public boolean startGame() {

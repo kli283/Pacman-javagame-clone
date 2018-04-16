@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import view.GameModes;
+import controller.SoundEffects;
 
 
 import java.io.IOException;
@@ -125,6 +126,7 @@ public class MenuControl {
             gControl = new GameController(MainApp.gameStage);
             gControl.initMap(LevelData.LEVEL1, "Brick");
             gControl.initLabels();
+            //MainApp.muteMusic();
             //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());

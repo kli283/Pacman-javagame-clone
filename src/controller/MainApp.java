@@ -13,7 +13,7 @@ import java.io.IOException;
 public class MainApp extends Application {
 	public static Stage gameStage;
 	private AnchorPane baseLayout;
-	private MediaPlayer gameMusic;
+	private static MediaPlayer gameMusic;
 	public static final double screenWidth = 1024;
 	public static final double screenHeight = 768;
 	public static final double gameScreenWidth = 1024;
@@ -26,6 +26,10 @@ public class MainApp extends Application {
 		Media theme = new Media((MainApp.class.getResource("/view/Resources/Cool Vibes.mp3").toString()));
 		gameMusic = new MediaPlayer(theme);
 		gameMusic.setCycleCount(MediaPlayer.INDEFINITE);;
+	}
+
+	public static void muteMusic(){
+		gameMusic.setVolume(0);
 	}
 
 	public void playMusic(){
