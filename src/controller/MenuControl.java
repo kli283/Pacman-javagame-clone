@@ -148,10 +148,13 @@ public class MenuControl {
         else if (event.getSource() == oneButton) {
             MenuControl.mode = GameModes.MultiPlayer1;
             gControl = new GameController(MainApp.gameStage);
+            gControl.initMap(LevelData.LEVEL1, "Brick");
+            gControl.initLabels();
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
         else if (event.getSource() == twoButton) {
+            MenuControl.mode = GameModes.MultiPlayer2;
             gControl = new GameController(MainApp.gameStage);
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
