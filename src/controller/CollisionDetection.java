@@ -180,6 +180,7 @@ public class CollisionDetection {
 				for(Character y:actors) {
 					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())) {
 						y.attackScore();
+						GameController.soundEffects.playHit();
 						return true;
 					}
 				}

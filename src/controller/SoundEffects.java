@@ -10,6 +10,8 @@ public class SoundEffects {
     MediaPlayer cashSound = new MediaPlayer(cash);
     Media car = new Media((SoundEffects.class.getResource("/view/Resources/car.wav").toString()));
     MediaPlayer carSound = new MediaPlayer(car);
+    Media hit = new Media((SoundEffects.class.getResource("/view/Resources/GirlHit.wav").toString()));
+    MediaPlayer hitSound = new MediaPlayer(hit);
 
     public SoundEffects() {
 
@@ -25,6 +27,10 @@ public class SoundEffects {
 
     public void playCash() {
         soundHandler(cashSound);
+    }
+
+    public void playHit() {
+        soundHandler(hitSound);
     }
 
     public void soundHandler(MediaPlayer sound) {

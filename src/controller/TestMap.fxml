@@ -13,7 +13,7 @@
             <Image url="@../view/Resources/background.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="845.0" layoutY="55.0" text="Money" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="820.0" layoutY="55.0" text="Money" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
          <font>
             <Font size="32.0" />
          </font>

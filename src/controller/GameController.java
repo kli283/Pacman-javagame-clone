@@ -28,6 +28,7 @@ public class GameController { // Class to contain main game loop
     private DirtWall dirtWall;
     private Car car;
     private TestRobber testRobber;
+    private Robber1 robber;
     private AIController AI;
     private GameUI UI;
     private double playerSpeed = 3;
@@ -223,9 +224,9 @@ public class GameController { // Class to contain main game loop
 
     private void initRobber(double xPosition, double yPosition) {
         //testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
-        testRobber = new TestRobber(rootLayout, xPosition, yPosition, false, 35, 35, robberSpeed);
-        charList.add(testRobber);
-        GameUI.spawn(testRobber);
+        robber = new Robber1(rootLayout, xPosition, yPosition, false, 40, 40, robberSpeed);
+        charList.add(robber);
+        GameUI.spawn(robber);
         //testRobber.updateUI();
     }
 
@@ -322,6 +323,7 @@ public class GameController { // Class to contain main game loop
 						}
 					}
 				}
+                if(gameModes == GameModes.MultiPlayer1)
 
 				// Pressing backspace when the quit game prompt is on the screen will resume the game
 
@@ -361,12 +363,12 @@ public class GameController { // Class to contain main game loop
 		scoreLabel = new Label("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
 		scoreLabel.setTextFill(Color.WHITE);
 		scoreLabel.setFont(new Font("Calibri", 32));
-		scoreLabel.setLayoutX(845);
+		scoreLabel.setLayoutX(820);
 		scoreLabel.setLayoutY(96);
 		timeLabel = new Label(Integer.toString(timeSeconds) + " seconds");
 		timeLabel.setTextFill(Color.WHITE);
 		timeLabel.setFont(new Font("Calibri", 32));
-		timeLabel.setLayoutX(845);
+		timeLabel.setLayoutX(820);
 		timeLabel.setLayoutY(150);
 		pregameLabel = new Label(Integer.toString(preGameTimer));
 		pregameLabel.setFont(new Font("Calibri", 95));
