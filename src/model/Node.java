@@ -7,6 +7,7 @@ import java.util.List;
 public class Node {
 
 	private String name;
+	//private int[] origin;
 	
 	private List<Node> shortestPath = new LinkedList<>();
 	
@@ -18,8 +19,10 @@ public class Node {
 		adjacentNodes.put(destination, distance);
 	}
 	
-	public Node(String name) {
+	public Node(String name) {//, int i, int j) {
 		this.name = name;
+		//this.origin[0] = i;
+		//this.origin[1] = j;
 	}
 	
 	public void setDist(Integer dist) {
@@ -30,7 +33,19 @@ public class Node {
 		return this.dist;
 	}
 	
+	public void setShortestPath(List<Node> shortPath) {
+		this.shortestPath = shortPath;
+	}
+	
+	public List<Node> getShortestPath(){
+		return this.shortestPath;
+	}
+	
 	public HashMap<Node, Integer> getAdjacentNodes() {
 		return this.adjacentNodes;
 	}
+	
+//	public int[] getOrigin() {
+//		return origin;
+//	}
 }

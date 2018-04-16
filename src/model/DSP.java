@@ -1,9 +1,8 @@
+package model;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import model.Graph;
-import model.Node;
 
 public class DSP {
 
@@ -35,7 +34,10 @@ public class DSP {
 	private static void calcMinimumDist(Node subjectNode, Integer edgeWeight, Node sourceNode) {
 		Integer sourceDistance = sourceNode.getDist();
 		if(sourceDistance + edgeWeight < subjectNode.getDist()) {
-			
+			subjectNode.setDist(sourceDistance + edgeWeight); 
+			LinkedList<Node> shortestPath = new LinkedList<>(sourceNode.getShortestPath());
+			shortestPath.add(sourceNode);
+			subjectNode.setShortestPath(shortestPath);
 		}
 	}
 	

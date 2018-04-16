@@ -32,8 +32,6 @@ public class Pathfinding {
 		targetYPos = (int) (target.getYPos()/MenuControl.gControl.getPixelScale());
 	}
 	
-	public void djikstra() {
-			
-	}
+	
 
 }
