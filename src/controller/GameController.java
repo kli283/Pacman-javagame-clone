@@ -29,7 +29,7 @@ public class GameController { // Class to contain main game loop
     private Agent agent;
     private GameUI UI;
     private double playerSpeed = 3;
-    private double robberSpeed = 3;
+    private double robberSpeed = 2;
     private double agentSpeed = 1;
     private ArrayList<Rectangle> mapPath = new ArrayList<>();
     private ArrayList<Character> charList = new ArrayList<Character>();
@@ -62,6 +62,7 @@ public class GameController { // Class to contain main game loop
     private boolean gameOver;
     private boolean readyToStart;
     private boolean winGame;
+    private boolean isPlayer;
 //	Rectangle rect1;
 //	Rectangle rect2;
 //	Rectangle rect3;
@@ -78,6 +79,7 @@ public class GameController { // Class to contain main game loop
         pausePressed = false;
         endGamePressed = false;
         winGame = false;
+        isPlayer = true;
         resetTimer();
         initGameController(mainStage);
         AI = new AIController();
@@ -130,9 +132,6 @@ public class GameController { // Class to contain main game loop
         this.preTimeRemaining--;
     }
 
-    /**
-     * resetTimer resets the game's timer.
-     */
     public void resetTimer() {
         this.timeRemaining = 120;
     }
@@ -178,7 +177,7 @@ public class GameController { // Class to contain main game loop
                         initPlayer(j * pixelScale, i * pixelScale);
                         break;
                     case 'r':
-                        initRobber(j * pixelScale, i * pixelScale, false);
+                        initRobber(j * pixelScale, i * pixelScale, true);
                         break;
                     case 'a':
                         initAgent(j * pixelScale, i * pixelScale);
@@ -255,7 +254,7 @@ public class GameController { // Class to contain main game loop
 //			testRobber.setDx(-robberSpeed);
 //			testRobber.setDy(0);
 //		}
-        AI.navigate(charList, testman, detector, mapPath);
+        AI.navigate(charList, testman, detector, mapPath, isPlayer);
         //System.out.println("Direction: " + countDirection);
         //System.out.println("Timer: " + countTimer);
     }
@@ -331,7 +330,7 @@ public class GameController { // Class to contain main game loop
                     }
                 }
             }
-            if (gameModes == GameModes.MultiPlayer1) {
+           //if (gameModes == GameModes.MultiPlayer1) {
                 if (event.getCode() == KeyCode.W) {
                     //System.out.println("Move Up");
                     robber.setUP(true);
@@ -358,7 +357,7 @@ public class GameController { // Class to contain main game loop
                     robber.setLEFT(true);
                     robber.rotateLEFT();
                 }
-            }
+            //}
 
             // Pressing backspace when the quit game prompt is on the screen will resume the game
 
@@ -390,7 +389,7 @@ public class GameController { // Class to contain main game loop
             } else if (event.getCode() == KeyCode.RIGHT) {
                 testman.setRIGHT(false);
             }
-            if (gameModes == GameModes.MultiPlayer1) {
+            //if (gameModes == GameModes.MultiPlayer1) {
                 if (event.getCode() == KeyCode.A) {
                     robber.setLEFT(false);
                 } else if (event.getCode() == KeyCode.W) {
@@ -400,7 +399,7 @@ public class GameController { // Class to contain main game loop
                 } else if (event.getCode() == KeyCode.D) {
                     robber.setRIGHT(false);
                 }
-            }
+            //}
         });
 
     }

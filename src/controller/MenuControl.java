@@ -121,6 +121,15 @@ public class MenuControl {
             //gameRoot.getChildren().add(gameImages.getBackground());
             System.out.print("Gold Mine Selected" + "\n");
         }
+        else if (event.getSource() == map4Button) {
+            gControl = new GameController(MainApp.gameStage);
+            gControl.initMap(LevelData.LEVEL4, "bitcoin");
+            gControl.initLabels();
+            //gControl.initPlayer(7*positionScale, 7*positionScale + 10);
+            //gameImages = new Images(gameRoot);
+            //gameRoot.getChildren().add(gameImages.getBackground());
+            System.out.print("Gold Mine Selected" + "\n");
+        }
 
         else if (event.getSource() == storyButton) {
             gControl = new GameController(MainApp.gameStage);
@@ -148,7 +157,7 @@ public class MenuControl {
         else if (event.getSource() == oneButton) {
             MenuControl.mode = GameModes.MultiPlayer1;
             gControl = new GameController(MainApp.gameStage);
-            gControl.initMap(LevelData.LEVEL1, "Brick");
+            gControl.initMap(LevelData.LEVEL4, "bitcoin");
             gControl.initLabels();
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
