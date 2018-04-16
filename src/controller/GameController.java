@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.*;
+import java.util.Random;
 import javafx.scene.shape.Rectangle;
 import view.*;
 import model.Character;
@@ -23,6 +24,7 @@ public class GameController { // Class to contain main game loop
     private Coin coin;
     private SmallCash smallCash;
     private BigCash bigCash;
+    private Crypto crypto;
     private Car car;
     private Robber1 robber1;
     private Robber1 robber2;
@@ -38,6 +40,7 @@ public class GameController { // Class to contain main game loop
     private ArrayList<Item> coinList = new ArrayList<Item>();
     private ArrayList<Item> smallCashList = new ArrayList<>();
     private ArrayList<Item> bigCashList = new ArrayList<>();
+    private ArrayList<Item> cryptoList = new ArrayList<>();
     private ArrayList<Box> wallList = new ArrayList<>();
     private ArrayList<Item> carList = new ArrayList<>();
     private int pixelScale = 48;
@@ -170,6 +173,7 @@ public class GameController { // Class to contain main game loop
         for (int i = 0; i < Level.length; i++) {
             String line = Level[i];
             for (int j = 0; j < line.length(); j++) {
+                Random randScore = new Random();
                 switch (line.charAt(j)) {
                     case '0':
                         Wall wall = new Wall(rootLayout, j * pixelScale, i * pixelScale, pixelScale, pixelScale, imageURL);
@@ -190,7 +194,7 @@ public class GameController { // Class to contain main game loop
                         }
                         break;
                     case 'm':
-                        if (gameModes == GameModes.MultiPlayer1) {
+                        if (gameModes == GameModes.SinglePlayer) {
                             robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, isPlayer);
                         } else if (gameModes == GameModes.MultiPlayer2) {
                             robber3 = initRobber(robber3, j * pixelScale, i * pixelScale, isPlayer);
@@ -221,6 +225,12 @@ public class GameController { // Class to contain main game loop
                     case '5':
                         bigCashList.add(bigCash = new BigCash(rootLayout, j * pixelScale + 8, i * pixelScale + 8, 25));
                         GameUI.spawn(bigCash);
+                        //bigCash.addToLayer();
+                        //bigCash.updateUI();
+                        break;
+                    case 'c':
+                        cryptoList.add(crypto = new Crypto(rootLayout, j * pixelScale + 8, i * pixelScale + 8, randScore.nextInt(1000 + 1 + 1000) - 1000 ));
+                        GameUI.spawn(crypto);
                         //bigCash.addToLayer();
                         //bigCash.updateUI();
                         break;
@@ -497,7 +507,7 @@ public class GameController { // Class to contain main game loop
     }
 
     public void tickChange() {
-
+        GameUI.updateItems(cryptoList);
         GameUI.updateBoxes(wallList);
         GameUI.updateItems(coinList);
         GameUI.updateItems(smallCashList);
@@ -506,7 +516,7 @@ public class GameController { // Class to contain main game loop
         GameUI.updateActors(charList);
         if (!gameIsPaused()) {
             if (startGame() == true) {
-                detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
+                detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList, cryptoList);
 
 //				testman.changeMove();
 //				testRobber.changeMove();

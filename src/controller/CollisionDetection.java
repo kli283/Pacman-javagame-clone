@@ -16,7 +16,7 @@ public class CollisionDetection {
 	
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
-	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList,ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList) {
+	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList,ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList) {
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
 				x.setDy(-x.getPlayerSpeed());
@@ -107,6 +107,25 @@ public class CollisionDetection {
 			bigCashList.remove(bigCash);
 			GameController.soundEffects.playCash();
 			scoreUpdate += bigCash.getScore();
+			System.out.println(scoreUpdate);
+		}
+		ArrayList<Item> tempCrypto = new ArrayList<>();
+		for(Character x:movers) {
+			if(x.canPickupItems()) {
+				for(Item y:cryptoList) {
+					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
+						//y.removeFromLayer();
+						GameUI.deSpawn(y);
+						tempCrypto.add(y);
+
+					}
+				}
+			}
+		}
+		for (Item crypto : tempCrypto){
+			cryptoList.remove(crypto);
+			GameController.soundEffects.playCash();
+			scoreUpdate += crypto.getScore();
 			System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempCar = new ArrayList<>();

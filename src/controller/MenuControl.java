@@ -165,6 +165,8 @@ public class MenuControl {
         else if (event.getSource() == twoButton) {
             MenuControl.mode = GameModes.MultiPlayer2;
             gControl = new GameController(MainApp.gameStage, this.mode);
+            gControl.initMap(LevelData.LEVEL4, "bitcoin", this.mode);
+            gControl.initLabels();
             //gameImages = new Images(gameRoot);
             //gameRoot.getChildren().add(gameImages.getBackground());
         }
