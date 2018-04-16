@@ -5,18 +5,19 @@ import javafx.scene.shape.Rectangle;
 import model.*;
 import model.Character;
 import view.GameUI;
+import controller.Score;
 
 //this class will check if a move is valid
 // i.e there is no obstacle or boundary in the way of the intended move
 
 public class CollisionDetection {
 
-	//public static SoundEffects soundEffects;
-	public static int scoreUpdate = 0;
+	public static Score scoreUpdate;
 	
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
 	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList,ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList) {
+
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
 				x.setDy(-x.getPlayerSpeed());
@@ -47,7 +48,7 @@ public class CollisionDetection {
 				x.setDy(0);
 			}
 			if(playerHit(movers)) {
-				scoreUpdate *= 0.7;
+				this.scoreUpdate.hitRobberScore(scoreUpdate.getScoreCount());
 				System.out.println("OUCH!");
 			}
 		}
@@ -66,7 +67,7 @@ public class CollisionDetection {
 		}
 		for (Item coin : tempCoin){
 			coinList.remove(coin);
-			scoreUpdate += coin.getScore();
+			this.scoreUpdate.updateScoreCount(coin.getScore());
 			GameController.soundEffects.playCoin();
 
 			System.out.println(scoreUpdate);
@@ -87,7 +88,7 @@ public class CollisionDetection {
 		for (Item smallCash : tempSmallCash){
 			smallCashList.remove(smallCash);
 			GameController.soundEffects.playCash();
-			scoreUpdate += smallCash.getScore();
+			this.scoreUpdate.updateScoreCount(smallCash.getScore());
 			System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempBigCash = new ArrayList<>();
@@ -106,7 +107,7 @@ public class CollisionDetection {
 		for (Item bigCash : tempBigCash){
 			bigCashList.remove(bigCash);
 			GameController.soundEffects.playCash();
-			scoreUpdate += bigCash.getScore();
+			this.scoreUpdate.updateScoreCount(bigCash.getScore());
 			System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempCrypto = new ArrayList<>();
@@ -125,7 +126,7 @@ public class CollisionDetection {
 		for (Item crypto : tempCrypto){
 			cryptoList.remove(crypto);
 			GameController.soundEffects.playCash();
-			scoreUpdate += crypto.getScore();
+			this.scoreUpdate.updateScoreCount(crypto.getScore());
 			System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempCar = new ArrayList<>();
