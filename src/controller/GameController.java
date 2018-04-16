@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.*;
 import javafx.scene.shape.Rectangle;
@@ -307,7 +308,7 @@ public class GameController { // Class to contain main game loop
 				}
 				// Pressing Enter when the quit game prompt is on the screen will take the game back to the main menu of the game
 				if (event.getCode() == KeyCode.ENTER) {
-					if (this.escPressed == true) {
+					if (this.escPressed == true || this.gameOver == true) {
 						try {
 							FXMLLoader reload = new FXMLLoader();
 							reload.setLocation(MainApp.class.getResource("MainMenu.fxml"));
@@ -358,10 +359,12 @@ public class GameController { // Class to contain main game loop
 	
 	public void initLabels(){
 		scoreLabel = new Label("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
+		scoreLabel.setTextFill(Color.WHITE);
 		scoreLabel.setFont(new Font("Calibri", 32));
 		scoreLabel.setLayoutX(845);
 		scoreLabel.setLayoutY(96);
 		timeLabel = new Label(Integer.toString(timeSeconds) + " seconds");
+		timeLabel.setTextFill(Color.WHITE);
 		timeLabel.setFont(new Font("Calibri", 32));
 		timeLabel.setLayoutX(845);
 		timeLabel.setLayoutY(150);
@@ -374,9 +377,9 @@ public class GameController { // Class to contain main game loop
 		escLabel.setLayoutX(150);
 		escLabel.setLayoutY(330);
 		winLabel = new Label("");
-		winLabel.setFont(new Font("Calibri", 50));
-		winLabel.setLayoutX(260);
-		winLabel.setLayoutY(330);
+		winLabel.setFont(new Font("Calibri", 65));
+		winLabel.setLayoutX(220);
+		winLabel.setLayoutY(300);
 		rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel, winLabel);
 	}
 	
