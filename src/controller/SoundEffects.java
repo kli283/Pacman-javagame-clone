@@ -8,7 +8,7 @@ public class SoundEffects {
     MediaPlayer coinSound = new MediaPlayer(coin);
     Media cash = new Media((SoundEffects.class.getResource("/view/Resources/Cash.wav").toString()));
     MediaPlayer cashSound = new MediaPlayer(cash);
-    Media car = new Media((SoundEffects.class.getResource("/view/Resources/car.wav").toString()));
+    Media car = new Media((SoundEffects.class.getResource("/view/Resources/Car.wav").toString()));
     MediaPlayer carSound = new MediaPlayer(car);
     Media hit = new Media((SoundEffects.class.getResource("/view/Resources/GirlHit.wav").toString()));
     MediaPlayer hitSound = new MediaPlayer(hit);
