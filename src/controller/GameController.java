@@ -267,137 +267,140 @@ public class GameController { // Class to contain main game loop
 
 
 //TESTING GAME MODE
-        scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.UP) {
-                System.out.println("Move Up");
-                testman.setUP(true);
-                testman.rotateUP();
-            } else {
-                testman.setUP(false);
-            }
-            if (event.getCode() == KeyCode.RIGHT) {
-                System.out.println("Move RIGHT");
-                testman.setRIGHT(true);
-                testman.rotateRIGHT();
-            } else {
-                testman.setRIGHT(false);
-            }
-            if (event.getCode() == KeyCode.DOWN) {
-                System.out.println("Move DOWN");
-                testman.setDOWN(true);
-                testman.rotateDOWN();
-            } else {
-                testman.setDOWN(false);
-            }
-            if (event.getCode() == KeyCode.LEFT) {
-                System.out.println("Move LEFT");
-                testman.setLEFT(true);
-                testman.rotateLEFT();
-            }
-            if (event.getCode() == KeyCode.P) {
-                pressPause();
-            }
-            if (event.getCode() == KeyCode.ESCAPE) {
-                if (escPressed == true) {
-                } else if (!this.pausePressed) {
-                    escLabel.setText("Press Enter to quit, Backspace to go back");
-                    this.escPressed = true;
-                }
-            }
-            // Pressing Enter when the quit game prompt is on the screen will take the game back to the main menu of the game
-            if (event.getCode() == KeyCode.ENTER) {
-                if (this.escPressed == true) {
-                    try {
-                        FXMLLoader reload = new FXMLLoader();
-                        reload.setLocation(MainApp.class.getResource("MainMenu.fxml"));
-                        rootLayout = (AnchorPane) reload.load();
-                        Scene menuScene = new Scene(rootLayout);
-                        mainStage.setScene(menuScene);
-                        //mainStage.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        e.getCause();
-                    }
-                }
-            }
 
-            // Pressing backspace when the quit game prompt is on the screen will resume the game
+			scene.setOnKeyPressed(event -> {
+				if (event.getCode() == KeyCode.UP) {
+					System.out.println("Move Up");
+					testman.setUP(true);
+					testman.rotateUP();
+				} else {
+					testman.setUP(false);
+				}
+				if (event.getCode() == KeyCode.RIGHT) {
+					System.out.println("Move RIGHT");
+					testman.setRIGHT(true);
+					testman.rotateRIGHT();
+				} else {
+					testman.setRIGHT(false);
+				}
+				if (event.getCode() == KeyCode.DOWN) {
+					System.out.println("Move DOWN");
+					testman.setDOWN(true);
+					testman.rotateDOWN();
+				} else {
+					testman.setDOWN(false);
+				}
+				if (event.getCode() == KeyCode.LEFT) {
+					System.out.println("Move LEFT");
+					testman.setLEFT(true);
+					testman.rotateLEFT();
+				}
+				if (event.getCode() == KeyCode.P) {
+					pressPause();
+				}
+				if (event.getCode() == KeyCode.ESCAPE) {
+					if (escPressed == true) {
+					} else if (!this.pausePressed) {
+						escLabel.setText("Press Enter to quit, Backspace to go back");
+						this.escPressed = true;
+					}
+				}
+				// Pressing Enter when the quit game prompt is on the screen will take the game back to the main menu of the game
+				if (event.getCode() == KeyCode.ENTER) {
+					if (this.escPressed == true) {
+						try {
+							FXMLLoader reload = new FXMLLoader();
+							reload.setLocation(MainApp.class.getResource("MainMenu.fxml"));
+							rootLayout = (AnchorPane) reload.load();
+							Scene menuScene = new Scene(rootLayout);
+							mainStage.setScene(menuScene);
+							//mainStage.show();
+						} catch (IOException e) {
+							e.printStackTrace();
+							e.getCause();
+						}
+					}
+				}
 
-            if (event.getCode() == KeyCode.BACK_SPACE) {
-                if (this.escPressed == true) {
-                    this.escPressed = false;
-                    escLabel.setText("");
-                }
-            }
-            if (event.getCode() == KeyCode.PAGE_DOWN) {
-                //this.timeRemaining = 1;
-                if (endGamePressed == true) {
-                } else {
-                    endGamePressed = true;
-                    zeroTimer();
-                    endGame();
-                }
-            }
+				// Pressing backspace when the quit game prompt is on the screen will resume the game
 
-        });
-        scene.setOnKeyReleased(event -> {
+				if (event.getCode() == KeyCode.BACK_SPACE) {
+					if (this.escPressed == true) {
+						this.escPressed = false;
+						escLabel.setText("");
+					}
+				}
+				if (event.getCode() == KeyCode.PAGE_DOWN) {
+					//this.timeRemaining = 1;
+					if (endGamePressed == true) {
+					} else {
+						endGamePressed = true;
+						zeroTimer();
+						endGame();
+					}
+				}
 
-            if (event.getCode() == KeyCode.LEFT) {
-                testman.setLEFT(false);
-            } else if (event.getCode() == KeyCode.UP) {
-                testman.setUP(false);
-            } else if (event.getCode() == KeyCode.DOWN) {
-                testman.setDOWN(false);
-            } else if (event.getCode() == KeyCode.RIGHT) {
-                testman.setRIGHT(false);
-            }
-        });
+			});
+			scene.setOnKeyReleased(event -> {
 
-    }
+						if (event.getCode() == KeyCode.LEFT) {
+							testman.setLEFT(false);
+						} else if (event.getCode() == KeyCode.UP) {
+							testman.setUP(false);
+						} else if (event.getCode() == KeyCode.DOWN) {
+							testman.setDOWN(false);
+						} else if (event.getCode() == KeyCode.RIGHT) {
+							testman.setRIGHT(false);
+						}
+					});
 
-    public void initLabels() {
-        scoreLabel = new Label("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
-        scoreLabel.setFont(new Font("Calibri", 32));
-        scoreLabel.setLayoutX(845);
-        scoreLabel.setLayoutY(96);
-        timeLabel = new Label(Integer.toString(timeSeconds) + " seconds");
-        timeLabel.setFont(new Font("Calibri", 32));
-        timeLabel.setLayoutX(845);
-        timeLabel.setLayoutY(150);
-        pregameLabel = new Label(Integer.toString(preGameTimer));
-        pregameLabel.setFont(new Font("Calibri", 95));
-        pregameLabel.setLayoutX(350);
-        pregameLabel.setLayoutY(330);
-        escLabel = new Label("");
-        escLabel.setFont(new Font("Calibri", 45));
-        escLabel.setLayoutX(150);
-        escLabel.setLayoutY(330);
-        winLabel = new Label("");
-        winLabel.setFont(new Font("Calibri", 50));
-        winLabel.setLayoutX(260);
-        winLabel.setLayoutY(330);
-        rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel, winLabel);
-    }
+	}
+	
+	public void initLabels(){
+		scoreLabel = new Label("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
+		scoreLabel.setFont(new Font("Calibri", 32));
+		scoreLabel.setLayoutX(845);
+		scoreLabel.setLayoutY(96);
+		timeLabel = new Label(Integer.toString(timeSeconds) + " seconds");
+		timeLabel.setFont(new Font("Calibri", 32));
+		timeLabel.setLayoutX(845);
+		timeLabel.setLayoutY(150);
+		pregameLabel = new Label(Integer.toString(preGameTimer));
+		pregameLabel.setFont(new Font("Calibri", 95));
+		pregameLabel.setLayoutX(350);
+		pregameLabel.setLayoutY(330);
+		escLabel = new Label("");
+		escLabel.setFont(new Font("Calibri", 45));
+		escLabel.setLayoutX(150);
+		escLabel.setLayoutY(330);
+		winLabel = new Label("");
+		winLabel.setFont(new Font("Calibri", 50));
+		winLabel.setLayoutX(260);
+		winLabel.setLayoutY(330);
+		rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel, winLabel);
+	}
+	
+	public void pressPause() {
+		if(!this.pausePressed) {	
+			this.pausePressed = true;
+		}
+		else {
+			this.pausePressed = false;
+		}
+	}
 
-    public void pressPause() {
-        if (!this.pausePressed) {
-            this.pausePressed = true;
-        } else {
-            this.pausePressed = false;
-        }
-    }
+	public void tickChange(){
 
-    public void tickChange() {
+		GameUI.updateBoxes(wallList);
+		GameUI.updateItems(coinList);
+		GameUI.updateItems(smallCashList);
+		GameUI.updateItems(bigCashList);
+		GameUI.updateItems(carList);
+		GameUI.updateActors(charList);
+		if (!gameIsPaused()) {
+			if (startGame() == true) {
+				detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
 
-        GameUI.updateBoxes(wallList);
-        GameUI.updateItems(coinList);
-        GameUI.updateItems(smallCashList);
-        GameUI.updateItems(bigCashList);
-        GameUI.updateItems(carList);
-        if (!gameIsPaused()) {
-            if (startGame() == true) {
-                GameUI.updateActors(charList);
-                detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList);
 //				testman.changeMove();
 //				testRobber.changeMove();
                 for (Character x : charList) {
