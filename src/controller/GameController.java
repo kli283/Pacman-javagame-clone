@@ -383,6 +383,10 @@ public class GameController { // Class to contain main game loop
 			this.pausePressed = false;
 		}
 	}
+	
+	public double getPixelScale() {
+		return pixelScale;
+	}
 
 	public void tickChange(){
 
