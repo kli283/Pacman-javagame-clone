@@ -7,7 +7,7 @@ public class DirtWall extends Box{
     public DirtWall(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
         super(layer, xPos, yPos, setHeight, setWidth);
 
-        this.setImage("/model/Dirt.png");
+        this.setImage("/view/Resources/Dirt.png");
     }
 
     public void addToLayer() {

@@ -7,7 +7,7 @@ public class GreyWall extends Box{
     public GreyWall(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
         super(layer, xPos, yPos, setHeight, setWidth);
 
-        this.setImage("/model/BrickGrey.png");
+        this.setImage("/view/Resources/BrickGrey.png");
     }
 
     public void addToLayer() {
