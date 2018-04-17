@@ -33,7 +33,7 @@ public class Character {
 	boolean canPickupItems = false;
 	boolean canAttackPlayer = false;
 	boolean canAttackRobber = false;
-	private int lastAttackTime = 125;
+	private int lastAttackTime = 120;
 	boolean UP;
 	boolean DOWN;
 	boolean LEFT;
@@ -42,7 +42,7 @@ public class Character {
 	double defaultPlayerSpeed;
 
 	
-	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed) {
+	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed, boolean isGG) {
 		this.layer = layer;
 		setXPos(xStart);
 		setYPos(yStart);
@@ -55,6 +55,7 @@ public class Character {
 			this.isAI = true;
 			this.dumbAI = true;
 		}
+		this.isGG = isGG;
 	}
 
 	public void move(double xMove, double yMove) {

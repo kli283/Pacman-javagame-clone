@@ -141,7 +141,7 @@ public class CollisionDetection {
 						GameUI.deSpawn(y);
 						x.setPlayerSpeed(5);
 						tempCar.add(y);
-						x.canAttackR();
+						//x.canAttackR();
 
 					}
 				}

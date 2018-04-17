@@ -12,7 +12,9 @@ import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.*;
+
 import java.util.Random;
+
 import javafx.scene.shape.Rectangle;
 import view.*;
 import model.Character;
@@ -80,19 +82,19 @@ public class GameController { // Class to contain main game loop
     Rectangle wall2;
 
     public GameController(Stage mainStage, GameModes gameModes, MenuControl menuHub) throws IOException {
-    	this.menuHub = menuHub;
+        this.menuHub = menuHub;
         timeRemaining = 0;
         numOfTimesTicked = 0;
         escPressed = false;
         pausePressed = false;
         endGamePressed = false;
         winGame = false;
-        
+
         this.gameStage = mainStage;
-        
+
         resetTimer();
         initGameController(mainStage, gameModes);
-        if (gameModes == GameModes.SinglePlayer){
+        if (gameModes == GameModes.SinglePlayer) {
             isPlayer = false;
         } else {
             isPlayer = true;
@@ -123,7 +125,7 @@ public class GameController { // Class to contain main game loop
     }
 
     public boolean gameIsPaused() {
-        if ((this.escPressed) || (this.pausePressed) || (this.gameOver)) {
+        if ((this.escPressed) || (this.pausePressed) || (this.gameOver) || (this.checkWin())) {
             return true;
         } else {
             return false;
@@ -202,7 +204,7 @@ public class GameController { // Class to contain main game loop
                     case 'm':
                         if (gameModes == GameModes.SinglePlayer) {
                             robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, false);
-                        }else if (gameModes == GameModes.MultiPlayer1) {
+                        } else if (gameModes == GameModes.MultiPlayer1) {
                             robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer2) {
                             robber3 = initRobber(robber3, j * pixelScale, i * pixelScale, isPlayer);
@@ -237,7 +239,7 @@ public class GameController { // Class to contain main game loop
                         //bigCash.updateUI();
                         break;
                     case 'c':
-                        cryptoList.add(crypto = new Crypto(rootLayout, j * pixelScale + 8, i * pixelScale + 8, randScore.nextInt(1000 + 1 + 1000) - 1000 ));
+                        cryptoList.add(crypto = new Crypto(rootLayout, j * pixelScale + 8, i * pixelScale + 8, randScore.nextInt(1000 + 1 + 1000) - 1000));
                         GameUI.spawn(crypto);
                         //bigCash.addToLayer();
                         //bigCash.updateUI();
@@ -250,7 +252,7 @@ public class GameController { // Class to contain main game loop
 
     //rootLayout.getChildren().add(levelBackground);
     public void initPlayer(double xPosition, double yPosition) {
-        testman = new TestMan(rootLayout, xPosition + 2, yPosition + 2, true, 42, 42, playerSpeed);
+        testman = new TestMan(rootLayout, xPosition + 2, yPosition + 2, true, 42, 42, playerSpeed, true);
         //testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
         charList.add(testman);
         GameUI.spawn(testman);
@@ -259,16 +261,17 @@ public class GameController { // Class to contain main game loop
 
     private Robber1 initRobber(Robber1 robber, double xPosition, double yPosition, boolean isPlayer) {
         //testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
-        robber = new Robber1(rootLayout, xPosition, yPosition, isPlayer, 40, 40, robberSpeed);
+        robber = new Robber1(rootLayout, xPosition, yPosition, isPlayer, 40, 40, robberSpeed, false);
         charList.add(robber);
         GameUI.spawn(robber);
 
         return robber;
         //testRobber.updateUI();
     }
+
     private void initAgent(double xPosition, double yPosition) {
         //testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
-        agent = new Agent(rootLayout, xPosition, yPosition, false, 40, 40, agentSpeed);
+        agent = new Agent(rootLayout, xPosition, yPosition, false, 40, 40, agentSpeed, false);
         charList.add(agent);
         GameUI.spawn(agent);
         //testRobber.updateUI();
@@ -366,7 +369,7 @@ public class GameController { // Class to contain main game loop
                     }
                 }
             }
-            if(gameModes == GameModes.MultiPlayer1) {
+            if (gameModes == GameModes.MultiPlayer1) {
                 if (event.getCode() == KeyCode.W) {
                     //System.out.println("Move Up");
                     robber2.setUP(true);
@@ -440,6 +443,16 @@ public class GameController { // Class to contain main game loop
                     endGame();
                 }
             }
+            if (event.getCode() == KeyCode.PAGE_UP) {
+                //this.timeRemaining = 1;
+                coinList.clear();
+                smallCashList.clear();
+                bigCashList.clear();
+                cryptoList.clear();
+                zeroTimer();
+                //endGame();
+            }
+
 
         });
         scene.setOnKeyReleased(event -> {
@@ -558,33 +571,34 @@ public class GameController { // Class to contain main game loop
             }
         } else if (gameOver == true) {
             timeLabel.setText(timeAmount() + " seconds");
-        } 
+        }
         if (checkWin()) {
-        	winLabel.setText("Level Complete!");
-        	if(MenuControl.getLevelCount()==1) {
-        		MenuControl.launchLevel2();
-        		MenuControl.setLevelCount();
-        	}
-        	else if(MenuControl.getLevelCount()==2) {
-        		MenuControl.launchLevel3();
-        		MenuControl.setLevelCount();
-        	}
+            endGame();
+            winLabel.setText("Game Over! \n press enter to exit");
+            if (MenuControl.getLevelCount() == 1) {
+                MenuControl.launchLevel2();
+                MenuControl.setLevelCount();
+                gameIsPaused();
+            } else if (MenuControl.getLevelCount() == 2) {
+                MenuControl.launchLevel3();
+                MenuControl.setLevelCount();
+            }
         }
         //System.out.println(CollisionDetection.scoreUpdate);
     }
-    
+
     public double getPixelScale() {
-    	return this.pixelScale;
+        return this.pixelScale;
     }
-    
+
     public boolean checkWin() {
-    	if(coinList.isEmpty()&&smallCashList.isEmpty()&&bigCashList.isEmpty()&&cryptoList.isEmpty()) {
-    		return true;
-    	}
-    	return false;
+        if (coinList.isEmpty() && smallCashList.isEmpty() && bigCashList.isEmpty() && cryptoList.isEmpty()) {
+            return true;
+        }
+        return false;
     }
-    
+
     public MenuControl getMenu() {
-    	return this.menuHub;
+        return this.menuHub;
     }
 }
