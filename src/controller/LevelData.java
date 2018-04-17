@@ -1,8 +1,5 @@
 package controller;
 
-import model.Graph;
-import model.Node;
-
 public class LevelData {
     public static final String[] LEVEL1 = new String[]{
             "0000000000000000",

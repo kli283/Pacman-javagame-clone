@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
-import view.Menu;
 
 /*Parent class for all characters - AI or player controlled
  *
@@ -21,15 +20,13 @@ public class Character {
 	private double dy;
 	private double height;
 	private double width;
-
-
-
 	boolean isPlayer = false; // determines if GoldGirl is AI or human.
 	boolean isRobber = false;
 	boolean isAgent = false;
 	boolean isGG = false;
 	boolean isAI = false;
 	boolean dumbAI = false;
+	boolean dumberAI = false;
 	boolean canPickupItems = false;
 	boolean canAttackPlayer = false;
 	boolean canAttackRobber = false;
