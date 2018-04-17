@@ -30,6 +30,7 @@ public class Character {
 	boolean canPickupItems = false;
 	boolean canAttackPlayer = false;
 	boolean canAttackRobber = false;
+	boolean stunned = false;
 	private int lastAttackTime = 120;
 	boolean UP;
 	boolean DOWN;
@@ -66,8 +67,18 @@ public class Character {
 		setYPos(getYPos() + dy);
 		if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 5) && !this.isPlayer) {
 		    playerSpeed = defaultPlayerSpeed;
-        }else if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 10) && this.isPlayer) {
-            playerSpeed = defaultPlayerSpeed;
+		}
+//        }else if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 10) && this.isPlayer) {
+//            playerSpeed = defaultPlayerSpeed;
+//        }
+        else if(this.isPlayer && this.canAttackRobber) {
+        	if(MenuControl.gControl.timeAmount() <= lastAttackTime - 10) {
+        		this.dropCar();
+        	}
+        }
+        else if(this.stunned && (MenuControl.gControl.timeAmount() <= lastAttackTime - 10)) {
+        	this.stunned = false;
+        	this.setPlayerSpeed(defaultPlayerSpeed);
         }
 	}
 	
@@ -187,27 +198,52 @@ public class Character {
 	public boolean canAttack() {
 		if(MenuControl.gControl.timeAmount() <= lastAttackTime - 5) {
 			if(this.canAttackPlayer) {
-			    playerSpeed = defaultPlayerSpeed;
-				lastAttackTime = MenuControl.gControl.timeAmount();
+			    this.playerSpeed = defaultPlayerSpeed;
+				this.lastAttackTime = MenuControl.gControl.timeAmount();
 				return true;
 			}
-
 		}
 		return false;
 	}
+	
     public boolean canAttackR() {
         if(MenuControl.gControl.timeAmount() <= lastAttackTime - 10) {
             if(this.canAttackRobber) {
-                playerSpeed = defaultPlayerSpeed;
-                lastAttackTime = MenuControl.gControl.timeAmount();
+                this.playerSpeed = defaultPlayerSpeed;
+                this.lastAttackTime = MenuControl.gControl.timeAmount();
                 return true;
             }
 
         }
         return false;
     }
+    
+    public void pickupCar() {
+    	System.out.println("CAR COLLECTED");
+    	
+    	this.canAttackRobber = true;
+    	
+    	this.setPlayerSpeed(5);
+    	
+    	this.lastAttackTime = MenuControl.gControl.timeAmount();
+    }
+    
+    public void dropCar() {
+    	System.out.println("CAR DROPPED");
+    	
+    	this.setPlayerSpeed(defaultPlayerSpeed);
+    	
+    	this.canAttackRobber = false;
+    }
+    
+    public void getStunned() {
+    	this.stunned = true;
+    	
+    	this.lastAttackTime = MenuControl.gControl.timeAmount();
+    	
+    	this.playerSpeed = 0;
+    }
 
-	
 	public boolean attackScore(){
 		if(this.canAttack()) {
 			return true;
