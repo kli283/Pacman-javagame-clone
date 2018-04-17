@@ -13,10 +13,10 @@ import controller.Score;
 public class CollisionDetection {
 
 	public static Score scoreUpdate;
-	
+
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
-	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList, ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList, ArrayList<Item> flashbangList) {
+	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList, ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList, ArrayList<Item> flashbangList, ArrayList<Item> goldList) {
 
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
@@ -48,7 +48,7 @@ public class CollisionDetection {
 				x.setDy(0);
 			}
 			if(playerHit(movers)) {
-				this.scoreUpdate.hitRobberScore((int)scoreUpdate.getScoreCount());
+				scoreUpdate.hitRobberScore((int)scoreUpdate.getScoreCount());
 				System.out.println("OUCH!");
 			}
 			if(robberHit(movers)) {
@@ -105,7 +105,24 @@ public class CollisionDetection {
 		for (Item bigCash : tempBigCash){
 			bigCashList.remove(bigCash);
 			GameController.soundEffects.playCash();
-			this.scoreUpdate.updateScoreCount(bigCash.getScore());
+			scoreUpdate.updateScoreCount(bigCash.getScore());
+		}
+		ArrayList<Item> tempGold = new ArrayList<>();
+		for(Character x:movers) {
+			if(x.canPickupItems()) {
+				for(Item y:goldList) {
+					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
+						GameUI.deSpawn(y);
+						tempGold.add(y);
+
+					}
+				}
+			}
+		}
+		for (Item gold : tempGold){
+			goldList.remove(gold);
+			GameController.soundEffects.playGold();
+			scoreUpdate.updateScoreCount(gold.getScore());
 		}
 		ArrayList<Item> tempCrypto = new ArrayList<>();
 		for(Character x:movers) {
@@ -122,7 +139,7 @@ public class CollisionDetection {
 		for (Item crypto : tempCrypto){
 			cryptoList.remove(crypto);
 			GameController.soundEffects.playCash();
-			this.scoreUpdate.updateScoreCount(crypto.getScore());
+			scoreUpdate.updateScoreCount(crypto.getScore());
 		}
 		ArrayList<Item> tempCar = new ArrayList<>();
 		for(Character x:movers) {
@@ -151,6 +168,10 @@ public class CollisionDetection {
 					}
 				}
 			}
+		}
+		for (Item Flashbang : tempGrenade){
+			flashbangList.remove(Flashbang);
+			GameController.soundEffects.playBang();
 		}
 	}
 	
@@ -199,7 +220,7 @@ public class CollisionDetection {
 	}
 	
 	//This method is called to see if a player gets touched by an enemy who can attack
-	public boolean playerHit(ArrayList<Character> actors) {
+	private boolean playerHit(ArrayList<Character> actors) {
 		for(Character x:actors) {
 			if(x.isHuman()) {
 				for(Character y:actors) {
@@ -215,13 +236,13 @@ public class CollisionDetection {
 		return false;
 	}
 	
-	public boolean robberHit(ArrayList<Character> actors) {
+	private boolean robberHit(ArrayList<Character> actors) {
 		for(Character x:actors) {
 			if(x.isHuman() && x.canAttackR()) {
 				for(Character y:actors) {
 					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))) {
 						y.getStunned();
-						GameController.soundEffects.playHit();
+						GameController.soundEffects.playManHit();
 						return true;
 					}
 				}
@@ -230,7 +251,8 @@ public class CollisionDetection {
 		return false;
 	}
 	
-	public void triggerFlash(ArrayList<Character> actors){
+
+	private void triggerFlash(ArrayList<Character> actors){
 		for(Character x:actors) {
 			if(!x.isHuman()) {
 				x.getStunned();

@@ -4,16 +4,22 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class SoundEffects {
-    Media coin = new Media((SoundEffects.class.getResource("/view/Resources/New Coin.wav").toString()));
-    MediaPlayer coinSound = new MediaPlayer(coin);
-    Media cash = new Media((SoundEffects.class.getResource("/view/Resources/Cash.wav").toString()));
-    MediaPlayer cashSound = new MediaPlayer(cash);
-    Media car = new Media((SoundEffects.class.getResource("/view/Resources/Car.wav").toString()));
-    MediaPlayer carSound = new MediaPlayer(car);
-    Media hit = new Media((SoundEffects.class.getResource("/view/Resources/GirlHit.wav").toString()));
-    MediaPlayer hitSound = new MediaPlayer(hit);
+    private Media coin = new Media((SoundEffects.class.getResource("/view/Resources/New Coin.wav").toString()));
+    private MediaPlayer coinSound = new MediaPlayer(coin);
+    private Media cash = new Media((SoundEffects.class.getResource("/view/Resources/Cash.wav").toString()));
+    private MediaPlayer cashSound = new MediaPlayer(cash);
+    private Media car = new Media((SoundEffects.class.getResource("/view/Resources/Car.wav").toString()));
+    private MediaPlayer carSound = new MediaPlayer(car);
+    private Media hit = new Media((SoundEffects.class.getResource("/view/Resources/GirlHit.wav").toString()));
+    private MediaPlayer hitSound = new MediaPlayer(hit);
+    private Media manHit = new Media((SoundEffects.class.getResource("/view/Resources/ManHit.wav").toString()));
+    private MediaPlayer manHitSound = new MediaPlayer(manHit);
+    private Media bang = new Media((SoundEffects.class.getResource("/view/Resources/Bang.wav").toString()));
+    private MediaPlayer bangSound = new MediaPlayer(bang);
+    private Media gold = new Media((SoundEffects.class.getResource("/view/Resources/Gold.wav").toString()));
+    private MediaPlayer goldSound = new MediaPlayer(gold);
 
-    public SoundEffects() {
+    SoundEffects() {
 
     }
 
@@ -33,7 +39,19 @@ public class SoundEffects {
         soundHandler(hitSound);
     }
 
-    public void soundHandler(MediaPlayer sound) {
+    public void playManHit() {
+        soundHandler((manHitSound));
+    }
+
+    public void playBang() {
+        soundHandler(bangSound);
+    }
+
+    public void playGold() {
+        soundHandler(goldSound);
+    }
+
+    private void soundHandler(MediaPlayer sound) {
         try {
             new Thread() {
                 public void run() {

@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import view.GameModes;
-import controller.SoundEffects;
 
 
 import java.io.IOException;
@@ -30,7 +29,7 @@ public class MenuControl {
     @FXML
     private Button settingsButton;
     @FXML
-    private Button statsButton;
+    private Button aboutButton;
     @FXML
     private Button quitButton;
     @FXML
@@ -69,9 +68,9 @@ public class MenuControl {
             MainApp.gameStage.setScene(testScene);
             System.out.print("PlaySelected" + "\n");
         }
-        else if (event.getSource() == statsButton) {
-            MainApp.gameStage = (Stage) statsButton.getScene().getWindow();
-            test = FXMLLoader.load(getClass().getResource("StatsMenu.fxml"));
+        else if (event.getSource() == aboutButton) {
+            MainApp.gameStage = (Stage) aboutButton.getScene().getWindow();
+            test = FXMLLoader.load(getClass().getResource("AboutMenu.fxml"));
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
             System.out.print("StatsSelected" + "\n");
