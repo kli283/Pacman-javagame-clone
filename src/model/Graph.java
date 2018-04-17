@@ -138,21 +138,9 @@ public class Graph {
 		V25.addDestination(V26, 2);
 		V26.addDestination(V25, 2);
 		V26.addDestination(V21, 5);
-		
 	}
 
 	public void addNode(Node someNode) {
 		nodes.add(someNode);
-	}
-	
-//	public Node createNode(int i, int j, int nodeNum) {
-//		String nodeName = String.valueOf(nodeNum);
-//		Node createNode = new Node(nodeName, i, j);
-//		
-//		this.addRelations(createNode);
-//		
-//		nodeNum++;
-//		return createNode;
-//	}
-	
+	}	
 }
