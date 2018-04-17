@@ -51,6 +51,9 @@ public class CollisionDetection {
 				this.scoreUpdate.hitRobberScore(scoreUpdate.getScoreCount());
 				System.out.println("OUCH!");
 			}
+			if(robberHit(movers)) {
+				System.out.println("ROBBER HIT!");
+			}
 		}
 		ArrayList<Item> tempCoin = new ArrayList<>();
 		for(Character x:movers) {
@@ -138,6 +141,7 @@ public class CollisionDetection {
 						GameUI.deSpawn(y);
 						x.setPlayerSpeed(5);
 						tempCar.add(y);
+						x.canAttackR();
 
 					}
 				}
@@ -145,6 +149,7 @@ public class CollisionDetection {
 		}
 		for (Item car : tempCar){
 			carList.remove(car);
+
 			GameController.soundEffects.playCar();
 		}
 	}
@@ -201,6 +206,21 @@ public class CollisionDetection {
 					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())) {
 						y.attackScore();
 						y.setPlayerSpeed(1);
+						GameController.soundEffects.playHit();
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	public boolean robberHit(ArrayList<Character> actors) {
+		for(Character x:actors) {
+			if(x.isDumbAI()) {
+				for(Character y:actors) {
+					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttackR())){
+						y.attackScore();
+						y.setPlayerSpeed(0);
 						GameController.soundEffects.playHit();
 						return true;
 					}

@@ -32,6 +32,7 @@ public class Character {
 	boolean dumbAI = false;
 	boolean canPickupItems = false;
 	boolean canAttackPlayer = false;
+	boolean canAttackRobber = false;
 	private int lastAttackTime = 120;
 	boolean UP;
 	boolean DOWN;
@@ -65,6 +66,8 @@ public class Character {
 		setYPos(getYPos() + dy);
 		if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 5) && !this.isPlayer) {
 		    playerSpeed = defaultPLayerSpeed;
+        }else if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 10) && this.isPlayer) {
+            playerSpeed = defaultPLayerSpeed;
         }
 	}
 	
@@ -180,13 +183,26 @@ public class Character {
 	public boolean canAttack() {
 		if(MenuControl.gControl.timeAmount() <= lastAttackTime - 5) {
 			if(this.canAttackPlayer) {
-			    playerSpeed = 2;
+			    playerSpeed = defaultPLayerSpeed;
 				lastAttackTime = MenuControl.gControl.timeAmount();
 				return true;
 			}
+
 		}
 		return false;
 	}
+    public boolean canAttackR() {
+        if(MenuControl.gControl.timeAmount() <= lastAttackTime - 10) {
+            if(this.canAttackRobber) {
+                playerSpeed = defaultPLayerSpeed;
+                lastAttackTime = MenuControl.gControl.timeAmount();
+                return true;
+            }
+
+        }
+        return false;
+    }
+
 	
 	public boolean attackScore(){
 		if(this.canAttack()) {
