@@ -48,7 +48,7 @@ public class CollisionDetection {
 				x.setDy(0);
 			}
 			if(playerHit(movers)) {
-				this.scoreUpdate.hitRobberScore(scoreUpdate.getScoreCount());
+				this.scoreUpdate.hitRobberScore((int)scoreUpdate.getScoreCount());
 				System.out.println("OUCH!");
 			}
 			if(robberHit(movers)) {
@@ -73,7 +73,7 @@ public class CollisionDetection {
 			this.scoreUpdate.updateScoreCount(coin.getScore());
 			GameController.soundEffects.playCoin();
 
-			System.out.println(scoreUpdate);
+			System.out.println(this.scoreUpdate.getScoreCount());
 		}
 		ArrayList<Item> tempSmallCash = new ArrayList<>();
 		for(Character x:movers) {

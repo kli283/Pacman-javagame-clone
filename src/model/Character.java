@@ -33,13 +33,14 @@ public class Character {
 	boolean canPickupItems = false;
 	boolean canAttackPlayer = false;
 	boolean canAttackRobber = false;
-	private int lastAttackTime = 120;
+	private int lastAttackTime = 125;
 	boolean UP;
 	boolean DOWN;
 	boolean LEFT;
 	boolean RIGHT;
 	double playerSpeed;
-	double defaultPLayerSpeed;
+	double defaultPlayerSpeed;
+
 	
 	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed) {
 		this.layer = layer;
@@ -49,7 +50,7 @@ public class Character {
 		this.height = setHeight;
 		this.width = setWidth;
 		this.playerSpeed = playerSpeed;
-		this.defaultPLayerSpeed = playerSpeed;
+		this.defaultPlayerSpeed = playerSpeed;
 		if(!this.isPlayer) {
 			this.isAI = true;
 			this.dumbAI = true;
@@ -65,9 +66,9 @@ public class Character {
 		setXPos(getXPos() + dx);
 		setYPos(getYPos() + dy);
 		if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 5) && !this.isPlayer) {
-		    playerSpeed = defaultPLayerSpeed;
+		    playerSpeed = defaultPlayerSpeed;
         }else if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 10) && this.isPlayer) {
-            playerSpeed = defaultPLayerSpeed;
+            playerSpeed = defaultPlayerSpeed;
         }
 	}
 	
@@ -183,7 +184,7 @@ public class Character {
 	public boolean canAttack() {
 		if(MenuControl.gControl.timeAmount() <= lastAttackTime - 5) {
 			if(this.canAttackPlayer) {
-			    playerSpeed = defaultPLayerSpeed;
+			    playerSpeed = defaultPlayerSpeed;
 				lastAttackTime = MenuControl.gControl.timeAmount();
 				return true;
 			}
@@ -194,7 +195,7 @@ public class Character {
     public boolean canAttackR() {
         if(MenuControl.gControl.timeAmount() <= lastAttackTime - 10) {
             if(this.canAttackRobber) {
-                playerSpeed = defaultPLayerSpeed;
+                playerSpeed = defaultPlayerSpeed;
                 lastAttackTime = MenuControl.gControl.timeAmount();
                 return true;
             }

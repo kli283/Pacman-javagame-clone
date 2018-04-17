@@ -1,10 +1,16 @@
 package controller;
 
+import model.Character;
+
 public class Pathfinding {
 	
+	private Character subject;
+	private Character target;
 	private String levelData;
-	private int chaserXPos;
-	private int chaserYPos;
+	private int subjectXPos;
+	private int subjectYPos;
+	private int targetXPos;
+	private int targetYPos;
 	private enum Direction{
 		UP,
 		DOWN,
@@ -16,12 +22,16 @@ public class Pathfinding {
 		return Direction.UP;
 	}
 	
-	public static void findRobber() {
-		
+	public void findSubject() {
+		subjectXPos = (int) (subject.getXPos()/MenuControl.gControl.getPixelScale());
+		subjectYPos = (int) (subject.getYPos()/MenuControl.gControl.getPixelScale());
 	}
 	
-	public void djikstra() {
-			
+	public void findTarget() {
+		targetXPos = (int) (target.getXPos()/MenuControl.gControl.getPixelScale());
+		targetYPos = (int) (target.getYPos()/MenuControl.gControl.getPixelScale());
 	}
+	
+	
 
 }
