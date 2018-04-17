@@ -6,9 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
-/*Parent class for all characters - AI or player controlled
- *
- */
+//Parent class for all characters - AI or player controlled
+
 
 public class Character {
 	private AnchorPane layer;//Where to draw the character

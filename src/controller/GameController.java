@@ -61,10 +61,6 @@ public class GameController { // Class to contain main game loop
     private boolean winGame;
     private boolean isPlayer;
     private MenuControl menuHub;
-//	Rectangle rect1;
-//	Rectangle rect2;
-//	Rectangle rect3;
-//	Rectangle rect4;
 
     private CollisionDetection detector = new CollisionDetection();
     Rectangle wall1;
@@ -244,30 +240,23 @@ public class GameController { // Class to contain main game loop
     public void initPlayer(double xPosition, double yPosition) {
         double playerSpeed = 3;
         testman = new TestMan(rootLayout, xPosition + 2, yPosition + 2, true, 42, 42, playerSpeed, true);
-        //testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
         charList.add(testman);
         GameUI.spawn(testman);
-        //testman.updateUI();
     }
 
     private Robber1 initRobber(double xPosition, double yPosition, boolean isPlayer) {
-        //testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
         double robberSpeed = 2;
         Robber1 robber = new Robber1(rootLayout, xPosition, yPosition, isPlayer, 40, 40, robberSpeed, false);
         charList.add(robber);
         GameUI.spawn(robber);
-
         return robber;
-        //testRobber.updateUI();
     }
 
     private void initAgent(double xPosition, double yPosition) {
-        //testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
         double agentSpeed = 1;
         Agent agent = new Agent(rootLayout, xPosition, yPosition, false, 40, 40, agentSpeed, false);
         charList.add(agent);
         GameUI.spawn(agent);
-        //testRobber.updateUI();
     }
 
     private void robberMovement() {
@@ -276,8 +265,6 @@ public class GameController { // Class to contain main game loop
 
     // Get the controller up and running
     public void initGameController(Stage mainStage, GameModes gameModes) throws IOException {
-        //mainStage.setTitle("Gold Girl");
-//		try {
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("TestMap.fxml"));
@@ -337,7 +324,6 @@ public class GameController { // Class to contain main game loop
                         rootLayout = (AnchorPane) reload.load();
                         Scene menuScene = new Scene(rootLayout);
                         mainStage.setScene(menuScene);
-                        //mainStage.show();
                     } catch (IOException e) {
                         e.printStackTrace();
                         e.getCause();
@@ -402,7 +388,6 @@ public class GameController { // Class to contain main game loop
             }
 
             // Pressing backspace when the quit game prompt is on the screen will resume the game
-
             if (event.getCode() == KeyCode.BACK_SPACE) {
                 if (this.escPressed == true) {
                     this.escPressed = false;
@@ -510,8 +495,6 @@ public class GameController { // Class to contain main game loop
         if (!gameIsPaused()) {
             if (startGame()) {
                 detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList, cryptoList);
-//				testman.changeMove();
-//				testRobber.changeMove();
                 for (Character x : charList) {
                     x.changeMove();
                 }
@@ -523,7 +506,6 @@ public class GameController { // Class to contain main game loop
                     decreaseTime();
                     if (timeAmount() == 0) {
                         endGame();
-                        //timeLabel.setText(timeAmount() + " seconds");
                     }
                     timeLabel.setText(timeAmount() + " seconds");
                     numOfTimesTicked = 0;
