@@ -21,7 +21,7 @@ public class Score {
     }
 
     public void hitRobberScore(double scoreCount){
-        this.scoreCount = scoreCount * 0.7;
+        this.scoreCount *= 0.7;
     }
 
 

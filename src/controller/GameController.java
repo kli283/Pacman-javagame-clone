@@ -275,25 +275,7 @@ public class GameController { // Class to contain main game loop
     }
 
     private void robberMovement() {
-//		Random rand = new Random();
-//		int countDirection = rand.nextInt(4);
-//		int countTimer = rand.nextInt(33);
-//		if (countTimer == 32 && countDirection == 0){
-//			testRobber.setDx(0);
-//			testRobber.setDy(-robberSpeed);
-//		}else if (countTimer == 24 && countDirection == 0){
-//			testRobber.setDx(robberSpeed);
-//			testRobber.setDy(0);
-//		}else if (countTimer == 16 && countDirection == 0){
-//			testRobber.setDx(0);
-//			testRobber.setDy(robberSpeed);
-//		}else if (countTimer == 8 && countDirection == 0){
-//			testRobber.setDx(-robberSpeed);
-//			testRobber.setDy(0);
-//		}
         AI.navigate(charList, testman, detector, mapPath, isPlayer);
-        //System.out.println("Direction: " + countDirection);
-        //System.out.println("Timer: " + countTimer);
     }
 
     // Get the controller up and running

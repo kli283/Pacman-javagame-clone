@@ -16,7 +16,7 @@ public class CollisionDetection {
 	
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
-	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList,ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList) {
+	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList, ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList) {
 
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
@@ -52,7 +52,7 @@ public class CollisionDetection {
 				System.out.println("OUCH!");
 			}
 			if(robberHit(movers)) {
-				System.out.println("ROBBER HIT!");
+				System.out.println("RUN OVER!");
 			}
 		}
 		ArrayList<Item> tempCoin = new ArrayList<>();
@@ -73,7 +73,7 @@ public class CollisionDetection {
 			this.scoreUpdate.updateScoreCount(coin.getScore());
 			GameController.soundEffects.playCoin();
 
-			System.out.println(this.scoreUpdate.getScoreCount());
+			//System.out.println(this.scoreUpdate.getScoreCount());
 		}
 		ArrayList<Item> tempSmallCash = new ArrayList<>();
 		for(Character x:movers) {
@@ -92,7 +92,7 @@ public class CollisionDetection {
 			smallCashList.remove(smallCash);
 			GameController.soundEffects.playCash();
 			this.scoreUpdate.updateScoreCount(smallCash.getScore());
-			System.out.println(scoreUpdate);
+			//System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempBigCash = new ArrayList<>();
 		for(Character x:movers) {
@@ -111,7 +111,7 @@ public class CollisionDetection {
 			bigCashList.remove(bigCash);
 			GameController.soundEffects.playCash();
 			this.scoreUpdate.updateScoreCount(bigCash.getScore());
-			System.out.println(scoreUpdate);
+			//System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempCrypto = new ArrayList<>();
 		for(Character x:movers) {
@@ -130,7 +130,7 @@ public class CollisionDetection {
 			cryptoList.remove(crypto);
 			GameController.soundEffects.playCash();
 			this.scoreUpdate.updateScoreCount(crypto.getScore());
-			System.out.println(scoreUpdate);
+			//System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempCar = new ArrayList<>();
 		for(Character x:movers) {
@@ -139,10 +139,8 @@ public class CollisionDetection {
 					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
 						//y.removeFromLayer();
 						GameUI.deSpawn(y);
-						x.setPlayerSpeed(5);
 						tempCar.add(y);
-						//x.canAttackR();
-
+						x.pickupCar();
 					}
 				}
 			}
@@ -214,13 +212,13 @@ public class CollisionDetection {
 		}
 		return false;
 	}
+	
 	public boolean robberHit(ArrayList<Character> actors) {
 		for(Character x:actors) {
-			if(x.isDumbAI()) {
+			if(x.isHuman() && x.canAttackR()) {
 				for(Character y:actors) {
-					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttackR())){
-						y.attackScore();
-						y.setPlayerSpeed(0);
+					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))) {
+						y.getStunned();
 						GameController.soundEffects.playHit();
 						return true;
 					}
@@ -229,6 +227,22 @@ public class CollisionDetection {
 		}
 		return false;
 	}
+	
+//	public boolean robberHit(ArrayList<Character> actors) {
+//		for(Character x:actors) {
+//			if(x.isDumbAI()) {
+//				for(Character y:actors) {
+//					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttackR())){
+//						y.attackScore();
+//						y.setPlayerSpeed(0);
+//						GameController.soundEffects.playHit();
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
+//	}
 	
 	//Old logic for collisions, checks all 4 directions so has issues with moving parallel along walls
 	public boolean willCollide(Character mover, ArrayList<Rectangle> rectangle) {
