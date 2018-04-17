@@ -9,8 +9,4 @@ public class Coin extends Item {
 
         this.setImage("/view/Resources/coin.png");
     }
-
-    public void updateUI() {
-        getImageView().relocate(this.getXPos(),this.getYPos());
-    }
 }

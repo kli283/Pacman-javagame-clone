@@ -47,6 +47,14 @@ public class Item {
 		this.yPos = yPos;
 	}
 	
+	public void setHeight(double height) {
+		this.height = height;
+	}
+	
+	public void setWidth(double width) {
+		this.width = width;
+	}
+	
 	public Image getImage() {
 		return this.image;
 	}

@@ -16,7 +16,7 @@ public class CollisionDetection {
 	
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
-	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList, ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList) {
+	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList, ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList, ArrayList<Item> flashbangList) {
 
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
@@ -140,6 +140,18 @@ public class CollisionDetection {
 			carList.remove(car);
 			GameController.soundEffects.playCar();
 		}
+		ArrayList<Item> tempGrenade = new ArrayList<>();
+		for(Character x:movers) {
+			if(x.canPickupItems()) {
+				for(Item y:flashbangList) {
+					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
+						GameUI.deSpawn(y);
+						tempGrenade.add(y);
+						this.triggerFlash(movers);
+					}
+				}
+			}
+		}
 	}
 	
 	public boolean checkUp(Character mover, ArrayList<Rectangle> rectangle) {
@@ -191,7 +203,7 @@ public class CollisionDetection {
 		for(Character x:actors) {
 			if(x.isHuman()) {
 				for(Character y:actors) {
-					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())) {
+					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())&&(!x.canAttackR())) {
 						y.attackScore();
 						y.setPlayerSpeed(1);
 						GameController.soundEffects.playHit();
@@ -216,6 +228,14 @@ public class CollisionDetection {
 			}
 		}
 		return false;
+	}
+	
+	public void triggerFlash(ArrayList<Character> actors){
+		for(Character x:actors) {
+			if(!x.isHuman()) {
+				x.getStunned();
+			}
+		}
 	}
 	
 	//Old logic for collisions, checks all 4 directions so has issues with moving parallel along walls

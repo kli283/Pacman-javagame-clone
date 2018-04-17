@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 
 //Parent class for all characters - AI or player controlled
 
-
 public class Character {
 	private AnchorPane layer;//Where to draw the character
 	private Image image;//How the character
@@ -70,12 +69,13 @@ public class Character {
 //        }else if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 10) && this.isPlayer) {
 //            playerSpeed = defaultPlayerSpeed;
 //        }
-        else if(this.isPlayer && this.canAttackRobber) {
-        	if(MenuControl.gControl.timeAmount() <= lastAttackTime - 10) {
+		else if(this.isPlayer && this.canAttackRobber) {
+        	if(MenuControl.gControl.timeAmount() <= (lastAttackTime - 10)) {
         		this.dropCar();
+        		System.out.println("CAR DROPPED");
         	}
         }
-        else if(this.stunned && (MenuControl.gControl.timeAmount() <= lastAttackTime - 10)) {
+        if(this.stunned && (MenuControl.gControl.timeAmount() <= lastAttackTime - 10)) {
         	this.stunned = false;
         	this.setPlayerSpeed(defaultPlayerSpeed);
         }
@@ -152,12 +152,15 @@ public class Character {
 	public void rotateUP() {
 		this.imageView.setRotate(180);
 	}
+	
 	public void rotateDOWN() {
 		this.imageView.setRotate(0);
 	}
+	
 	public void rotateRIGHT() {
 		this.imageView.setRotate(270);
 	}
+	
 	public void rotateLEFT() {
 		this.imageView.setRotate(90);
 	}
@@ -206,14 +209,14 @@ public class Character {
 	}
 	
     public boolean canAttackR() {
-        if(MenuControl.gControl.timeAmount() <= lastAttackTime - 10) {
+        //if(MenuControl.gControl.timeAmount() <= lastAttackTime - 10) {
             if(this.canAttackRobber) {
-                this.playerSpeed = defaultPlayerSpeed;
-                this.lastAttackTime = MenuControl.gControl.timeAmount();
+                //this.playerSpeed = defaultPlayerSpeed;
+            	//System.out.println("canAttackR");
+                //this.lastAttackTime = MenuControl.gControl.timeAmount();
                 return true;
             }
-
-        }
+        //}
         return false;
     }
     
@@ -233,6 +236,10 @@ public class Character {
     	this.setPlayerSpeed(defaultPlayerSpeed);
     	
     	this.canAttackRobber = false;
+    }
+    
+    public boolean isStunned() {
+    	return this.stunned;
     }
     
     public void getStunned() {

@@ -14,7 +14,7 @@ public class AIController {
 	public void navigate(ArrayList<Character> AI, Character player, CollisionDetection detector, ArrayList<Rectangle> wallList, boolean isPlayer) {
 		if (isPlayer == false) {
 			for (Character x : AI) {
-				if (!x.isHuman()) {
+				if (!x.isHuman() && !x.isStunned()) {
 					if (x.isDumbAI()||((x.isDumberAI() && (distanceToPlayer(player, x) < 48*7)))) {
 						if (this.isAbove(x, player) && !detector.checkUp(x, wallList)) {
 							x.setUP(true);

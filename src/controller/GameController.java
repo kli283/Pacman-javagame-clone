@@ -36,6 +36,7 @@ public class GameController { // Class to contain main game loop
     private ArrayList<Item> cryptoList = new ArrayList<>();
     private ArrayList<Box> wallList = new ArrayList<>();
     private ArrayList<Item> carList = new ArrayList<>();
+    private ArrayList<Item> flashbangList = new ArrayList<>();
     private int pixelScale = 48;
     double coinPosX;
     double coinPosY;
@@ -194,11 +195,15 @@ public class GameController { // Class to contain main game loop
                     case 'a':
                         initAgent(j * pixelScale, i * pixelScale);
                         break;
+                    case 'f':
+                    	Flashbang flashbang;
+                    	flashbangList.add(flashbang = new Flashbang(rootLayout, j * pixelScale + 4, i * pixelScale, 0));
+                    	GameUI.spawn(flashbang);
+                    	break;
                     case '1':
                         Coin coin;
                         coinList.add(coin = new Coin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
                         GameUI.spawn(coin);
-                        //coin.updateUI();
                         break;
                     case '2':
                         break;
@@ -206,29 +211,21 @@ public class GameController { // Class to contain main game loop
                         Car car;
                         carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
                         GameUI.spawn(car);
-                        //car.addToLayer();
-                        //car.updateUI();
                         break;
                     case '4':
                         SmallCash smallCash;
                         smallCashList.add(smallCash = new SmallCash(rootLayout, j * pixelScale + 8, i * pixelScale + 10, 10));
                         GameUI.spawn(smallCash);
-                        //smallCash.addToLayer();
-                        //smallCash.updateUI();
                         break;
                     case '5':
                         BigCash bigCash;
                         bigCashList.add(bigCash = new BigCash(rootLayout, j * pixelScale + 8, i * pixelScale + 8, 25));
                         GameUI.spawn(bigCash);
-                        //bigCash.addToLayer();
-                        //bigCash.updateUI();
                         break;
                     case 'c':
                         Crypto crypto;
                         cryptoList.add(crypto = new Crypto(rootLayout, j * pixelScale + 8, i * pixelScale + 8, randScore.nextInt(1000 + 1 + 1000) - 1000));
                         GameUI.spawn(crypto);
-                        //bigCash.addToLayer();
-                        //bigCash.updateUI();
                         break;
 
                 }
@@ -280,28 +277,24 @@ public class GameController { // Class to contain main game loop
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP) {
-                System.out.println("Move Up");
                 testman.setUP(true);
                 testman.rotateUP();
             } else {
                 testman.setUP(false);
             }
             if (event.getCode() == KeyCode.RIGHT) {
-                //System.out.println("Move RIGHT");
                 testman.setRIGHT(true);
                 testman.rotateRIGHT();
             } else {
                 testman.setRIGHT(false);
             }
             if (event.getCode() == KeyCode.DOWN) {
-                //System.out.println("Move DOWN");
                 testman.setDOWN(true);
                 testman.rotateDOWN();
             } else {
                 testman.setDOWN(false);
             }
             if (event.getCode() == KeyCode.LEFT) {
-                //System.out.println("Move LEFT");
                 testman.setLEFT(true);
                 testman.rotateLEFT();
             }
@@ -491,10 +484,11 @@ public class GameController { // Class to contain main game loop
         GameUI.updateItems(smallCashList);
         GameUI.updateItems(bigCashList);
         GameUI.updateItems(carList);
+        GameUI.updateItems(flashbangList);
         GameUI.updateActors(charList);
         if (!gameIsPaused()) {
             if (startGame()) {
-                detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList, cryptoList);
+                detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList, cryptoList, flashbangList);
                 for (Character x : charList) {
                     x.changeMove();
                 }
