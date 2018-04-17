@@ -194,14 +194,16 @@ public class GameController { // Class to contain main game loop
                         break;
                     case 'r':
                         if (gameModes == GameModes.SinglePlayer) {
-                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, isPlayer);
+                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer1) {
                             robber2 = initRobber(robber2, j * pixelScale, i * pixelScale, isPlayer);
                         }
                         break;
                     case 'm':
-                        if (gameModes == GameModes.MultiPlayer1) {
-                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, isPlayer);
+                        if (gameModes == GameModes.SinglePlayer) {
+                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, false);
+                        }else if (gameModes == GameModes.MultiPlayer1) {
+                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer2) {
                             robber3 = initRobber(robber3, j * pixelScale, i * pixelScale, isPlayer);
                         }
@@ -296,8 +298,8 @@ public class GameController { // Class to contain main game loop
 
     // Get the controller up and running
     public void initGameController(Stage mainStage, GameModes gameModes) throws IOException {
-        mainStage.setTitle("Test Character Movement");
-
+        mainStage.setTitle("Gold Girl");
+//		try {
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("TestMap.fxml"));
@@ -478,7 +480,7 @@ public class GameController { // Class to contain main game loop
     }
 
     public void initLabels() {
-        scoreLabel = new Label("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
+        scoreLabel = new Label("$" + String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount()));
         scoreLabel.setTextFill(Color.WHITE);
         scoreLabel.setFont(new Font("Calibri", 32));
         scoreLabel.setLayoutX(820);
@@ -528,7 +530,7 @@ public class GameController { // Class to contain main game loop
                     x.changeMove();
                 }
                 robberMovement();
-                scoreLabel.setText("$" + (Integer.toString(CollisionDetection.scoreUpdate)));
+                scoreLabel.setText("$" + (String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount())));
 
                 numOfTimesTicked++;
                 if (numOfTimesTicked == 60) {
