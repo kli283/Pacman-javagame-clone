@@ -46,7 +46,8 @@ public class Character {
 		this.layer = layer;
 		setXPos(xStart);
 		setYPos(yStart);
-		this.canPickupItems = isPlayer;
+		this.canPickupItems = isPlayer && isGG;
+		this.isPlayer = isPlayer;
 		this.height = setHeight;
 		this.width = setWidth;
 		this.playerSpeed = playerSpeed;
