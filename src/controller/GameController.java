@@ -140,20 +140,20 @@ public class GameController { // Class to contain main game loop
         }
     }
 
-    public void decreaseTime() {
+    private void decreaseTime() {
 
         this.timeRemaining--;
     }
 
-    public void decreasePreTime() {
+    private void decreasePreTime() {
         this.preTimeRemaining--;
     }
 
-    public void resetTimer() {
+    private void resetTimer() {
         this.timeRemaining = 120;
     }
 
-    public void zeroTimer() {
+    private void zeroTimer() {
         this.timeRemaining = 1;
     }
 
@@ -164,13 +164,10 @@ public class GameController { // Class to contain main game loop
         return this.timeRemaining;
     }
 
-    public int preTimeAmount() {
+    private int preTimeAmount() {
         return this.preTimeRemaining;
     }
 
-    public void initTimer() {
-
-    }
 
     public void initMap(String[] Level, String wallType, GameModes gameModes) {
         Rectangle levelBackground = new Rectangle(768, 768);
@@ -188,26 +185,26 @@ public class GameController { // Class to contain main game loop
                         wallList.add(wall);
                         mapPath.add(wall.getBoundary());
                         GameUI.spawn(wall);
-                        //wall.addToLayer();
-                        //wall.updateUI();
                         break;
                     case 'p':
                         initPlayer(j * pixelScale, i * pixelScale);
                         break;
                     case 'r':
                         if (gameModes == GameModes.SinglePlayer) {
-                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, false);
+                            robber1 = initRobber(j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer1) {
-                            robber2 = initRobber(robber2, j * pixelScale, i * pixelScale, isPlayer);
+                            robber2 = initRobber(j * pixelScale, i * pixelScale, true);
+                        } else if (gameModes == GameModes.MultiPlayer2) {
+                            robber2 = initRobber(j * pixelScale, i * pixelScale, true);
                         }
                         break;
                     case 'm':
                         if (gameModes == GameModes.SinglePlayer) {
-                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, false);
+                            robber1 = initRobber(j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer1) {
-                            robber1 = initRobber(robber1, j * pixelScale, i * pixelScale, false);
+                            robber1 = initRobber(j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer2) {
-                            robber3 = initRobber(robber3, j * pixelScale, i * pixelScale, isPlayer);
+                            robber3 = initRobber(j * pixelScale, i * pixelScale, true);
                         }
                         break;
                     case 'a':
@@ -259,9 +256,9 @@ public class GameController { // Class to contain main game loop
         //testman.updateUI();
     }
 
-    private Robber1 initRobber(Robber1 robber, double xPosition, double yPosition, boolean isPlayer) {
+    private Robber1 initRobber(double xPosition, double yPosition, boolean isPlayer) {
         //testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
-        robber = new Robber1(rootLayout, xPosition, yPosition, isPlayer, 40, 40, robberSpeed, false);
+        Robber1 robber = new Robber1(rootLayout, xPosition, yPosition, isPlayer, 40, 40, robberSpeed, false);
         charList.add(robber);
         GameUI.spawn(robber);
 
@@ -369,7 +366,7 @@ public class GameController { // Class to contain main game loop
                     }
                 }
             }
-            if (gameModes == GameModes.MultiPlayer1) {
+            if (gameModes == GameModes.MultiPlayer1 || gameModes == GameModes.MultiPlayer2) {
                 if (event.getCode() == KeyCode.W) {
                     //System.out.println("Move Up");
                     robber2.setUP(true);
@@ -397,34 +394,34 @@ public class GameController { // Class to contain main game loop
                     robber2.rotateLEFT();
                 }
             }
-//            if (gameModes == GameModes.MultiPlayer2) {
-//                if (event.getCode() == KeyCode.I) {
-//                    //System.out.println("Move Up");
-//                    robber3.setUP(true);
-//                    robber3.rotateUP();
-//                } else {
-//                    robber3.setUP(false);
-//                }
-//                if (event.getCode() == KeyCode.L) {
-//                    //System.out.println("Move RIGHT");
-//                    robber3.setRIGHT(true);
-//                    robber3.rotateRIGHT();
-//                } else {
-//                    robber3.setRIGHT(false);
-//                }
-//                if (event.getCode() == KeyCode.K) {
-//                    //System.out.println("Move DOWN");
-//                    robber3.setDOWN(true);
-//                    robber3.rotateDOWN();
-//                } else {
-//                    robber3.setDOWN(false);
-//                }
-//                if (event.getCode() == KeyCode.J) {
-//                    //System.out.println("Move LEFT");
-//                    robber3.setLEFT(true);
-//                    robber3.rotateLEFT();
-//                }
-//            }
+            if (gameModes == GameModes.MultiPlayer2) {
+                if (event.getCode() == KeyCode.I) {
+                    //System.out.println("Move Up");
+                    robber3.setUP(true);
+                    robber3.rotateUP();
+                } else {
+                    robber3.setUP(false);
+                }
+                if (event.getCode() == KeyCode.L) {
+                    //System.out.println("Move RIGHT");
+                    robber3.setRIGHT(true);
+                    robber3.rotateRIGHT();
+                } else {
+                    robber3.setRIGHT(false);
+                }
+                if (event.getCode() == KeyCode.K) {
+                    //System.out.println("Move DOWN");
+                    robber3.setDOWN(true);
+                    robber3.rotateDOWN();
+                } else {
+                    robber3.setDOWN(false);
+                }
+                if (event.getCode() == KeyCode.J) {
+                    //System.out.println("Move LEFT");
+                    robber3.setLEFT(true);
+                    robber3.rotateLEFT();
+                }
+            }
 
             // Pressing backspace when the quit game prompt is on the screen will resume the game
 
