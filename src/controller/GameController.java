@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.*;
 
@@ -23,20 +24,10 @@ public class GameController { // Class to contain main game loop
 
     private AnchorPane rootLayout;
     private TestMan testman;
-    private Coin coin;
-    private SmallCash smallCash;
-    private BigCash bigCash;
-    private Crypto crypto;
-    private Car car;
-    private Robber1 robber1;
     private Robber1 robber2;
     private Robber1 robber3;
     private AIController AI;
-    private Agent agent;
     private GameUI UI;
-    private double playerSpeed = 3;
-    private double robberSpeed = 2;
-    private double agentSpeed = 1;
     private ArrayList<Rectangle> mapPath = new ArrayList<>();
     private ArrayList<Character> charList = new ArrayList<Character>();
     private ArrayList<Item> coinList = new ArrayList<Item>();
@@ -48,7 +39,6 @@ public class GameController { // Class to contain main game loop
     private int pixelScale = 48;
     double coinPosX;
     double coinPosY;
-    private int levelWidth;
     private GameModes gameModes;
     public static SoundEffects soundEffects;
     private Label scoreLabel;
@@ -70,7 +60,6 @@ public class GameController { // Class to contain main game loop
     private boolean readyToStart;
     private boolean winGame;
     private boolean isPlayer;
-    private Stage gameStage;
     private MenuControl menuHub;
 //	Rectangle rect1;
 //	Rectangle rect2;
@@ -90,7 +79,7 @@ public class GameController { // Class to contain main game loop
         endGamePressed = false;
         winGame = false;
 
-        this.gameStage = mainStage;
+        Stage gameStage = mainStage;
 
         resetTimer();
         initGameController(mainStage, gameModes);
@@ -110,34 +99,32 @@ public class GameController { // Class to contain main game loop
         //initTimer();
     }
 
-    public boolean startGame() {
+    private boolean startGame() {
         return this.readyToStart;
     }
 
-    public void endGame() {
+    private void endGame() {
         this.timeRemaining = 0;
         this.gameOver = true;
-        if (winGame == true) {
-            winLabel.setText("GAME OVER \n YOU WIN");
+        Rectangle winBox = new Rectangle();
+        winBox.setX(0);
+        winBox.setY(0);
+        winBox.setWidth(768);
+        winBox.setHeight(768);
+        winBox.setFill(Color.BEIGE);
+        rootLayout.getChildren().add(winBox);
+        if (winGame) {
+
+            winLabel.setText("GAME OVER \nYOU WIN");
+            winLabel.toFront();
         } else {
-            winLabel.setText("GAME OVER \n YOU LOSE");
+            winLabel.setText("GAME OVER \nYOU LOSE");
+            winLabel.toFront();
         }
     }
 
-    public boolean gameIsPaused() {
-        if ((this.escPressed) || (this.pausePressed) || (this.gameOver) || (this.checkWin())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isFinished() {
-        if (this.timeRemaining <= 0) {
-            return true;
-        } else {
-            return false;
-        }
+    private boolean gameIsPaused() {
+        return (this.escPressed) || (this.pausePressed) || (this.gameOver) || (this.checkWin());
     }
 
     private void decreaseTime() {
@@ -172,7 +159,7 @@ public class GameController { // Class to contain main game loop
     public void initMap(String[] Level, String wallType, GameModes gameModes) {
         Rectangle levelBackground = new Rectangle(768, 768);
 
-        levelWidth = Level[0].length() * pixelScale;
+        int levelWidth = Level[0].length() * pixelScale;
         String imageURL = "/view/Resources/" + wallType + ".png";
 
         for (int i = 0; i < Level.length; i++) {
@@ -190,6 +177,7 @@ public class GameController { // Class to contain main game loop
                         initPlayer(j * pixelScale, i * pixelScale);
                         break;
                     case 'r':
+                        Robber1 robber1;
                         if (gameModes == GameModes.SinglePlayer) {
                             robber1 = initRobber(j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer1) {
@@ -211,6 +199,7 @@ public class GameController { // Class to contain main game loop
                         initAgent(j * pixelScale, i * pixelScale);
                         break;
                     case '1':
+                        Coin coin;
                         coinList.add(coin = new Coin(rootLayout, j * pixelScale + 15, i * pixelScale + 15, 2));
                         GameUI.spawn(coin);
                         //coin.updateUI();
@@ -218,24 +207,28 @@ public class GameController { // Class to contain main game loop
                     case '2':
                         break;
                     case '3':
+                        Car car;
                         carList.add(car = new Car(rootLayout, j * pixelScale + 3, i * pixelScale + 5, 0));
                         GameUI.spawn(car);
                         //car.addToLayer();
                         //car.updateUI();
                         break;
                     case '4':
+                        SmallCash smallCash;
                         smallCashList.add(smallCash = new SmallCash(rootLayout, j * pixelScale + 8, i * pixelScale + 10, 10));
                         GameUI.spawn(smallCash);
                         //smallCash.addToLayer();
                         //smallCash.updateUI();
                         break;
                     case '5':
+                        BigCash bigCash;
                         bigCashList.add(bigCash = new BigCash(rootLayout, j * pixelScale + 8, i * pixelScale + 8, 25));
                         GameUI.spawn(bigCash);
                         //bigCash.addToLayer();
                         //bigCash.updateUI();
                         break;
                     case 'c':
+                        Crypto crypto;
                         cryptoList.add(crypto = new Crypto(rootLayout, j * pixelScale + 8, i * pixelScale + 8, randScore.nextInt(1000 + 1 + 1000) - 1000));
                         GameUI.spawn(crypto);
                         //bigCash.addToLayer();
@@ -249,6 +242,7 @@ public class GameController { // Class to contain main game loop
 
     //rootLayout.getChildren().add(levelBackground);
     public void initPlayer(double xPosition, double yPosition) {
+        double playerSpeed = 3;
         testman = new TestMan(rootLayout, xPosition + 2, yPosition + 2, true, 42, 42, playerSpeed, true);
         //testman = new TestMan(rootLayout, 7 * pixelScale, 7 * pixelScale + 10, true, 38, 38, playerSpeed);
         charList.add(testman);
@@ -258,6 +252,7 @@ public class GameController { // Class to contain main game loop
 
     private Robber1 initRobber(double xPosition, double yPosition, boolean isPlayer) {
         //testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
+        double robberSpeed = 2;
         Robber1 robber = new Robber1(rootLayout, xPosition, yPosition, isPlayer, 40, 40, robberSpeed, false);
         charList.add(robber);
         GameUI.spawn(robber);
@@ -268,7 +263,8 @@ public class GameController { // Class to contain main game loop
 
     private void initAgent(double xPosition, double yPosition) {
         //testRobber = new TestRobber(rootLayout, 14 * pixelScale, 14 * pixelScale, false, 35, 35, robberSpeed);
-        agent = new Agent(rootLayout, xPosition, yPosition, false, 40, 40, agentSpeed, false);
+        double agentSpeed = 1;
+        Agent agent = new Agent(rootLayout, xPosition, yPosition, false, 40, 40, agentSpeed, false);
         charList.add(agent);
         GameUI.spawn(agent);
         //testRobber.updateUI();
@@ -298,7 +294,7 @@ public class GameController { // Class to contain main game loop
 
     // Get the controller up and running
     public void initGameController(Stage mainStage, GameModes gameModes) throws IOException {
-        mainStage.setTitle("Gold Girl");
+        //mainStage.setTitle("Gold Girl");
 //		try {
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
@@ -344,15 +340,15 @@ public class GameController { // Class to contain main game loop
                 pressPause();
             }
             if (event.getCode() == KeyCode.ESCAPE) {
-                if (escPressed == true) {
+                if (escPressed) {
                 } else if (!this.pausePressed) {
-                    escLabel.setText("Press Enter to quit, Backspace to go back");
+                    escLabel.setText("Press Enter to quit\nBackspace to go back");
                     this.escPressed = true;
                 }
             }
             // Pressing Enter when the quit game prompt is on the screen will take the game back to the main menu of the game
             if (event.getCode() == KeyCode.ENTER) {
-                if (this.escPressed == true || this.gameOver == true) {
+                if (this.escPressed || this.gameOver) {
                     try {
                         FXMLLoader reload = new FXMLLoader();
                         reload.setLocation(MainApp.class.getResource("MainMenu.fxml"));
@@ -463,7 +459,7 @@ public class GameController { // Class to contain main game loop
             } else if (event.getCode() == KeyCode.RIGHT) {
                 testman.setRIGHT(false);
             }
-            if (gameModes == GameModes.MultiPlayer1) {
+            if (gameModes == GameModes.MultiPlayer1 || gameModes == GameModes.MultiPlayer2) {
                 if (event.getCode() == KeyCode.A) {
                     robber2.setLEFT(false);
                 } else if (event.getCode() == KeyCode.W) {
@@ -506,21 +502,19 @@ public class GameController { // Class to contain main game loop
         pregameLabel.setLayoutY(330);
         escLabel = new Label("");
         escLabel.setFont(new Font("Calibri", 45));
-        escLabel.setLayoutX(150);
+        escLabel.setLayoutX(175);
         escLabel.setLayoutY(330);
+        escLabel.setTextAlignment(TextAlignment.CENTER);
         winLabel = new Label("");
         winLabel.setFont(new Font("Calibri", 65));
-        winLabel.setLayoutX(220);
-        winLabel.setLayoutY(300);
+        winLabel.setLayoutX(170);
+        winLabel.setLayoutY(290);
+        winLabel.setTextAlignment(TextAlignment.CENTER);
         rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel, winLabel);
     }
 
-    public void pressPause() {
-        if (!this.pausePressed) {
-            this.pausePressed = true;
-        } else {
-            this.pausePressed = false;
-        }
+    private void pressPause() {
+        this.pausePressed = !this.pausePressed;
     }
 
     public void tickChange() {
@@ -532,7 +526,7 @@ public class GameController { // Class to contain main game loop
         GameUI.updateItems(carList);
         GameUI.updateActors(charList);
         if (!gameIsPaused()) {
-            if (startGame() == true) {
+            if (startGame()) {
                 detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList, cryptoList);
 //				testman.changeMove();
 //				testRobber.changeMove();
@@ -566,12 +560,12 @@ public class GameController { // Class to contain main game loop
                     pregameLabel.setText("");
                 }
             }
-        } else if (gameOver == true) {
+        } else if (gameOver) {
             timeLabel.setText(timeAmount() + " seconds");
         }
         if (checkWin()) {
             endGame();
-            winLabel.setText("Game Over! \n press enter to exit");
+            winLabel.setText("Game Over! \npress enter to exit");
             if (MenuControl.getLevelCount() == 1) {
                 MenuControl.launchLevel2();
                 MenuControl.setLevelCount();
@@ -581,18 +575,10 @@ public class GameController { // Class to contain main game loop
                 MenuControl.setLevelCount();
             }
         }
-        //System.out.println(CollisionDetection.scoreUpdate);
     }
 
-    public double getPixelScale() {
-        return this.pixelScale;
-    }
-
-    public boolean checkWin() {
-        if (coinList.isEmpty() && smallCashList.isEmpty() && bigCashList.isEmpty() && cryptoList.isEmpty()) {
-            return true;
-        }
-        return false;
+    private boolean checkWin() {
+        return coinList.isEmpty() && smallCashList.isEmpty() && bigCashList.isEmpty() && cryptoList.isEmpty();
     }
 
     public MenuControl getMenu() {

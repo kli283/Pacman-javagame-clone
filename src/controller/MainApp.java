@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class MainApp extends Application {
 	public static Stage gameStage;
-	private AnchorPane baseLayout;
 	private static MediaPlayer gameMusic;
 	public static final double screenWidth = 1024;
 	public static final double screenHeight = 768;
@@ -22,7 +21,7 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
-	public void initMusic(){
+	private void initMusic(){
 		Media theme = new Media((MainApp.class.getResource("/view/Resources/Cool Vibes.mp3").toString()));
 		gameMusic = new MediaPlayer(theme);
 		gameMusic.setCycleCount(MediaPlayer.INDEFINITE);;
@@ -32,7 +31,7 @@ public class MainApp extends Application {
 		gameMusic.setVolume(0);
 	}
 
-	public void playMusic(){
+	private void playMusic(){
 		gameMusic.play();
 	}
 
@@ -41,8 +40,7 @@ public class MainApp extends Application {
 	}
 
 
-	public void start(Stage gameStage) throws IOException {
-		//GameController gControl = new GameController(primaryStage);
+	public void start(Stage gameStage) {
 		MainApp.gameStage = gameStage;
 		MainApp.gameStage.setTitle("Gold Girl");
 		MainApp.gameStage.setResizable(false);
@@ -50,7 +48,7 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("MainMenu.fxml"));
-			baseLayout = (AnchorPane) loader.load();
+			AnchorPane baseLayout = (AnchorPane) loader.load();
 
 			Scene scene = new Scene(baseLayout);
 			gameStage.setScene(scene);

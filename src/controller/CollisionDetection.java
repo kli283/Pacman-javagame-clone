@@ -205,6 +205,7 @@ public class CollisionDetection {
 				for(Character y:actors) {
 					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())) {
 						y.attackScore();
+
 						y.setPlayerSpeed(1);
 						GameController.soundEffects.playHit();
 						return true;
