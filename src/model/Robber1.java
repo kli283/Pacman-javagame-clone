@@ -10,6 +10,9 @@ public class Robber1 extends Character {
 		this.setImage("/view/Resources/Robber1.png");
 
 		this.canAttackPlayer = true;
+		this.dumbAI = false;
+		this.dumberAI = true;
+		
 	}
 
 
