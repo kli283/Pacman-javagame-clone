@@ -266,7 +266,7 @@ public class GameController { // Class to contain main game loop
     public void initGameController(Stage mainStage, GameModes gameModes) throws IOException {
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("TestMap.fxml"));
+        loader.setLocation(MainApp.class.getResource("Map.fxml"));
         rootLayout = loader.load();
 
         // Show the scene containing the root layout.
@@ -459,13 +459,13 @@ public class GameController { // Class to contain main game loop
         scoreLabel = new Label("$" + String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount()));
         scoreLabel.setTextFill(Color.WHITE);
         scoreLabel.setFont(new Font("Calibri", 32));
-        scoreLabel.setLayoutX(820);
-        scoreLabel.setLayoutY(96);
+        scoreLabel.setLayoutX(815);
+        scoreLabel.setLayoutY(180);
         timeLabel = new Label(Integer.toString(timeSeconds) + " seconds");
         timeLabel.setTextFill(Color.WHITE);
         timeLabel.setFont(new Font("Calibri", 32));
-        timeLabel.setLayoutX(820);
-        timeLabel.setLayoutY(150);
+        timeLabel.setLayoutX(815);
+        timeLabel.setLayoutY(280);
         pregameLabel = new Label(Integer.toString(preGameTimer));
         pregameLabel.setFont(new Font("Calibri", 95));
         pregameLabel.setLayoutX(350);
