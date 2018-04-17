@@ -92,7 +92,7 @@ public class GameController { // Class to contain main game loop
             isPlayer = true;
         }
         AI = new AIController();
-        CollisionDetection.scoreUpdate = new Score(0);
+
         //initMap1();
         //initPlayer();
         //initRobber();

@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import view.Menu;
 
 /*Parent class for all characters - AI or player controlled
  *
@@ -37,6 +38,7 @@ public class Character {
 	boolean LEFT;
 	boolean RIGHT;
 	double playerSpeed;
+	double defaultPLayerSpeed;
 	
 	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed) {
 		this.layer = layer;
@@ -46,6 +48,7 @@ public class Character {
 		this.height = setHeight;
 		this.width = setWidth;
 		this.playerSpeed = playerSpeed;
+		this.defaultPLayerSpeed = playerSpeed;
 		if(!this.isPlayer) {
 			this.isAI = true;
 			this.dumbAI = true;
@@ -60,6 +63,9 @@ public class Character {
 	public void changeMove() {
 		setXPos(getXPos() + dx);
 		setYPos(getYPos() + dy);
+		if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 5) && !this.isPlayer) {
+		    playerSpeed = defaultPLayerSpeed;
+        }
 	}
 	
 	public boolean canPickupItems() {
@@ -174,6 +180,7 @@ public class Character {
 	public boolean canAttack() {
 		if(MenuControl.gControl.timeAmount() <= lastAttackTime - 5) {
 			if(this.canAttackPlayer) {
+			    playerSpeed = 2;
 				lastAttackTime = MenuControl.gControl.timeAmount();
 				return true;
 			}

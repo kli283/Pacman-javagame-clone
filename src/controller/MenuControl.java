@@ -64,6 +64,7 @@ public class MenuControl {
             MainApp.gameStage = (Stage) playButton.getScene().getWindow();
             test = FXMLLoader.load(getClass().getResource("PlayMenu.fxml"));
             testScene = new Scene(test);
+            CollisionDetection.scoreUpdate = new Score(0);
             MainApp.gameStage.setScene(testScene);
             System.out.print("PlaySelected" + "\n");
         }
