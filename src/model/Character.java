@@ -20,7 +20,10 @@ public class Character {
 	private double dy;
 	private double height;
 	private double width;
-	boolean isPlayer1 = false; // determines if GoldGirl is AI or human.
+
+
+
+	boolean isPlayer = false; // determines if GoldGirl is AI or human.
 	boolean isRobber = false;
 	boolean isAgent = false;
 	boolean isGG = false;
@@ -28,12 +31,13 @@ public class Character {
 	boolean dumbAI = false;
 	boolean canPickupItems = false;
 	boolean canAttackPlayer = false;
-	private int lastAttackTime = 120;
+	private int lastAttackTime = 125;
 	boolean UP;
 	boolean DOWN;
 	boolean LEFT;
 	boolean RIGHT;
 	double playerSpeed;
+	double defaultPlayerSpeed;
 	
 	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed) {
 		this.layer = layer;
@@ -43,7 +47,8 @@ public class Character {
 		this.height = setHeight;
 		this.width = setWidth;
 		this.playerSpeed = playerSpeed;
-		if(!isPlayer1) {
+		this.defaultPlayerSpeed = playerSpeed;
+		if(!this.isPlayer) {
 			this.isAI = true;
 			this.dumbAI = true;
 		}
@@ -57,6 +62,10 @@ public class Character {
 	public void changeMove() {
 		setXPos(getXPos() + dx);
 		setYPos(getYPos() + dy);
+		if((MenuControl.gControl.timeAmount() <= lastAttackTime - 5)&&!this.isPlayer) {
+			playerSpeed = defaultPlayerSpeed;
+		}
+	
 	}
 	
 	public boolean canPickupItems() {
@@ -72,7 +81,7 @@ public class Character {
 	}
 	
 	public boolean isHuman() {
-		return isPlayer1;
+		return isPlayer;
 	}
 	
 	public AnchorPane getLayer() {
@@ -93,18 +102,6 @@ public class Character {
 	
 	public void setUP(boolean directionFlag) {
 		this.UP = directionFlag;
-	}
-	public void rotateUP() {
-		this.imageView.setRotate(180);
-	}
-	public void rotateDOWN() {
-		this.imageView.setRotate(0);
-	}
-	public void rotateRIGHT() {
-		this.imageView.setRotate(270);
-	}
-	public void rotateLEFT() {
-		this.imageView.setRotate(90);
 	}
 	
 	public boolean getUP() {
@@ -134,7 +131,20 @@ public class Character {
 	public boolean getRIGHT() {
 		return this.RIGHT;
 	}
-	
+
+	public void rotateUP() {
+		this.imageView.setRotate(180);
+	}
+	public void rotateDOWN() {
+		this.imageView.setRotate(0);
+	}
+	public void rotateRIGHT() {
+		this.imageView.setRotate(270);
+	}
+	public void rotateLEFT() {
+		this.imageView.setRotate(90);
+	}
+
 	public double getXPos() {
 		return xPos;
 	}
@@ -201,4 +211,5 @@ public class Character {
 	public ImageView getImageView() {
 		return imageView;
 	}
+
 }
