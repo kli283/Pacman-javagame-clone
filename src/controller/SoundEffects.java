@@ -4,6 +4,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class SoundEffects {
+    static boolean enableSounds = true;
+
     private Media coin = new Media((SoundEffects.class.getResource("/view/Resources/New Coin.wav").toString()));
     private MediaPlayer coinSound = new MediaPlayer(coin);
     private Media cash = new Media((SoundEffects.class.getResource("/view/Resources/Cash.wav").toString()));
@@ -19,38 +21,49 @@ public class SoundEffects {
     private Media gold = new Media((SoundEffects.class.getResource("/view/Resources/Gold.wav").toString()));
     private MediaPlayer goldSound = new MediaPlayer(gold);
 
-    SoundEffects() {
+    public SoundEffects() {
 
     }
 
     public void playCoin() {
-        soundHandler(coinSound);
+        if(enableSounds){
+            soundHandler(coinSound);
+        }
     }
 
     public void playCar() {
-        soundHandler(carSound);
+        if(enableSounds) {
+            soundHandler(carSound);
+        }
     }
 
     public void playCash() {
-        soundHandler(cashSound);
+        if (enableSounds) {
+            soundHandler(cashSound);
+        }
     }
 
     public void playHit() {
-        soundHandler(hitSound);
+        if (enableSounds) {
+            soundHandler(hitSound);
+        }
     }
-
     public void playManHit() {
-        soundHandler((manHitSound));
+        if (enableSounds) {
+            soundHandler((manHitSound));
+        }
     }
-
     public void playBang() {
-        soundHandler(bangSound);
+        if (enableSounds) {
+            soundHandler(bangSound);
+        }
     }
 
     public void playGold() {
-        soundHandler(goldSound);
+        if (enableSounds) {
+            soundHandler(goldSound);
+        }
     }
-
     private void soundHandler(MediaPlayer sound) {
         try {
             new Thread() {

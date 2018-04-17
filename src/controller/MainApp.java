@@ -27,17 +27,14 @@ public class MainApp extends Application {
 		gameMusic.setCycleCount(MediaPlayer.INDEFINITE);;
 	}
 
-	public static void muteMusic(){
-		gameMusic.setVolume(0);
-	}
-
-	private void playMusic(){
+	public static void playMusic(){
 		gameMusic.play();
 	}
 
-	public void stopMusic() {
+	public static void stopMusic() {
 		gameMusic.pause();
 	}
+
 
 
 	public void start(Stage gameStage) {

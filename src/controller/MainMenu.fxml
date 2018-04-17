@@ -14,7 +14,7 @@
       </ImageView>
       <Button fx:id="playButton" layoutX="362.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="300.0" text="PLAY" />
       <Button fx:id="settingsButton" layoutX="362.0" layoutY="420.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="300.0" text="HELP AND OPTIONS" />
-      <Button fx:id="aboutButton" layoutX="362.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="300.0" text="ABOUT" />
+      <Button fx:id="creditsButton" layoutX="362.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="300.0" text="CREDITS" />
       <Button fx:id="quitButton" layoutX="362.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="300.0" text="QUIT" />
 
    </children>

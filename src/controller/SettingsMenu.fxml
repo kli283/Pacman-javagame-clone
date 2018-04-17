@@ -2,10 +2,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuControl">
    <children>
@@ -15,5 +15,34 @@
          </image>
       </ImageView>
       <Button fx:id="backButton" layoutX="362.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="70.0" prefWidth="300.0" text="BACK" />
+      <Label layoutX="362.0" layoutY="306.0" text="Music" textFill="#fcff00">
+         <font>
+            <Font name="Courier New Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="362.0" layoutY="354.0" text="Effects" textFill="#fcff00">
+         <font>
+            <Font name="Courier New Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="mOnButton" layoutX="512.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="65.0" text="ON" />
+      <Button fx:id="mOffButton" layoutX="597.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="65.0" text="OFF" />
+      <Button fx:id="sOnButton" layoutX="512.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="65.0" text="ON" />
+      <Button fx:id="sOffButton" layoutX="597.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="35.0" prefWidth="65.0" text="OFF" />
+      <Label layoutX="283.0" layoutY="366.0" prefHeight="151.0" prefWidth="445.0" text="Use the arrows keys to move main character. W, A, S, D for player 2, I, J, K, L to move player 3" textAlignment="CENTER" textFill="#fcff00" wrapText="true">
+         <font>
+            <Font name="Courier New Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="286.0" layoutY="442.0" prefHeight="119.0" prefWidth="452.0" text="Pickup the car to run over enemies and pickup the flash bang to stun all enemies" textAlignment="CENTER" textFill="#fcff00" wrapText="true">
+         <font>
+            <Font name="Courier New Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="286.0" layoutY="495.0" prefHeight="119.0" prefWidth="452.0" text="Robbers will steal your money and the Agent will end the game!" textAlignment="CENTER" textFill="#fcff00" wrapText="true">
+         <font>
+            <Font name="Courier New Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

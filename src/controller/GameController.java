@@ -38,9 +38,6 @@ public class GameController { // Class to contain main game loop
     private ArrayList<Box> wallList = new ArrayList<>();
     private ArrayList<Item> carList = new ArrayList<>();
     private ArrayList<Item> flashbangList = new ArrayList<>();
-    private int pixelScale = 48;
-    double coinPosX;
-    double coinPosY;
     private GameModes gameModes;
     public static SoundEffects soundEffects;
     private Label scoreLabel;
@@ -108,12 +105,12 @@ public class GameController { // Class to contain main game loop
         this.gameOver = true;
 
 
-        rootLayout.getChildren().add(winBox);
+        winBox.setFill(Color.BEIGE);
         if (winGame) {
-            winLabel.setText("GAME OVER \nScore: $" + CollisionDetection.scoreUpdate.getScoreCount() + "\npress enter to exit");
+            winLabel.setText("GAME OVER \nScore: $" + (String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount())) + "\npress enter to exit");
             winLabel.toFront();
         } else {
-            winLabel.setText("GAME OVER \nScore: $" + CollisionDetection.scoreUpdate.getScoreCount() + "\npress enter to exit");
+            winLabel.setText("GAME OVER \nScore: $" + (String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount())) + "\npress enter to exit");
             winLabel.toFront();
         }
     }
@@ -154,6 +151,7 @@ public class GameController { // Class to contain main game loop
     public void initMap(String[] Level, String wallType, GameModes gameModes) {
         Rectangle levelBackground = new Rectangle(768, 768);
 
+        int pixelScale = 48;
         int levelWidth = Level[0].length() * pixelScale;
         String imageURL = "/view/Resources/" + wallType + ".png";
 
@@ -490,8 +488,8 @@ public class GameController { // Class to contain main game loop
         winBox.setY(0);
         winBox.setWidth(768);
         winBox.setHeight(768);
-        winBox.setFill(Color.BEIGE);
-        rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel, winLabel, pauseLabel);
+        winBox.setFill(Color.TRANSPARENT);
+        rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel, winLabel, pauseLabel, winBox);
     }
 
     private void pressPause() {
