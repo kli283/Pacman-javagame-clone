@@ -80,7 +80,11 @@ public class Character {
 	}
 	
 	public boolean isDumbAI() {
-		return dumbAI;
+		return this.dumbAI;
+	}
+	
+	public boolean isDumberAI() {
+		return this.dumberAI;
 	}
 	
 	public boolean isHuman() {

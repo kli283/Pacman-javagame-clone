@@ -1,9 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.scene.shape.Rectangle;
 import model.Character;
+
 
 public class AIController {
 	
@@ -13,7 +15,7 @@ public class AIController {
 		if (isPlayer == false) {
 			for (Character x : AI) {
 				if (!x.isHuman()) {
-					if (x.isDumbAI()) {
+					if (x.isDumbAI()||((x.isDumberAI() && (distanceToPlayer(player, x) < 48*7)))) {
 						if (this.isAbove(x, player) && !detector.checkUp(x, wallList)) {
 							x.setUP(true);
 							x.rotateUP();
@@ -41,6 +43,24 @@ public class AIController {
 							//System.out.println("RIGHT");
 						} else {
 							x.setRIGHT(false);
+						}
+					}
+					if((x.getDx()==0)&&(x.getDy()==0)) {
+						Random rand = new Random();
+						int countDirection = rand.nextInt(4);
+						int countTimer = rand.nextInt(33);
+						if (countTimer == 32 && countDirection == 0){
+							x.setDx(0);
+							x.setDy(-x.getPlayerSpeed());
+						}else if (countTimer == 24 && countDirection == 0){
+							x.setDx(x.getPlayerSpeed());
+							x.setDy(0);
+						}else if (countTimer == 16 && countDirection == 0){
+							x.setDx(0);
+							x.setDy(x.getPlayerSpeed());
+						}else if (countTimer == 8 && countDirection == 0){
+							x.setDx(-x.getPlayerSpeed());
+							x.setDy(0);
 						}
 					}
 				}
@@ -74,5 +94,9 @@ public class AIController {
 			return true;
 		}
 		return false;
+	}
+	
+	public double distanceToPlayer(Character player, Character chaser) {
+		return Math.sqrt(Math.pow((player.getXPos()-chaser.getXPos()), 2) + Math.pow((player.getYPos()-chaser.getYPos()), 2));
 	}
 }
