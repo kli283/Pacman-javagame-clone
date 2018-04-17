@@ -8,7 +8,8 @@ public class TestMan extends Character {
 		super(layer, xStart, yStart, isPlayer, setHeight, setWidth, playerSpeed);
 		
 		this.setImage("/view/Resources/GoldGirl.png");
-		this.isPlayer1 = true;
+		this.isPlayer = true;
+		this.canAttackRobber = false;
 	}
 	
 //	public void addToLayer() {

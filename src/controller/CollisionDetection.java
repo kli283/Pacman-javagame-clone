@@ -5,18 +5,19 @@ import javafx.scene.shape.Rectangle;
 import model.*;
 import model.Character;
 import view.GameUI;
+import controller.Score;
 
 //this class will check if a move is valid
 // i.e there is no obstacle or boundary in the way of the intended move
 
 public class CollisionDetection {
 
-	//public static SoundEffects soundEffects;
-	public static int scoreUpdate = 0;
+	public static Score scoreUpdate;
 	
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
-	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList,ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList) {
+	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList,ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList) {
+
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
 				x.setDy(-x.getPlayerSpeed());
@@ -47,8 +48,11 @@ public class CollisionDetection {
 				x.setDy(0);
 			}
 			if(playerHit(movers)) {
-				scoreUpdate *= 0.7;
+				this.scoreUpdate.hitRobberScore((int)scoreUpdate.getScoreCount());
 				System.out.println("OUCH!");
+			}
+			if(robberHit(movers)) {
+				System.out.println("ROBBER HIT!");
 			}
 		}
 		ArrayList<Item> tempCoin = new ArrayList<>();
@@ -66,10 +70,10 @@ public class CollisionDetection {
 		}
 		for (Item coin : tempCoin){
 			coinList.remove(coin);
-			scoreUpdate += coin.getScore();
+			this.scoreUpdate.updateScoreCount(coin.getScore());
 			GameController.soundEffects.playCoin();
 
-			System.out.println(scoreUpdate);
+			System.out.println(this.scoreUpdate.getScoreCount());
 		}
 		ArrayList<Item> tempSmallCash = new ArrayList<>();
 		for(Character x:movers) {
@@ -87,7 +91,7 @@ public class CollisionDetection {
 		for (Item smallCash : tempSmallCash){
 			smallCashList.remove(smallCash);
 			GameController.soundEffects.playCash();
-			scoreUpdate += smallCash.getScore();
+			this.scoreUpdate.updateScoreCount(smallCash.getScore());
 			System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempBigCash = new ArrayList<>();
@@ -106,7 +110,26 @@ public class CollisionDetection {
 		for (Item bigCash : tempBigCash){
 			bigCashList.remove(bigCash);
 			GameController.soundEffects.playCash();
-			scoreUpdate += bigCash.getScore();
+			this.scoreUpdate.updateScoreCount(bigCash.getScore());
+			System.out.println(scoreUpdate);
+		}
+		ArrayList<Item> tempCrypto = new ArrayList<>();
+		for(Character x:movers) {
+			if(x.canPickupItems()) {
+				for(Item y:cryptoList) {
+					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
+						//y.removeFromLayer();
+						GameUI.deSpawn(y);
+						tempCrypto.add(y);
+
+					}
+				}
+			}
+		}
+		for (Item crypto : tempCrypto){
+			cryptoList.remove(crypto);
+			GameController.soundEffects.playCash();
+			this.scoreUpdate.updateScoreCount(crypto.getScore());
 			System.out.println(scoreUpdate);
 		}
 		ArrayList<Item> tempCar = new ArrayList<>();
@@ -118,6 +141,7 @@ public class CollisionDetection {
 						GameUI.deSpawn(y);
 						x.setPlayerSpeed(5);
 						tempCar.add(y);
+						x.canAttackR();
 
 					}
 				}
@@ -125,6 +149,7 @@ public class CollisionDetection {
 		}
 		for (Item car : tempCar){
 			carList.remove(car);
+
 			GameController.soundEffects.playCar();
 		}
 	}
@@ -180,6 +205,22 @@ public class CollisionDetection {
 				for(Character y:actors) {
 					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())) {
 						y.attackScore();
+						y.setPlayerSpeed(1);
+						GameController.soundEffects.playHit();
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	public boolean robberHit(ArrayList<Character> actors) {
+		for(Character x:actors) {
+			if(x.isDumbAI()) {
+				for(Character y:actors) {
+					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttackR())){
+						y.attackScore();
+						y.setPlayerSpeed(0);
 						GameController.soundEffects.playHit();
 						return true;
 					}
