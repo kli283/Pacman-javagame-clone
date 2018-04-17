@@ -49,28 +49,28 @@ public class AIController {
 	}
 	
 	public boolean isAbove(Character AI, Character player) {
-		if(player.getYPos()<AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos())>2)) {
+		if(player.getYPos()<AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos())>24)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean isBelow(Character AI, Character player) {
-		if(player.getYPos()>AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos())>2)) {
+		if(player.getYPos()>AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos())>24)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean isRight(Character AI, Character player) {
-		if(player.getXPos()>AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos())>2)) {
+		if(player.getXPos()>AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos())>24)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean isLeft(Character AI, Character player) {
-		if(player.getXPos()<AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos())>2)) {
+		if(player.getXPos()<AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos())>24)) {
 			return true;
 		}
 		return false;
