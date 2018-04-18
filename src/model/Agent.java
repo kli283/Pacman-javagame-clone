@@ -10,5 +10,6 @@ public class Agent extends Character {
 		this.setImage("/view/Resources/Agent.png");
 		
 		this.canAttackPlayer = true;
+		this.isAgent = true;
 	}
 }

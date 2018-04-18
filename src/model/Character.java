@@ -105,6 +105,14 @@ public class Character {
 		return this.isGG;
 	}
 	
+	public boolean isRobber() {
+		return this.isRobber;
+	}
+	
+	public boolean isAgent() {
+		return this.isAgent;
+	}
+	
 	public AnchorPane getLayer() {
 		return this.layer;
 	}

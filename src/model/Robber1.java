@@ -12,6 +12,7 @@ public class Robber1 extends Character {
 		this.canAttackPlayer = true;
 		this.dumbAI = false;
 		this.dumberAI = true;
+		this.isRobber = true;
 		
 	}
 
