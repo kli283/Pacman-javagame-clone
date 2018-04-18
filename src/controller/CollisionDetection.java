@@ -245,7 +245,7 @@ public class CollisionDetection {
 			if(x.isGG() && x.canAttackR()) {
 				for(Character y:actors) {
 					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))) {
-						y.getStunned();
+						y.getRunOver();
 						GameController.soundEffects.playManHit();
 						return true;
 					}
