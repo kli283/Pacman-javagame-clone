@@ -558,7 +558,7 @@ public class GameController { // Class to contain main game loop
         }
         if (checkWin()) {
             endGame(false);
-            winLabel.setText("Game Over! \nScore: $" + CollisionDetection.scoreUpdate.getScoreCount() + "\npress enter to exit");
+            winLabel.setText("Game Over! \nScore: $" + (String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount())) + "\npress enter to exit");
             if (MenuControl.getLevelCount() == 1) {
                 MenuControl.launchLevel2();
                 MenuControl.setLevelCount();

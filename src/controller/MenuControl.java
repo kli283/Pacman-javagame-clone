@@ -54,12 +54,12 @@ public class MenuControl {
     private Button mOnButton;
     @FXML
     private Button mOffButton;
-    ;
     @FXML
     private Button sOnButton;
     @FXML
     private Button sOffButton;
-    ;
+    @FXML
+    private Button startGameButton;
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
@@ -116,6 +116,11 @@ public class MenuControl {
             gControl.initLabels();
             System.out.print("Gold Mine Selected" + "\n");
         } else if (event.getSource() == storyButton) {
+            MainApp.gameStage = (Stage) mapSelectButton.getScene().getWindow();
+            test = FXMLLoader.load(getClass().getResource("StoryMenu.fxml"));
+            testScene = new Scene(test);
+            MainApp.gameStage.setScene(testScene);
+        } else if (event.getSource() == startGameButton) {
             storyMode = true;
             levelCounter = 1;
             gControl = new GameController(MainApp.gameStage, mode, this);
