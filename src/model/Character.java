@@ -28,9 +28,11 @@ public class Character {
 	boolean canPickupItems = false;
 	boolean canAttackPlayer = false;
 	boolean canAttackRobber = false;
+	boolean isDriving = false;
 	boolean stunned = false;
 	boolean runOver = false;
 	private int lastAttackTime = 120;
+	private int carPickupTime = 0;
 	boolean UP;
 	boolean DOWN;
 	boolean LEFT;
@@ -245,6 +247,19 @@ public class Character {
     	this.setPlayerSpeed(5);
     	
     	this.lastAttackTime = MenuControl.gControl.timeAmount();
+    	
+    	this.carPickupTime = MenuControl.gControl.timeAmount();
+    	
+    	this.isDriving = true;
+    	
+    }
+    
+    public double getCarTimer() {
+    	return this.carPickupTime;
+    }
+    
+    public double getLastAttackTime() {
+    	return this.lastAttackTime;
     }
     
     public void dropCar() {
@@ -253,6 +268,12 @@ public class Character {
     	this.setPlayerSpeed(defaultPlayerSpeed);
     	
     	this.canAttackRobber = false;
+    	
+    	this.isDriving = false;
+    }
+    
+    public boolean isDriving() {
+    	return this.isDriving;
     }
     
     public boolean isStunned() {

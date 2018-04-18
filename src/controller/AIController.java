@@ -6,11 +6,19 @@ import java.util.Random;
 import javafx.scene.shape.Rectangle;
 import model.Character;
 
+/*This class contains the logic for AI navigation
+ * 
+ * It interacts with the GameController class and the relevant Character subclasses.
+ * 
+ * It also interacts with the collision detection to prevent the AI from trying to go through walls
+ * 
+ */
 
 public class AIController {
 	
 	public AIController() {}
 	
+	//Receives ArrayLists of characters to navigate, the player to target and collisin detection information
 	public void navigate(ArrayList<Character> AI, Character player, CollisionDetection detector, ArrayList<Rectangle> wallList) {
 		for (Character x : AI) {
 			if (!x.isHuman() && !x.isStunned()) {

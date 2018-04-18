@@ -46,6 +46,13 @@ public class GameController { // Class to contain main game loop
     private Label escLabel;
     private Label pauseLabel;
     private Label winLabel;
+    private Label carTimer;
+    private int carPickedUpTime = 0;
+    private int stunTime = 0;
+    private double carFormatTimer;
+    private Label stunTimer;
+    private double stunFormatTimer;
+    private boolean foundStunned = false;
     private Rectangle winBox;
     private static final int STARTTIME = 120;
     private Label timerLabel = new Label();
@@ -390,7 +397,7 @@ public class GameController { // Class to contain main game loop
                         rootLayout = reload.load();
                         Scene menuScene = new Scene(rootLayout);
                         mainStage.setScene(menuScene);
-                        MenuControl.resetLevelCount();
+//                        MenuControl.resetLevelCount();
                     } catch (IOException e) {
                         e.printStackTrace();
                         e.getCause();
@@ -502,7 +509,17 @@ public class GameController { // Class to contain main game loop
         winBox.setWidth(768);
         winBox.setHeight(768);
         winBox.setFill(Color.TRANSPARENT);
-        rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel, winLabel, pauseLabel, winBox);
+        carTimer = new Label("");
+        carTimer.setTextFill(Color.WHITE);
+        carTimer.setFont(new Font("Calibri", 32));
+        carTimer.setLayoutX(865);
+        carTimer.setLayoutY(445);
+        stunTimer = new Label("");
+        stunTimer.setTextFill(Color.WHITE);
+        stunTimer.setFont(new Font("Calibri", 32));
+        stunTimer.setLayoutX(865);
+        stunTimer.setLayoutY(540);
+        rootLayout.getChildren().addAll(scoreLabel, timeLabel, pregameLabel, escLabel, winLabel, pauseLabel, winBox, carTimer, stunTimer);
     }
 
     private void pressPause() {
@@ -527,10 +544,26 @@ public class GameController { // Class to contain main game loop
                 detector.scanCollisions(charList, mapPath, coinList, smallCashList, bigCashList, carList, cryptoList, flashbangList, goldList);
                 for (Character x : charList) {
                     x.changeMove();
+                    if(x.isDriving()) {
+                    	this.carFormatTimer = (this.timeAmount() + 10) - x.getCarTimer();
+                    	this.carTimer.setText(String.format("%.0f", carFormatTimer));
+                    }
+                    else if(x.isGG()&&!x.isDriving()) {
+                    	this.carTimer.setText("");
+                    }
+                    if(x.isStunned()) {
+                    	this.foundStunned = true;
+                    	this.stunFormatTimer = ((this.timeAmount()+5)-(x.getLastAttackTime()));
+                    	this.stunTimer.setText(String.format("%.0f", stunFormatTimer));
+                    }
+                    if(!this.foundStunned) {
+                    	this.stunTimer.setText("");
+                    }
                 }
+                this.foundStunned = false;
                 robberMovement();
                 scoreLabel.setText("$" + (String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount())));
-
+                  
                 numOfTimesTicked++;
                 if (numOfTimesTicked == 60) {
                     decreaseTime();
