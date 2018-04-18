@@ -181,6 +181,11 @@ public class MenuControl {
             }
         }
     }
+    
+    public static void resetLevelCount() {
+        MenuControl.levelCounter = 0;
+        MenuControl.storyMode = false;
+    }
 
     public static void launchLevel2() {
         try {

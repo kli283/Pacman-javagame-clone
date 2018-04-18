@@ -390,6 +390,7 @@ public class GameController { // Class to contain main game loop
                         rootLayout = reload.load();
                         Scene menuScene = new Scene(rootLayout);
                         mainStage.setScene(menuScene);
+                        MenuControl.resetLevelCount();
                     } catch (IOException e) {
                         e.printStackTrace();
                         e.getCause();
