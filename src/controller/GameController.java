@@ -47,8 +47,6 @@ public class GameController { // Class to contain main game loop
     private Label pauseLabel;
     private Label winLabel;
     private Label carTimer;
-    private int carPickedUpTime = 0;
-    private int stunTime = 0;
     private double carFormatTimer;
     private Label stunTimer;
     private double stunFormatTimer;
@@ -67,10 +65,10 @@ public class GameController { // Class to contain main game loop
     private boolean gameOver;
     private boolean readyToStart;
     private boolean winGame;
-    private boolean isPlayer;
     private MenuControl menuHub;
     private CollisionDetection detector = new CollisionDetection();
 
+    //This object is the main controller where the gameloop is contained
     public GameController(Stage mainStage, GameModes gameModes, MenuControl menuHub) throws IOException {
         this.menuHub = menuHub;
         timeRemaining = 0;
@@ -82,11 +80,6 @@ public class GameController { // Class to contain main game loop
 
         resetTimer();
         initGameController(mainStage, gameModes);
-        if (gameModes == GameModes.SinglePlayer) {
-            isPlayer = false;
-        } else {
-            isPlayer = true;
-        }
         AI = new AIController();
         soundEffects = new SoundEffects();
     }
@@ -94,7 +87,8 @@ public class GameController { // Class to contain main game loop
     private boolean startGame() {
         return this.readyToStart;
     }
-
+    
+    //A method to end the game and display a message depending on the win/lose condition and the player's score
     public void endGame(boolean agentEndGame) {
         this.timeRemaining = 0;
         this.gameOver = true;
@@ -117,7 +111,8 @@ public class GameController { // Class to contain main game loop
     private boolean gameIsPaused() {
         return (this.escPressed) || (this.pausePressed) || (this.gameOver) || (this.checkWin());
     }
-
+    
+    //Timer logics
     private void decreaseTime() {
 
         this.timeRemaining--;
@@ -146,7 +141,7 @@ public class GameController { // Class to contain main game loop
         return this.preTimeRemaining;
     }
 
-
+    //This method generates the gameMap from map data contained in LevelData
     public void initMap(String[] Level, String wallType, GameModes gameModes) {
         Rectangle levelBackground = new Rectangle(768, 768);
 
@@ -241,7 +236,7 @@ public class GameController { // Class to contain main game loop
         }
     }
 
-    //rootLayout.getChildren().add(levelBackground);
+    //Initialise the player object
     public void initPlayer(double xPosition, double yPosition) {
         double playerSpeed = 3;
         testman = new TestMan(rootLayout, xPosition + 2, yPosition + 2, true, 42, 42, playerSpeed, true);
@@ -304,13 +299,6 @@ public class GameController { // Class to contain main game loop
             if (event.getCode() == KeyCode.LEFT) {
                 testman.setLEFT(true);
                 testman.rotateLEFT();
-            }
-            if (event.getCode() == KeyCode.T ) {
-                coinList.clear();
-                smallCashList.clear();
-                bigCashList.clear();
-                goldList.clear();
-                cryptoList.clear();
             }
             if (gameModes == GameModes.MultiPlayer1 || gameModes == GameModes.MultiPlayer2) {
                 if (event.getCode() == KeyCode.W) {

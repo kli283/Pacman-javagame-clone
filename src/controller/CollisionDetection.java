@@ -46,20 +46,19 @@ public class CollisionDetection {
 			else if((x.getDy() < 0) && (this.checkUp(x, listOfWalls))) {
 				x.setDy(0);
 			}
-			if(playerHit(movers)) {
+			if(playerHit(movers)) {//Logic for if a 'baddie' attacks the player
 				scoreUpdate.hitRobberScore((int)scoreUpdate.getScoreCount());
 				System.out.println("OUCH!");
 			}
-			if(robberHit(movers)) {
+			if(robberHit(movers)) {//Logic for if the player attacks a baddie while using a powerUp
 				System.out.println("RUN OVER!");
 			}
 		}
-		ArrayList<Item> tempCoin = new ArrayList<>();
+		ArrayList<Item> tempCoin = new ArrayList<>();//Checks if a coin is collected
 		for(Character x:movers) {
 			if(x.canPickupItems()) {
 				for(Item y:coinList) {
 					if(x.getBoundary().intersects(y.getBoundary().getBoundsInParent())) {
-						//y.removeFromLayer();
 						GameUI.deSpawn(y);
 						tempCoin.add(y);
 
@@ -67,12 +66,12 @@ public class CollisionDetection {
 				}
 			}
 		}
-		for (Item coin : tempCoin){
+		for (Item coin : tempCoin){//Removes a coin form the map that is collected
 			coinList.remove(coin);
 			this.scoreUpdate.updateScoreCount(coin.getScore());
 			GameController.soundEffects.playCoin();
 		}
-		ArrayList<Item> tempSmallCash = new ArrayList<>();
+		ArrayList<Item> tempSmallCash = new ArrayList<>();//Removes the smallCash item if collided with
 		for(Character x:movers) {
 			if(x.canPickupItems()) {
 				for(Item y:smallCashList) {
@@ -89,7 +88,7 @@ public class CollisionDetection {
 			GameController.soundEffects.playCash();
 			this.scoreUpdate.updateScoreCount(smallCash.getScore());
 		}
-		ArrayList<Item> tempBigCash = new ArrayList<>();
+		ArrayList<Item> tempBigCash = new ArrayList<>();//Removes the bigCash item if collided with
 		for(Character x:movers) {
 			if(x.canPickupItems()) {
 				for(Item y:bigCashList) {
@@ -106,7 +105,7 @@ public class CollisionDetection {
 			GameController.soundEffects.playCash();
 			scoreUpdate.updateScoreCount(bigCash.getScore());
 		}
-		ArrayList<Item> tempGold = new ArrayList<>();
+		ArrayList<Item> tempGold = new ArrayList<>();//Removes the gold item if collided with
 		for(Character x:movers) {
 			if(x.canPickupItems()) {
 				for(Item y:goldList) {
@@ -123,7 +122,7 @@ public class CollisionDetection {
 			GameController.soundEffects.playGold();
 			scoreUpdate.updateScoreCount(gold.getScore());
 		}
-		ArrayList<Item> tempCrypto = new ArrayList<>();
+		ArrayList<Item> tempCrypto = new ArrayList<>();//Removes the cryptoCoin item if collided with
 		for(Character x:movers) {
 			if(x.canPickupItems()) {
 				for(Item y:cryptoList) {
@@ -140,7 +139,7 @@ public class CollisionDetection {
 			GameController.soundEffects.playCash();
 			scoreUpdate.updateScoreCount(crypto.getScore());
 		}
-		ArrayList<Item> tempCar = new ArrayList<>();
+		ArrayList<Item> tempCar = new ArrayList<>();//Logic for picking up the car pickUp
 		for(Character x:movers) {
 			if(x.canPickupItems()) {
 				for(Item y:carList) {
@@ -156,7 +155,7 @@ public class CollisionDetection {
 			carList.remove(car);
 			GameController.soundEffects.playCar();
 		}
-		ArrayList<Item> tempGrenade = new ArrayList<>();
+		ArrayList<Item> tempGrenade = new ArrayList<>();//Logic for collecting the flashBang pickUp
 		for(Character x:movers) {
 			if(x.canPickupItems()) {
 				for(Item y:flashbangList) {
@@ -174,8 +173,8 @@ public class CollisionDetection {
 		}
 	}
 	
-	public boolean checkUp(Character mover, ArrayList<Rectangle> rectangle) {
-		for(Rectangle x:rectangle) {
+	public boolean checkUp(Character mover, ArrayList<Rectangle> rectangle) {//Checks if the intended move will collide
+		for(Rectangle x:rectangle) {										// with a wall
 			Rectangle intendedMove = mover.getBoundary();
 			intendedMove.setY(intendedMove.getY() - mover.getPlayerSpeed());
 			if(intendedMove.getBoundsInParent().intersects(x.getBoundsInParent())) {
@@ -239,7 +238,7 @@ public class CollisionDetection {
 		}
 		return false;
 	}
-	
+	 //This method is called to find if a robber can be attacked
 	private boolean robberHit(ArrayList<Character> actors) {
 		for(Character x:actors) {
 			if(x.isGG() && x.canAttackR()) {
@@ -255,7 +254,7 @@ public class CollisionDetection {
 		return false;
 	}
 	
-
+	//This sets off the flashbang item if collected
 	private void triggerFlash(ArrayList<Character> actors){
 		for(Character x:actors) {
 			if(!x.isGG()) {
@@ -264,7 +263,7 @@ public class CollisionDetection {
 		}
 	}
 	
-	//Old logic for collisions, checks all 4 directions so has issues with moving parallel along walls
+	//Old logic for collisions, checks all 4 directions so has issues with moving parallel along walls. Obsolete.
 	public boolean willCollide(Character mover, ArrayList<Rectangle> rectangle) {
 		for(Rectangle x:rectangle) {
 			if(mover.getBoundary().intersects(x.getBoundsInParent())) {
@@ -273,5 +272,4 @@ public class CollisionDetection {
 		}
 		return false;
 	}
-
 }
