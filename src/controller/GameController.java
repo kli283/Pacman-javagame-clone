@@ -65,12 +65,10 @@ public class GameController { // Class to contain main game loop
     private boolean gameOver;
     private boolean readyToStart;
     private boolean winGame;
-    private MenuControl menuHub;
     private CollisionDetection detector = new CollisionDetection();
 
     //This object is the main controller where the gameloop is contained
-    public GameController(Stage mainStage, GameModes gameModes, MenuControl menuHub) throws IOException {
-        this.menuHub = menuHub;
+    public GameController(Stage mainStage, GameModes gameModes) throws IOException {
         timeRemaining = 0;
         numOfTimesTicked = 0;
         escPressed = false;
@@ -244,6 +242,7 @@ public class GameController { // Class to contain main game loop
         GameUI.spawn(testman);
     }
 
+    //Initialise the robbers
     private Robber1 initRobber(double xPosition, double yPosition, boolean isPlayer) {
         double robberSpeed = 2;
         Robber1 robber = new Robber1(rootLayout, xPosition, yPosition, isPlayer, 40, 40, robberSpeed, false);
@@ -252,6 +251,7 @@ public class GameController { // Class to contain main game loop
         return robber;
     }
 
+    //Initialise agent
     private void initAgent(double xPosition, double yPosition) {
         double agentSpeed = 1;
         Agent agent = new Agent(rootLayout, xPosition, yPosition, false, 40, 40, agentSpeed, false);
@@ -259,6 +259,7 @@ public class GameController { // Class to contain main game loop
         GameUI.spawn(agent);
     }
 
+    //A method to navigate the AI
     private void robberMovement() {
         AI.navigate(charList, testman, detector, mapPath);
     }
@@ -302,49 +303,42 @@ public class GameController { // Class to contain main game loop
             }
             if (gameModes == GameModes.MultiPlayer1 || gameModes == GameModes.MultiPlayer2) {
                 if (event.getCode() == KeyCode.W) {
-                    //System.out.println("Move Up");
                     robber2.setUP(true);
                     robber2.rotateUP();
                 } else {
                     robber2.setUP(false);
                 }
                 if (event.getCode() == KeyCode.D) {
-                    //System.out.println("Move RIGHT");
                     robber2.setRIGHT(true);
                     robber2.rotateRIGHT();
                 } else {
                     robber2.setRIGHT(false);
                 }
                 if (event.getCode() == KeyCode.S) {
-                    //System.out.println("Move DOWN");
                     robber2.setDOWN(true);
                     robber2.rotateDOWN();
                 } else {
                     robber2.setDOWN(false);
                 }
                 if (event.getCode() == KeyCode.A) {
-                    //System.out.println("Move LEFT");
                     robber2.setLEFT(true);
                     robber2.rotateLEFT();
                 }
             }
             if (gameModes == GameModes.MultiPlayer2) {
                 if (event.getCode() == KeyCode.I) {
-                    //System.out.println("Move Up");
                     robber3.setUP(true);
                     robber3.rotateUP();
                 } else {
                     robber3.setUP(false);
                 }
                 if (event.getCode() == KeyCode.L) {
-                    //System.out.println("Move RIGHT");
                     robber3.setRIGHT(true);
                     robber3.rotateRIGHT();
                 } else {
                     robber3.setRIGHT(false);
                 }
                 if (event.getCode() == KeyCode.K) {
-                    //System.out.println("Move DOWN");
                     robber3.setDOWN(true);
                     robber3.rotateDOWN();
                 } else {
@@ -385,7 +379,6 @@ public class GameController { // Class to contain main game loop
                         rootLayout = reload.load();
                         Scene menuScene = new Scene(rootLayout);
                         mainStage.setScene(menuScene);
-//                        MenuControl.resetLevelCount();
                     } catch (IOException e) {
                         e.printStackTrace();
                         e.getCause();
@@ -403,7 +396,6 @@ public class GameController { // Class to contain main game loop
                 }
             }
             if (event.getCode() == KeyCode.PAGE_DOWN) {
-                //this.timeRemaining = 1;
                 if (endGamePressed) {
                 } else {
                     endGamePressed = true;
@@ -412,20 +404,18 @@ public class GameController { // Class to contain main game loop
                 }
             }
             if (event.getCode() == KeyCode.PAGE_UP) {
-                //this.timeRemaining = 1;
                 coinList.clear();
                 smallCashList.clear();
                 bigCashList.clear();
                 cryptoList.clear();
                 goldList.clear();
                 zeroTimer();
-                //endGame();
             }
 
 
         });
+        //This sets up the listener for the key presses, based on if the game is single or multiplayer
         scene.setOnKeyReleased(event -> {
-
             if (event.getCode() == KeyCode.LEFT) {
                 testman.setLEFT(false);
             } else if (event.getCode() == KeyCode.UP) {
@@ -461,6 +451,7 @@ public class GameController { // Class to contain main game loop
 
     }
 
+    //Initialise all of the labels used by the UI
     public void initLabels() {
         scoreLabel = new Label("$" + String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount()));
         scoreLabel.setTextFill(Color.WHITE);
@@ -517,6 +508,7 @@ public class GameController { // Class to contain main game loop
         this.pausePressed = !this.pausePressed;
     }
 
+    //This method is used to update the game and animate all of the characters and items and calls the collision detection
     public void tickChange() {
         GameUI.updateItems(cryptoList);
         GameUI.updateBoxes(wallList);
@@ -591,12 +583,10 @@ public class GameController { // Class to contain main game loop
             }
         }
     }
-
+    
+    //Evaluate if the game has been won
     private boolean checkWin() {
         return coinList.isEmpty() && smallCashList.isEmpty() && bigCashList.isEmpty() && cryptoList.isEmpty() && goldList.isEmpty();
     }
 
-    public MenuControl getMenu() {
-        return this.menuHub;
-    }
 }

@@ -98,20 +98,20 @@ public class MenuControl {
             MainApp.gameStage.setScene(testScene);
             System.out.print("MapSelectSelected" + "\n");
         } else if (event.getSource() == map1Button) {
-            gControl = new GameController(MainApp.gameStage, mode, this);
+            gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL1, "Brick", mode);
             gControl.initLabels();
         } else if (event.getSource() == map2Button) {
-            gControl = new GameController(MainApp.gameStage, mode, this);
+            gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL2, "BrickGrey", mode);
             gControl.initLabels();
         } else if (event.getSource() == map3Button) {
-            gControl = new GameController(MainApp.gameStage, mode, this);
+            gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL3, "Dirt", mode);
             gControl.initLabels();
             System.out.print("Gold Mine Selected" + "\n");
         } else if (event.getSource() == map4Button) {
-            gControl = new GameController(MainApp.gameStage, mode, this);
+            gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL4, "bitcoin", mode);
             gControl.initLabels();
             System.out.print("Gold Mine Selected" + "\n");
@@ -123,7 +123,7 @@ public class MenuControl {
         } else if (event.getSource() == startGameButton) {
             storyMode = true;
             levelCounter = 1;
-            gControl = new GameController(MainApp.gameStage, mode, this);
+            gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL1, "Brick", mode);
             gControl.initLabels();
         } else if (event.getSource() == backPlayButton) {
@@ -140,12 +140,12 @@ public class MenuControl {
             System.out.print("MPSelected" + "\n");
         } else if (event.getSource() == oneButton) {
             MenuControl.mode = GameModes.MultiPlayer1;
-            gControl = new GameController(MainApp.gameStage, mode, this);
+            gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL1, "Brick", mode);
             gControl.initLabels();
         } else if (event.getSource() == twoButton) {
             MenuControl.mode = GameModes.MultiPlayer2;
-            gControl = new GameController(MainApp.gameStage, mode, this);
+            gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL1, "Brick", mode);
             gControl.initLabels();
         } else if (event.getSource() == backButton) {
@@ -189,7 +189,7 @@ public class MenuControl {
 
     public static void launchLevel2() {
         try {
-            gControl = new GameController(MainApp.gameStage, MenuControl.mode, MenuControl.gControl.getMenu());
+            gControl = new GameController(MainApp.gameStage, MenuControl.mode);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -199,7 +199,7 @@ public class MenuControl {
 
     public static void launchLevel3() {
         try {
-            gControl = new GameController(MainApp.gameStage, MenuControl.mode, MenuControl.gControl.getMenu());
+            gControl = new GameController(MainApp.gameStage, MenuControl.mode);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -209,7 +209,7 @@ public class MenuControl {
 
     public static void launchLevel4() {
         try {
-            gControl = new GameController(MainApp.gameStage, MenuControl.mode, MenuControl.gControl.getMenu());
+            gControl = new GameController(MainApp.gameStage, MenuControl.mode);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -6,11 +6,17 @@ import java.util.Random;
 import javafx.scene.shape.Rectangle;
 import model.Character;
 
-/*This class contains the logic for AI navigation
+/*AIController
+ * 
+ * This class contains the logic for AI navigation
  * 
  * It interacts with the GameController class and the relevant Character subclasses.
  * 
  * It also interacts with the collision detection to prevent the AI from trying to go through walls
+ * 
+ * Authors: Kenny Li, James Flood
+ * 
+ * 2018
  * 
  */
 

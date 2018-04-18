@@ -1,5 +1,15 @@
 package controller;
 
+/* LevelData
+ * Level information is stored here in String arrays
+ * 
+ * Authors: Kenny Li and James Flood
+ * 
+ * 2018
+ * 
+ */
+
+
 public class LevelData {
     public static final String[] LEVEL1 = new String[]{
             "0000000000000000",
