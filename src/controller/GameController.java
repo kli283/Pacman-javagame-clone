@@ -302,6 +302,7 @@ public class GameController { // Class to contain main game loop
                 coinList.clear();
                 smallCashList.clear();
                 bigCashList.clear();
+                goldList.clear();
                 cryptoList.clear();
             }
             if (gameModes == GameModes.MultiPlayer1 || gameModes == GameModes.MultiPlayer2) {
