@@ -101,6 +101,10 @@ public class Character {
 		return isPlayer;
 	}
 	
+	public boolean isGG() {
+		return this.isGG;
+	}
+	
 	public AnchorPane getLayer() {
 		return this.layer;
 	}
