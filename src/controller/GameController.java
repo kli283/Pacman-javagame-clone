@@ -60,9 +60,7 @@ public class GameController { // Class to contain main game loop
     private Label pauseLabel;
     private Label winLabel;
     private Label carTimer;
-    private double carFormatTimer;
     private Label stunTimer;
-    private double stunFormatTimer;
     private boolean foundStunned = false;
     private Rectangle winBox;
     private static final int STARTTIME = 120;
@@ -536,7 +534,7 @@ public class GameController { // Class to contain main game loop
                 for (Character x : charList) {
                     x.changeMove();
                     if(x.isDriving()) {
-                    	this.carFormatTimer = (this.timeAmount() + 10) - x.getCarTimer();
+                        double carFormatTimer = (this.timeAmount() + 10) - x.getCarTimer();
                     	this.carTimer.setText(String.format("%.0f", carFormatTimer));
                     }
                     else if(x.isGG()&&!x.isDriving()) {
@@ -544,7 +542,7 @@ public class GameController { // Class to contain main game loop
                     }
                     if(x.isStunned()) {
                     	this.foundStunned = true;
-                    	this.stunFormatTimer = ((this.timeAmount()+5)-(x.getLastAttackTime()));
+                        double stunFormatTimer = ((this.timeAmount() + 5) - (x.getLastAttackTime()));
                     	this.stunTimer.setText(String.format("%.0f", stunFormatTimer));
                     }
                     if(!this.foundStunned) {

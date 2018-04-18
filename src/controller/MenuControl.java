@@ -84,32 +84,27 @@ public class MenuControl {
             testScene = new Scene(test);
             CollisionDetection.scoreUpdate = new Score(0);
             MainApp.gameStage.setScene(testScene);
-            System.out.print("PlaySelected" + "\n");
         } else if (event.getSource() == creditsButton) {
             MainApp.gameStage = (Stage) creditsButton.getScene().getWindow();
             test = FXMLLoader.load(getClass().getResource("CreditsMenu.fxml"));
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
-            System.out.print("StatsSelected" + "\n");
         } else if (event.getSource() == settingsButton) {
             MainApp.gameStage = (Stage) settingsButton.getScene().getWindow();
             test = FXMLLoader.load(getClass().getResource("SettingsMenu.fxml"));
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
-            System.out.print("SettingsSelected" + "\n");
         } else if (event.getSource() == SPButton) {
             MenuControl.mode = GameModes.SinglePlayer;
             MainApp.gameStage = (Stage) SPButton.getScene().getWindow();
             test = FXMLLoader.load(getClass().getResource("SinglePlayerMenu.fxml"));
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
-            System.out.print("SPSelected" + "\n");
         } else if (event.getSource() == mapSelectButton) {
             MainApp.gameStage = (Stage) mapSelectButton.getScene().getWindow();
             test = FXMLLoader.load(getClass().getResource("MapSelect.fxml"));
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
-            System.out.print("MapSelectSelected" + "\n");
         } else if (event.getSource() == map1Button) {
             gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL1, "Brick", mode);
@@ -122,12 +117,10 @@ public class MenuControl {
             gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL3, "Dirt", mode);
             gControl.initLabels();
-            System.out.print("Gold Mine Selected" + "\n");
         } else if (event.getSource() == map4Button) {
             gControl = new GameController(MainApp.gameStage, mode);
             gControl.initMap(LevelData.LEVEL4, "bitcoin", mode);
             gControl.initLabels();
-            System.out.print("Gold Mine Selected" + "\n");
         } else if (event.getSource() == storyButton) {
             MainApp.gameStage = (Stage) mapSelectButton.getScene().getWindow();
             test = FXMLLoader.load(getClass().getResource("StoryMenu.fxml"));
@@ -144,13 +137,11 @@ public class MenuControl {
             test = FXMLLoader.load(getClass().getResource("PlayMenu.fxml"));
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
-            System.out.print("BackPlayButtonSelected" + "\n");
         } else if (event.getSource() == MPButton) {
             MainApp.gameStage = (Stage) MPButton.getScene().getWindow();
             test = FXMLLoader.load(getClass().getResource("MultiPlayerMenu.fxml"));
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
-            System.out.print("MPSelected" + "\n");
         } else if (event.getSource() == oneButton) {
             MenuControl.mode = GameModes.MultiPlayer1;
             gControl = new GameController(MainApp.gameStage, mode);
@@ -166,10 +157,8 @@ public class MenuControl {
             test = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
             testScene = new Scene(test);
             MainApp.gameStage.setScene(testScene);
-            System.out.print("BackSelected" + "\n");
         } else if (event.getSource() == quitButton) {
             MainApp.gameStage.close();
-            System.out.print("Exited" + "\n");
         } else if (event.getSource() == mOnButton) {
             MainApp.playMusic();
         } else if (event.getSource() == mOffButton) {
