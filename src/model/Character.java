@@ -248,6 +248,9 @@ public class Character {
     	this.lastAttackTime = MenuControl.gControl.timeAmount();
     	
     	this.playerSpeed = 0;
+    	
+    	this.setDx(0);
+    	this.setDy(0);
     }
 
 	public boolean attackScore(){
