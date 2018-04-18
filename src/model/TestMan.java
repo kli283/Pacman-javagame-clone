@@ -9,14 +9,7 @@ public class TestMan extends Character {
 		
 		this.setImage("/view/Resources/GoldGirl.png");
 		this.isPlayer = true;
+		this.isGG = true;
 		this.canAttackRobber = false;
-	}
-	
-//	public void addToLayer() {
-//        this.layer.getChildren().add(this.getImageView());
-//    }
-	
-	public void updateUI() {
-		getImageView().relocate(this.getXPos(),this.getYPos());
 	}
 }

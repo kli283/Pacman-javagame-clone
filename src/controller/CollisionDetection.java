@@ -222,7 +222,7 @@ public class CollisionDetection {
 	//This method is called to see if a player gets touched by an enemy who can attack
 	private boolean playerHit(ArrayList<Character> actors) {
 		for(Character x:actors) {
-			if(x.isHuman()) {
+			if(x.isGG()) {
 				for(Character y:actors) {
 					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())&&(!x.canAttackR())) {
 						y.attackScore();
@@ -238,7 +238,7 @@ public class CollisionDetection {
 	
 	private boolean robberHit(ArrayList<Character> actors) {
 		for(Character x:actors) {
-			if(x.isHuman() && x.canAttackR()) {
+			if(x.isGG() && x.canAttackR()) {
 				for(Character y:actors) {
 					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))) {
 						y.getStunned();
@@ -254,7 +254,7 @@ public class CollisionDetection {
 
 	private void triggerFlash(ArrayList<Character> actors){
 		for(Character x:actors) {
-			if(!x.isHuman()) {
+			if(!x.isGG()) {
 				x.getStunned();
 			}
 		}
