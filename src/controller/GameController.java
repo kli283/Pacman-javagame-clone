@@ -228,7 +228,7 @@ public class GameController { // Class to contain main game loop
                         Gold gold;
                         goldList.add(gold = new Gold(rootLayout, j * pixelScale + 8, i * pixelScale + 8, 100));
                         GameUI.spawn(gold);
-
+                        break;
                 }
             }
         }
@@ -276,7 +276,7 @@ public class GameController { // Class to contain main game loop
 
         /** Sets up controls for SinglePlayer and MultiPlayer **/
         scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.UP) {
+            if (event.getCode() == KeyCode.UP ) {
                 testman.setUP(true);
                 testman.rotateUP();
             } else {
@@ -297,6 +297,12 @@ public class GameController { // Class to contain main game loop
             if (event.getCode() == KeyCode.LEFT) {
                 testman.setLEFT(true);
                 testman.rotateLEFT();
+            }
+            if (event.getCode() == KeyCode.T ) {
+                coinList.clear();
+                smallCashList.clear();
+                bigCashList.clear();
+                cryptoList.clear();
             }
             if (gameModes == GameModes.MultiPlayer1 || gameModes == GameModes.MultiPlayer2) {
                 if (event.getCode() == KeyCode.W) {
@@ -547,7 +553,7 @@ public class GameController { // Class to contain main game loop
                 }
             }
         } else if (gameOver) {
-            timeLabel.setText(timeAmount() + " seconds");
+            this.timeLabel.setText(this.timeAmount() + " seconds");
         }
         if (checkWin()) {
             endGame(false);
