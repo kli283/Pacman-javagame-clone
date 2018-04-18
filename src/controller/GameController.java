@@ -81,14 +81,7 @@ public class GameController { // Class to contain main game loop
             isPlayer = true;
         }
         AI = new AIController();
-
-        //initMap1();
-        //initPlayer();
-        //initRobber();
-        //robberMovement();
-        //initLabels();
         soundEffects = new SoundEffects();
-        //initTimer();
     }
 
     private boolean startGame() {
@@ -169,9 +162,9 @@ public class GameController { // Class to contain main game loop
                         if (gameModes == GameModes.SinglePlayer) {
                             robber1 = initRobber(j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer1) {
-                            robber2 = initRobber(j * pixelScale, i * pixelScale, true);
+                            robber1 = initRobber(j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer2) {
-                            robber2 = initRobber(j * pixelScale, i * pixelScale, true);
+                            robber1 = initRobber(j * pixelScale, i * pixelScale, false);
                         }
                         break;
                     case 'm':
@@ -181,6 +174,15 @@ public class GameController { // Class to contain main game loop
                             robber1 = initRobber(j * pixelScale, i * pixelScale, false);
                         } else if (gameModes == GameModes.MultiPlayer2) {
                             robber3 = initRobber(j * pixelScale, i * pixelScale, true);
+                        }
+                        break;
+                    case 'n':
+                        if (gameModes == GameModes.SinglePlayer) {
+                            robber1 = initRobber(j * pixelScale, i * pixelScale, false);
+                        } else if (gameModes == GameModes.MultiPlayer1) {
+                            robber2 = initRobber(j * pixelScale, i * pixelScale, true);
+                        } else if (gameModes == GameModes.MultiPlayer2) {
+                            robber2 = initRobber(j * pixelScale, i * pixelScale, true);
                         }
                         break;
                     case 'a':
@@ -353,6 +355,7 @@ public class GameController { // Class to contain main game loop
             if (event.getCode() == KeyCode.P) {
                 pressPause();
                 if(!pausePressed){
+                    winBox.setFill(Color.TRANSPARENT);
                     pauseLabel.setText("");
                 }
             }
@@ -360,6 +363,7 @@ public class GameController { // Class to contain main game loop
             if (event.getCode() == KeyCode.ESCAPE) {
                 if (escPressed) {
                 } else if (!this.pausePressed) {
+                    winBox.setFill(Color.BEIGE);
                     escLabel.toFront();
                     escLabel.setText("Press Enter to quit\nBackspace to go back");
                     this.escPressed = true;
@@ -369,6 +373,7 @@ public class GameController { // Class to contain main game loop
             if (event.getCode() == KeyCode.ENTER) {
                 if (this.escPressed || this.gameOver) {
                     try {
+                        winBox.setFill(Color.TRANSPARENT);
                         FXMLLoader reload = new FXMLLoader();
                         reload.setLocation(MainApp.class.getResource("MainMenu.fxml"));
                         rootLayout = reload.load();
@@ -385,6 +390,7 @@ public class GameController { // Class to contain main game loop
             // Pressing backspace when the quit game prompt is on the screen will resume the game
             if (event.getCode() == KeyCode.BACK_SPACE) {
                 if (this.escPressed) {
+                    winBox.setFill(Color.TRANSPARENT);
                     this.escPressed = false;
                     escLabel.setText("");
                 }
@@ -470,7 +476,7 @@ public class GameController { // Class to contain main game loop
         escLabel.setTextAlignment(TextAlignment.CENTER);
         pauseLabel = new Label("");
         pauseLabel.setFont(new Font("Calibri", 45));
-        pauseLabel.setLayoutX(270);
+        pauseLabel.setLayoutX(260);
         pauseLabel.setLayoutY(350);
         pauseLabel.setTextAlignment(TextAlignment.CENTER);
         winLabel = new Label("");
@@ -488,6 +494,7 @@ public class GameController { // Class to contain main game loop
     }
 
     private void pressPause() {
+        winBox.setFill(Color.BEIGE);
         pauseLabel.toFront();
         pauseLabel.setText("Game Paused");
         this.pausePressed = !this.pausePressed;

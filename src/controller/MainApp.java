@@ -13,9 +13,6 @@ import java.io.IOException;
 public class MainApp extends Application {
 	public static Stage gameStage;
 	private static MediaPlayer gameMusic;
-	public static final double screenWidth = 1024;
-	public static final double screenHeight = 768;
-	public static final double gameScreenWidth = 1024;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -45,7 +42,7 @@ public class MainApp extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("MainMenu.fxml"));
-			AnchorPane baseLayout = (AnchorPane) loader.load();
+			AnchorPane baseLayout = loader.load();
 
 			Scene scene = new Scene(baseLayout);
 			gameStage.setScene(scene);
