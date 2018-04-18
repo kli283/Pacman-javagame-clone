@@ -17,7 +17,6 @@ public class CollisionDetection {
 	//This method is called by the game controller and checks if characters can make moves without going through walls, 
 	//and removes items if collected
 	public void scanCollisions(ArrayList<Character> movers, ArrayList<Rectangle> listOfWalls, ArrayList<Item> coinList, ArrayList<Item> smallCashList, ArrayList<Item> bigCashList,  ArrayList<Item> carList, ArrayList<Item> cryptoList, ArrayList<Item> flashbangList, ArrayList<Item> goldList) {
-
 		for(Character x:movers) {
 			if(x.getUP() && !this.checkUp(x, listOfWalls)) {
 				x.setDy(-x.getPlayerSpeed());
@@ -224,10 +223,15 @@ public class CollisionDetection {
 		for(Character x:actors) {
 			if(x.isGG()) {
 				for(Character y:actors) {
-					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())&&(!x.canAttackR())) {
+					if((y != x)&&(y.isRobber())&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())&&(!x.canAttackR())) {
 						y.attackScore();
 						y.setPlayerSpeed(1);
 						GameController.soundEffects.playHit();
+						return true;
+					}
+					else if((y != x)&&(y.isAgent())&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())&&(!x.canAttackR())) {
+						MenuControl.gControl.endGame(true);
+						System.out.println("Agent got ya!");
 						return true;
 					}
 				}
@@ -241,7 +245,7 @@ public class CollisionDetection {
 			if(x.isGG() && x.canAttackR()) {
 				for(Character y:actors) {
 					if((y != x)&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))) {
-						y.getStunned();
+						y.getRunOver();
 						GameController.soundEffects.playManHit();
 						return true;
 					}

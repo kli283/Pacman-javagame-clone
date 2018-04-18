@@ -29,6 +29,7 @@ public class Character {
 	boolean canAttackPlayer = false;
 	boolean canAttackRobber = false;
 	boolean stunned = false;
+	boolean runOver = false;
 	private int lastAttackTime = 120;
 	boolean UP;
 	boolean DOWN;
@@ -63,7 +64,7 @@ public class Character {
 	public void changeMove() {
 		setXPos(getXPos() + dx);
 		setYPos(getYPos() + dy);
-		if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 5) && !this.isGG) {
+		if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 5) && !this.isGG && !(this.isStunned() || this.isRunOver())) {
 		    playerSpeed = defaultPlayerSpeed;
 		}
 //        }else if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 10) && this.isPlayer) {
@@ -75,7 +76,11 @@ public class Character {
         		System.out.println("CAR DROPPED");
         	}
         }
-        if(this.stunned && (MenuControl.gControl.timeAmount() <= lastAttackTime - 10)) {
+        if(this.runOver && (MenuControl.gControl.timeAmount() <= lastAttackTime - 10)) {
+        	this.runOver = false;
+        	this.setPlayerSpeed(defaultPlayerSpeed);
+        }
+        if(this.stunned && (MenuControl.gControl.timeAmount() <= lastAttackTime - 5)) {
         	this.stunned = false;
         	this.setPlayerSpeed(defaultPlayerSpeed);
         }
@@ -103,6 +108,14 @@ public class Character {
 	
 	public boolean isGG() {
 		return this.isGG;
+	}
+	
+	public boolean isRobber() {
+		return this.isRobber;
+	}
+	
+	public boolean isAgent() {
+		return this.isAgent;
 	}
 	
 	public AnchorPane getLayer() {
@@ -257,6 +270,21 @@ public class Character {
     	this.setDy(0);
     }
 
+    public boolean isRunOver() {
+    	return this.runOver;
+    }
+    
+    public void getRunOver() {
+    	this.runOver = true;
+    	
+    	this.lastAttackTime = MenuControl.gControl.timeAmount();
+    	
+    	this.playerSpeed = 0;
+    	
+    	this.setDx(0);
+    	this.setDy(0);
+    }
+    
 	public boolean attackScore(){
 		if(this.canAttack()) {
 			return true;

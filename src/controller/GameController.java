@@ -88,16 +88,20 @@ public class GameController { // Class to contain main game loop
         return this.readyToStart;
     }
 
-    private void endGame() {
+    public void endGame(boolean agentEndGame) {
         this.timeRemaining = 0;
         this.gameOver = true;
-
 
         winBox.setFill(Color.BEIGE);
         if (winGame) {
             winLabel.setText("GAME OVER \nScore: $" + (String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount())) + "\npress enter to exit");
             winLabel.toFront();
-        } else {
+        } 
+        else if(agentEndGame) {
+        	winLabel.setText("GAME OVER \n(The Agent got ya...) \nScore: $" + (String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount())) + "\npress enter to exit");
+            winLabel.toFront();
+        }
+        else {
             winLabel.setText("GAME OVER \nScore: $" + (String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount())) + "\npress enter to exit");
             winLabel.toFront();
         }
@@ -224,7 +228,7 @@ public class GameController { // Class to contain main game loop
                         Gold gold;
                         goldList.add(gold = new Gold(rootLayout, j * pixelScale + 8, i * pixelScale + 8, 100));
                         GameUI.spawn(gold);
-
+                        break;
                 }
             }
         }
@@ -272,7 +276,7 @@ public class GameController { // Class to contain main game loop
 
         /** Sets up controls for SinglePlayer and MultiPlayer **/
         scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.UP) {
+            if (event.getCode() == KeyCode.UP ) {
                 testman.setUP(true);
                 testman.rotateUP();
             } else {
@@ -293,6 +297,12 @@ public class GameController { // Class to contain main game loop
             if (event.getCode() == KeyCode.LEFT) {
                 testman.setLEFT(true);
                 testman.rotateLEFT();
+            }
+            if (event.getCode() == KeyCode.T ) {
+                coinList.clear();
+                smallCashList.clear();
+                bigCashList.clear();
+                cryptoList.clear();
             }
             if (gameModes == GameModes.MultiPlayer1 || gameModes == GameModes.MultiPlayer2) {
                 if (event.getCode() == KeyCode.W) {
@@ -401,7 +411,7 @@ public class GameController { // Class to contain main game loop
                 } else {
                     endGamePressed = true;
                     zeroTimer();
-                    endGame();
+                    endGame(false);
                 }
             }
             if (event.getCode() == KeyCode.PAGE_UP) {
@@ -523,7 +533,7 @@ public class GameController { // Class to contain main game loop
                 if (numOfTimesTicked == 60) {
                     decreaseTime();
                     if (timeAmount() == 0) {
-                        endGame();
+                        endGame(false);
                     }
                     timeLabel.setText(timeAmount() + " seconds");
                     numOfTimesTicked = 0;
@@ -543,10 +553,10 @@ public class GameController { // Class to contain main game loop
                 }
             }
         } else if (gameOver) {
-            timeLabel.setText(timeAmount() + " seconds");
+            this.timeLabel.setText(this.timeAmount() + " seconds");
         }
         if (checkWin()) {
-            endGame();
+            endGame(false);
             winLabel.setText("Game Over! \nScore: $" + CollisionDetection.scoreUpdate.getScoreCount() + "\npress enter to exit");
             if (MenuControl.getLevelCount() == 1) {
                 MenuControl.launchLevel2();
