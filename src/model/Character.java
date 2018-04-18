@@ -63,7 +63,7 @@ public class Character {
 	public void changeMove() {
 		setXPos(getXPos() + dx);
 		setYPos(getYPos() + dy);
-		if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 5) && !this.isPlayer) {
+		if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 5) && !this.isGG) {
 		    playerSpeed = defaultPlayerSpeed;
 		}
 //        }else if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 10) && this.isPlayer) {
