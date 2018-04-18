@@ -11,53 +11,51 @@ public class AIController {
 	
 	public AIController() {}
 	
-	public void navigate(ArrayList<Character> AI, Character player, CollisionDetection detector, ArrayList<Rectangle> wallList, boolean isPlayer) {
-		if (isPlayer == false) {
-			for (Character x : AI) {
-				if (!x.isHuman() && !x.isStunned()) {
-					if (x.isDumbAI()||((x.isDumberAI() && (distanceToPlayer(player, x) < 48*7)))) {
-						if (this.isAbove(x, player) && !detector.checkUp(x, wallList)) {
-							x.setUP(true);
-							x.rotateUP();
-						} else {
-							x.setUP(false);
-						}
-						if (this.isBelow(x, player) && !detector.checkDown(x, wallList)) {
-							x.setDOWN(true);
-							x.rotateDOWN();
-						} else {
-							x.setDOWN(false);
-						}
-						if (this.isLeft(x, player) && !detector.checkLeft(x, wallList)) {
-							x.setLEFT(true);
-							x.rotateLEFT();
-						} else {
-							x.setLEFT(false);
-						}
-						if (this.isRight(x, player) && !detector.checkRight(x, wallList)) {
-							x.rotateRIGHT();
-							x.setRIGHT(true);
-						} else {
-							x.setRIGHT(false);
-						}
+	public void navigate(ArrayList<Character> AI, Character player, CollisionDetection detector, ArrayList<Rectangle> wallList) {
+		for (Character x : AI) {
+			if (!x.isHuman() && !x.isStunned()) {
+				if (x.isDumbAI()||((x.isDumberAI() && (distanceToPlayer(player, x) < 48*7)))) {
+					if (this.isAbove(x, player) && !detector.checkUp(x, wallList)) {
+						x.setUP(true);
+						x.rotateUP();
+					} else {
+						x.setUP(false);
 					}
-					if((x.getDx()==0)&&(x.getDy()==0)) {
-						Random rand = new Random();
-						int countDirection = rand.nextInt(4);
-						int countTimer = rand.nextInt(33);
-						if (countTimer == 32 && countDirection == 0){
-							x.setDx(0);
-							x.setDy(-x.getPlayerSpeed());
-						}else if (countTimer == 24 && countDirection == 0){
-							x.setDx(x.getPlayerSpeed());
-							x.setDy(0);
-						}else if (countTimer == 16 && countDirection == 0){
-							x.setDx(0);
-							x.setDy(x.getPlayerSpeed());
-						}else if (countTimer == 8 && countDirection == 0){
-							x.setDx(-x.getPlayerSpeed());
-							x.setDy(0);
-						}
+					if (this.isBelow(x, player) && !detector.checkDown(x, wallList)) {
+						x.setDOWN(true);
+						x.rotateDOWN();
+					} else {
+						x.setDOWN(false);
+					}
+					if (this.isLeft(x, player) && !detector.checkLeft(x, wallList)) {
+						x.setLEFT(true);
+						x.rotateLEFT();
+					} else {
+						x.setLEFT(false);
+					}
+					if (this.isRight(x, player) && !detector.checkRight(x, wallList)) {
+						x.rotateRIGHT();
+						x.setRIGHT(true);
+					} else {
+						x.setRIGHT(false);
+					}
+				}
+				if((x.getDx()==0)&&(x.getDy()==0)) {
+					Random rand = new Random();
+					int countDirection = rand.nextInt(4);
+					int countTimer = rand.nextInt(33);
+					if (countTimer == 32 && countDirection == 0){
+						x.setDx(0);
+						x.setDy(-x.getPlayerSpeed());
+					}else if (countTimer == 24 && countDirection == 0){
+						x.setDx(x.getPlayerSpeed());
+						x.setDy(0);
+					}else if (countTimer == 16 && countDirection == 0){
+						x.setDx(0);
+						x.setDy(x.getPlayerSpeed());
+					}else if (countTimer == 8 && countDirection == 0){
+						x.setDx(-x.getPlayerSpeed());
+						x.setDy(0);
 					}
 				}
 			}

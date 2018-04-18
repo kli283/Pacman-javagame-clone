@@ -254,7 +254,7 @@ public class GameController { // Class to contain main game loop
     }
 
     private void robberMovement() {
-        AI.navigate(charList, testman, detector, mapPath, isPlayer);
+        AI.navigate(charList, testman, detector, mapPath);
     }
 
     // Get the controller up and running
