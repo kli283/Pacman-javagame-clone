@@ -22,7 +22,7 @@ import model.Character;
 
 public class AIController {
 	
-	public AIController() {}
+	AIController() {}
 	
 	//Receives ArrayLists of characters to navigate, the player to target and collisin detection information
 	public void navigate(ArrayList<Character> AI, Character player, CollisionDetection detector, ArrayList<Rectangle> wallList) {
@@ -80,39 +80,27 @@ public class AIController {
 	}
 	
 	//Return true if the target is above the AI
-	public boolean isAbove(Character AI, Character player) {
-		if(player.getYPos()<AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos())>24)) {
-			return true;
-		}
-		return false;
+	private boolean isAbove(Character AI, Character player) {
+		return player.getYPos() < AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos()) > 24);
 	}
 	
 	//Return true if the target is below the AI
-	public boolean isBelow(Character AI, Character player) {
-		if(player.getYPos()>AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos())>24)) {
-			return true;
-		}
-		return false;
+	private boolean isBelow(Character AI, Character player) {
+		return player.getYPos() > AI.getYPos() && (Math.abs(player.getYPos() - AI.getYPos()) > 24);
 	}
 	
 	//Return true if the target is to the right of the AI
-	public boolean isRight(Character AI, Character player) {
-		if(player.getXPos()>AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos())>24)) {
-			return true;
-		}
-		return false;
+	private boolean isRight(Character AI, Character player) {
+		return player.getXPos() > AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos()) > 24);
 	}
 	
 	//Return true if the target is to the left of the AI
-	public boolean isLeft(Character AI, Character player) {
-		if(player.getXPos()<AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos())>24)) {
-			return true;
-		}
-		return false;
+	private boolean isLeft(Character AI, Character player) {
+		return player.getXPos() < AI.getXPos() && (Math.abs(player.getXPos() - AI.getXPos()) > 24);
 	}
 	
 	//This calculates the straight line distance between the target and the AI
-	public double distanceToPlayer(Character player, Character chaser) {
+	private double distanceToPlayer(Character player, Character chaser) {
 		return Math.sqrt(Math.pow((player.getXPos()-chaser.getXPos()), 2) + Math.pow((player.getYPos()-chaser.getYPos()), 2));
 	}
 }

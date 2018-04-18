@@ -15,7 +15,7 @@ public class Box {
     AnchorPane layer;
 
 
-    public Box(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
+    Box(AnchorPane layer, double xPos, double yPos, double setHeight, double setWidth) {
         this.layer = layer;
         this.xPos = xPos;
         this.yPos = yPos;

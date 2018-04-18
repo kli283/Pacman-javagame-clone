@@ -36,7 +36,7 @@ import model.Character;
 public class GameController { // Class to contain main game loop
 
     private AnchorPane rootLayout;
-    private TestMan testman;
+    private GoldGirl GoldGirl;
     private Robber1 robber2;
     private Robber1 robber3;
     private AIController AI;
@@ -123,7 +123,7 @@ public class GameController { // Class to contain main game loop
         return (this.escPressed) || (this.pausePressed) || (this.gameOver) || (this.checkWin());
     }
     
-    //Timer logics
+    //Timer logic
     private void decreaseTime() {
 
         this.timeRemaining--;
@@ -141,9 +141,7 @@ public class GameController { // Class to contain main game loop
         this.timeRemaining = 1;
     }
 
-    /**
-     * timeRemaining returns the amount of time left in the game.
-     */
+    //timeRemaining returns the amount of time left in the game
     public int timeAmount() {
         return this.timeRemaining;
     }
@@ -250,9 +248,9 @@ public class GameController { // Class to contain main game loop
     //Initialise the player object
     public void initPlayer(double xPosition, double yPosition) {
         double playerSpeed = 3;
-        testman = new TestMan(rootLayout, xPosition + 2, yPosition + 2, true, 42, 42, playerSpeed, true);
-        charList.add(testman);
-        GameUI.spawn(testman);
+        GoldGirl = new GoldGirl(rootLayout, xPosition + 2, yPosition + 2, true, 42, 42, playerSpeed, true);
+        charList.add(GoldGirl);
+        GameUI.spawn(GoldGirl);
     }
 
     //Initialise the robbers
@@ -274,11 +272,11 @@ public class GameController { // Class to contain main game loop
 
     //A method to navigate the AI
     private void robberMovement() {
-        AI.navigate(charList, testman, detector, mapPath);
+        AI.navigate(charList, GoldGirl, detector, mapPath);
     }
 
     // Get the controller up and running
-    public void initGameController(Stage mainStage, GameModes gameModes) throws IOException {
+    private void initGameController(Stage mainStage, GameModes gameModes) throws IOException {
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("Map.fxml"));
@@ -290,29 +288,29 @@ public class GameController { // Class to contain main game loop
         mainStage.setScene(scene);
         mainStage.show();
 
-        /** Sets up controls for SinglePlayer and MultiPlayer **/
+        // Sets up controls for SinglePlayer and MultiPlayer
         scene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP ) {
-                testman.setUP(true);
-                testman.rotateUP();
+                GoldGirl.setUP(true);
+                GoldGirl.rotateUP();
             } else {
-                testman.setUP(false);
+                GoldGirl.setUP(false);
             }
             if (event.getCode() == KeyCode.RIGHT) {
-                testman.setRIGHT(true);
-                testman.rotateRIGHT();
+                GoldGirl.setRIGHT(true);
+                GoldGirl.rotateRIGHT();
             } else {
-                testman.setRIGHT(false);
+                GoldGirl.setRIGHT(false);
             }
             if (event.getCode() == KeyCode.DOWN) {
-                testman.setDOWN(true);
-                testman.rotateDOWN();
+                GoldGirl.setDOWN(true);
+                GoldGirl.rotateDOWN();
             } else {
-                testman.setDOWN(false);
+                GoldGirl.setDOWN(false);
             }
             if (event.getCode() == KeyCode.LEFT) {
-                testman.setLEFT(true);
-                testman.rotateLEFT();
+                GoldGirl.setLEFT(true);
+                GoldGirl.rotateLEFT();
             }
             if (gameModes == GameModes.MultiPlayer1 || gameModes == GameModes.MultiPlayer2) {
                 if (event.getCode() == KeyCode.W) {
@@ -430,13 +428,13 @@ public class GameController { // Class to contain main game loop
         //This sets up the listener for the key presses, based on if the game is single or multiplayer
         scene.setOnKeyReleased(event -> {
             if (event.getCode() == KeyCode.LEFT) {
-                testman.setLEFT(false);
+                GoldGirl.setLEFT(false);
             } else if (event.getCode() == KeyCode.UP) {
-                testman.setUP(false);
+                GoldGirl.setUP(false);
             } else if (event.getCode() == KeyCode.DOWN) {
-                testman.setDOWN(false);
+                GoldGirl.setDOWN(false);
             } else if (event.getCode() == KeyCode.RIGHT) {
-                testman.setRIGHT(false);
+                GoldGirl.setRIGHT(false);
             }
             if (gameModes == GameModes.MultiPlayer1 || gameModes == GameModes.MultiPlayer2) {
                 if (event.getCode() == KeyCode.A) {

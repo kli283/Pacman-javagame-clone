@@ -10,7 +10,4 @@ public class Crypto extends Item {
         this.setImage("/view/Resources/Crypto.png");
     }
 
-    public void updateUI() {
-        getImageView().relocate(this.getXPos(),this.getYPos());
-    }
 }

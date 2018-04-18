@@ -2,9 +2,9 @@ package model;
 
 import javafx.scene.layout.AnchorPane;
 
-public class TestMan extends Character {
+public class GoldGirl extends Character {
 
-	public TestMan(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed, boolean isGG) {
+	public GoldGirl(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed, boolean isGG) {
 		super(layer, xStart, yStart, isPlayer, setHeight, setWidth, playerSpeed, isGG);
 		
 		this.setImage("/view/Resources/GoldGirl.png");

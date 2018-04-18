@@ -22,26 +22,25 @@ public class Character {
 	boolean isRobber = false;
 	boolean isAgent = false;
 	boolean isGG = false;
-	boolean isAI = false;
 	boolean dumbAI = false;
 	boolean dumberAI = false;
-	boolean canPickupItems = false;
+	private boolean canPickupItems = false;
 	boolean canAttackPlayer = false;
 	boolean canAttackRobber = false;
-	boolean isDriving = false;
-	boolean stunned = false;
-	boolean runOver = false;
+	private boolean isDriving = false;
+	private boolean stunned = false;
+	private boolean runOver = false;
 	private int lastAttackTime = 120;
 	private int carPickupTime = 0;
-	boolean UP;
-	boolean DOWN;
-	boolean LEFT;
-	boolean RIGHT;
-	double playerSpeed;
-	double defaultPlayerSpeed;
+	private boolean UP;
+	private boolean DOWN;
+	private boolean LEFT;
+	private boolean RIGHT;
+	private double playerSpeed;
+	private double defaultPlayerSpeed;
 
 	
-	public Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed, boolean isGG) {
+	Character(AnchorPane layer, double xStart, double yStart, boolean isPlayer, double setHeight, double setWidth, double playerSpeed, boolean isGG) {
 		this.layer = layer;
 		setXPos(xStart);
 		setYPos(yStart);
@@ -52,7 +51,7 @@ public class Character {
 		this.playerSpeed = playerSpeed;
 		this.defaultPlayerSpeed = playerSpeed;
 		if(!this.isPlayer) {
-			this.isAI = true;
+			boolean isAI = true;
 			this.dumbAI = true;
 		}
 		this.isGG = isGG;
@@ -69,9 +68,6 @@ public class Character {
 		if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 5) && !this.isGG && !(this.isStunned() || this.isRunOver())) {
 		    playerSpeed = defaultPlayerSpeed;
 		}
-//        }else if ((MenuControl.gControl.timeAmount() <= lastAttackTime - 10) && this.isPlayer) {
-//            playerSpeed = defaultPlayerSpeed;
-//        }
 		else if(this.isPlayer && this.canAttackRobber) {
         	if(MenuControl.gControl.timeAmount() <= (lastAttackTime - 10)) {
         		this.dropCar();
@@ -89,11 +85,8 @@ public class Character {
 	}
 	
 	public boolean canPickupItems() {
-		if(this.canPickupItems) {
-			return true;
-		}
-		
-		return false;
+		return this.canPickupItems;
+
 	}
 	
 	public boolean isDumbAI() {
@@ -188,7 +181,7 @@ public class Character {
 		return xPos;
 	}
 
-	public void setXPos(double xPos) {
+	private void setXPos(double xPos) {
 		this.xPos = xPos;
 	}
 	
@@ -196,7 +189,7 @@ public class Character {
 		return yPos;
 	}
 
-	public void setYPos(double yPos) {
+	private void setYPos(double yPos) {
 		this.yPos = yPos;
 	}
 	
@@ -228,16 +221,9 @@ public class Character {
 	}
 	
     public boolean canAttackR() {
-        //if(MenuControl.gControl.timeAmount() <= lastAttackTime - 10) {
-            if(this.canAttackRobber) {
-                //this.playerSpeed = defaultPlayerSpeed;
-            	//System.out.println("canAttackR");
-                //this.lastAttackTime = MenuControl.gControl.timeAmount();
-                return true;
-            }
-        //}
-        return false;
-    }
+		return this.canAttackRobber;
+
+	}
     
     public void pickupCar() {
     	System.out.println("CAR COLLECTED");
@@ -262,7 +248,7 @@ public class Character {
     	return this.lastAttackTime;
     }
     
-    public void dropCar() {
+    private void dropCar() {
     	System.out.println("CAR DROPPED");
     	
     	this.setPlayerSpeed(defaultPlayerSpeed);
@@ -291,7 +277,7 @@ public class Character {
     	this.setDy(0);
     }
 
-    public boolean isRunOver() {
+    private boolean isRunOver() {
     	return this.runOver;
     }
     
@@ -306,11 +292,8 @@ public class Character {
     	this.setDy(0);
     }
     
-	public boolean attackScore(){
-		if(this.canAttack()) {
-			return true;
-		}
-		return false;
+	public void attackScore(){
+		this.canAttack();
 	}
 
 	//Returns a rectangle for use with CollisionDetection
