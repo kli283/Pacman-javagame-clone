@@ -1,5 +1,18 @@
 package controller;
 
+/* GameController.java
+ * 
+ * This class is the backbone of the actual game when it is running
+ * 
+ * This is the main controller that initialises everything and runs
+ * everything during gameplay
+ * 
+ * Author: Kenny Li, James Flood
+ * 
+ * 2018
+ * 
+ */
+
 import java.io.IOException;
 import java.util.ArrayList;
 

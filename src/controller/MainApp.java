@@ -1,5 +1,13 @@
 package controller;
 
+/*	This launches the app
+ * 
+ * Authors: James Flood
+ * 
+ * 2018
+ * 
+ */
+
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
