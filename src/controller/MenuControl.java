@@ -1,5 +1,15 @@
 package controller;
 
+/* MenuControl.java
+ * 
+ * This class controls the opening menu and helps the user decide which game mode to pick
+ * 
+ * Authors: Kenny Li, James Flood
+ * 
+ * 2018
+ * 
+ */
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Score;
 import view.GameModes;
 
 
@@ -61,6 +72,8 @@ public class MenuControl {
     @FXML
     private Button startGameButton;
 
+    
+    //Handles the actions of the buttons
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         AnchorPane test;
@@ -168,11 +181,13 @@ public class MenuControl {
         }
 
     }
-
+    
+    //Returns the level number for story mode
     public static int getLevelCount() {
         return MenuControl.levelCounter;
     }
 
+    //Changes the level number when called by the GameController
     public static void setLevelCount() {
         if (MenuControl.levelCounter != 0) {
             levelCounter++;
@@ -182,6 +197,7 @@ public class MenuControl {
         }
     }
     
+    //Changes the level count once story mode is over or exited
     public static void resetLevelCount() {
         MenuControl.levelCounter = 0;
         MenuControl.storyMode = false;

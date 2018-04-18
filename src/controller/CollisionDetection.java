@@ -5,7 +5,6 @@ import javafx.scene.shape.Rectangle;
 import model.*;
 import model.Character;
 import view.GameUI;
-import controller.Score;
 
 //this class will check if a move is valid
 // i.e there is no obstacle or boundary in the way of the intended move
