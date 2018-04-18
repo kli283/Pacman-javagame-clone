@@ -171,7 +171,7 @@ public class MenuControl {
     public static void setLevelCount() {
         if (MenuControl.levelCounter != 0) {
             levelCounter++;
-            if (MenuControl.levelCounter > 3) {
+            if (MenuControl.levelCounter >= 3) {
                 levelCounter = 0;
             }
         }
