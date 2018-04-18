@@ -62,10 +62,7 @@ public class GameController { // Class to contain main game loop
     private boolean winGame;
     private boolean isPlayer;
     private MenuControl menuHub;
-
     private CollisionDetection detector = new CollisionDetection();
-    Rectangle wall1;
-    Rectangle wall2;
 
     public GameController(Stage mainStage, GameModes gameModes, MenuControl menuHub) throws IOException {
         this.menuHub = menuHub;
@@ -75,8 +72,6 @@ public class GameController { // Class to contain main game loop
         pausePressed = false;
         endGamePressed = false;
         winGame = false;
-
-        Stage gameStage = mainStage;
 
         resetTimer();
         initGameController(mainStage, gameModes);
