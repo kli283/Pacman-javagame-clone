@@ -1,5 +1,15 @@
 package view;
 
+/* GameUI.java
+ * 
+ * This class is the main view class and is used to present the UI to the user
+ * 
+ * Author: Kenny Li, James Flood
+ * 
+ * 2018
+ * 
+ */
+
 import java.util.ArrayList;
 import javafx.scene.layout.AnchorPane;
 import model.*;

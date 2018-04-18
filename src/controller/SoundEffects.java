@@ -1,5 +1,15 @@
 package controller;
 
+/* SoundEffects.java
+ * 
+ * Controls sound effects played
+ * 
+ * Authors: Kenny Li, James Flood
+ * 
+ * 2018
+ * 
+ */
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -64,6 +74,7 @@ public class SoundEffects {
             soundHandler(goldSound);
         }
     }
+    
     private void soundHandler(MediaPlayer sound) {
         try {
             new Thread() {

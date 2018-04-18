@@ -1,5 +1,17 @@
 package model;
 
+/* Agent.java
+ * 
+ * This is the big bad guy of the game. If he gets you it's game over
+ * 
+ * A subclass of Character.
+ * 
+ * Author: Kenny Li, James Flood
+ * 
+ * 2018
+ * 
+ */
+
 import javafx.scene.layout.AnchorPane;
 
 public class Agent extends Character {
