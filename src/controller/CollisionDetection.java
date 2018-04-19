@@ -225,9 +225,7 @@ public class CollisionDetection {
 			if(x.isGG()) {
 				for(Character y:actors) {
 					if((y != x)&&(y.isRobber())&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())&&(!x.canAttackR())) {
-						if(!y.isAgent()) {
-							y.attackScore();
-						}
+						y.attackScore();
 						y.setPlayerSpeed(1);
 						GameController.soundEffects.playHit();
 						return true;
@@ -235,7 +233,7 @@ public class CollisionDetection {
 					else if((y != x)&&(y.isAgent())&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())&&(!x.canAttackR())) {
 						MenuControl.gControl.endGame(true);
 						System.out.println("Agent got ya!");
-						return true;
+						return false;
 					}
 				}
 			}
