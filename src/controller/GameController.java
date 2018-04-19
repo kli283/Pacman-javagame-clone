@@ -247,7 +247,7 @@ public class GameController { // Class to contain main game loop
     //Initialise the player object
     public void initPlayer(double xPosition, double yPosition) {
         double playerSpeed = 3;
-        GoldGirl = new GoldGirl(rootLayout, xPosition + 2, yPosition + 2, true, 42, 42, playerSpeed, true);
+        GoldGirl = new GoldGirl(rootLayout, xPosition + 2, yPosition + 2, true, 43, 43, playerSpeed, true);
         charList.add(GoldGirl);
         GameUI.spawn(GoldGirl);
     }
@@ -488,7 +488,7 @@ public class GameController { // Class to contain main game loop
         pauseLabel.setLayoutY(350);
         pauseLabel.setTextAlignment(TextAlignment.CENTER);
         winLabel = new Label("");
-        winLabel.setFont(new Font("Calibri", 65));
+        winLabel.setFont(new Font("Calibri", 45));
         winLabel.setLayoutX(145);
         winLabel.setLayoutY(265);
         winLabel.setTextAlignment(TextAlignment.CENTER);

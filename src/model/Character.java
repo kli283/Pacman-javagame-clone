@@ -230,7 +230,7 @@ public class Character {
     	
     	this.canAttackRobber = true;
     	
-    	this.setPlayerSpeed(5);
+    	this.setPlayerSpeed(4);
     	
     	this.lastAttackTime = MenuControl.gControl.timeAmount();
     	
