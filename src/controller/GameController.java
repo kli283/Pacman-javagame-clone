@@ -108,6 +108,7 @@ public class GameController { // Class to contain main game loop
             winLabel.toFront();
         } 
         else if(agentEndGame) {
+            scoreLabel.setText("");
         	winLabel.setText("GAME OVER \n(The Agent got ya...) \nScore: $" + (String.format("%.2f", CollisionDetection.scoreUpdate.getScoreCount())) + "\npress enter to exit");
             winLabel.toFront();
         }
