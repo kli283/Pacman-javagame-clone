@@ -488,7 +488,7 @@ public class GameController { // Class to contain main game loop
         pauseLabel.setLayoutY(350);
         pauseLabel.setTextAlignment(TextAlignment.CENTER);
         winLabel = new Label("");
-        winLabel.setFont(new Font("Calibri", 65));
+        winLabel.setFont(new Font("Calibri", 45));
         winLabel.setLayoutX(145);
         winLabel.setLayoutY(265);
         winLabel.setTextAlignment(TextAlignment.CENTER);
