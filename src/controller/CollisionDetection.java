@@ -225,7 +225,9 @@ public class CollisionDetection {
 			if(x.isGG()) {
 				for(Character y:actors) {
 					if((y != x)&&(y.isRobber())&&(y.getBoundary().intersects(x.getBoundary().getBoundsInParent()))&&(y.canAttack())&&(!x.canAttackR())) {
-						y.attackScore();
+						if(!y.isAgent()) {
+							y.attackScore();
+						}
 						y.setPlayerSpeed(1);
 						GameController.soundEffects.playHit();
 						return true;
